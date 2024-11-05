@@ -3,7 +3,7 @@ import { SidebarMenuItem } from "../components/SidebarMenuItem";
 import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 import { SidebarSubtitle } from "../components/SidebarSubtitle";
 
-export const SidebarFichaUsuario = () => {
+export const SidebarComisiones = () => {
 	const intl = useIntl();
 
 	return (

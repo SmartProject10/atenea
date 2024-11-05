@@ -61,7 +61,7 @@ export function Login() {
 			} catch (error) {
 				console.error(error)
 				saveAuth(undefined)
-				setStatus('The login details are incorrect.')
+				setStatus('The login details are incorrect. Error Details: ' + error.response.data.message)
 				setSubmitting(false)
 				setLoading(false)
 			}
@@ -163,7 +163,7 @@ export function Login() {
 				<Link
 					to="/auth/forgot-password"
 					className="link-primary">
-					Forgot Password ?
+					Olvidaste la clave ?
 				</Link>
 				{/* end::Link */}
 			</div>

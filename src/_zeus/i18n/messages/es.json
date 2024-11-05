@@ -35,5 +35,6 @@
   "AUTH.VALIDATION.MAX_LENGTH_FIELD": "Maximum field length:",
   "AUTH.VALIDATION.INVALID_FIELD": "Field is not valid",
   "MENU.DASHBOARD": "Inicio",
-  "MENU.USER_TAB": "Ficha de usuario"
+  "MENU.USER_TAB": "Mi perfil",
+  "MENU.COMISIONES": "Comisiones"
 }

@@ -7,68 +7,89 @@ const data = [
 		name: 'code',
 	},
 	{
-		title: 'Puesto del trabajador',
+		title: 'Especialidades',
 		type: 'text',
-		value: 'Jefe de departamento',
+		value: 'Full-stack',
 		disabled: true,
-		name: 'position',
+		name: 'specialties',
 	},
 	{
 		title: 'Area del trabajador',
 		type: 'text',
-		value: 'Departamento de la empresa',
+		value: 'Desarollo Móvil',
 		disabled: true,
 		name: 'area',
 	},
 	{
-		title: 'Gerencia',
+		title: 'Años de experiencia',
 		type: 'text',
-		value: 'Jefe de departamento',
+		value: '5',
 		disabled: true,
-		name: 'manager',
+		name: 'experience',
 	},
 	{
-		title: 'Servicio',
+		title: 'Tecnologías dominadas',
 		type: 'text',
-		value: 'Jefe de departamento',
+		value: 'React, Node, Express',
 		disabled: true,
-		name: 'service',
+		name: 'technologies',
 	},
 	{
-		title: 'Empresa',
+		title: 'Certificaciones técnicas',
 		type: 'text',
-		value: 'Jefe de departamento',
+		value: 'Certificación de React',
 		disabled: true,
-		name: 'company',
+		name: 'certifications',
 	},
 	{
-		title: 'Razón social',
+		title: 'Portafolio git',
 		type: 'text',
-		value: 'Jefe de departamento',
+		value: 'https://github.com/usuario/proyecto1',
 		disabled: true,
-		name: 'reason',
+		name: 'portfolio',
 	},
 	{
-		title: 'Lugar de trabajo',
+		title: 'Horario de trabajo',
 		type: 'text',
-		value: 'Jefe de departamento',
+		value: '8:00 AM - 5:00 PM',
 		disabled: true,
-		name: 'place',
+		name: 'workhours',
 	},
 	{
-		title: 'Fecha de ingreso',
-		type: 'date',
-		value: '01/01/1990',
+		title: 'Disponibilidad de proyectos',
+		type: 'text',
+		value: 'Disponible',
 		disabled: true,
-		name: 'startdate',
+		name: 'availability',
+	},
+	{
+		title: 'Nivel de inglés',
+		type: 'text',
+		value: 'Intermedio',
+		disabled: true,
+		name: 'english',
+	},
+	{
+		title: 'Estado',
+		type: 'text',
+		value: 'Activo',
+		disabled: true,
+		name: 'status',
+	},
+	{
+		title: 'Tipo de contrato',
+		type: 'text',
+		value: 'Indefinido',
+		disabled: true,
+		name: 'contract',
 	},
 ]
 
-export function EmploymentDataSection () {
+export function EmploymentDataSection() {
 	return (
 		<div className="card mb-8" id="employment-data">
 			<div className="card-header">
-				<h2 className="card-title">Datos laborales</h2>
+				<h2 className="card-title">Datos Profesionales</h2>
 			</div>
 			<div className="card-body">
 				<div className="card-content">
@@ -80,12 +101,12 @@ export function EmploymentDataSection () {
 										{item.title}
 									</label>
 									<div className="col-lg-8 col-md-9 col-sm-12">
-										<input 
-											name={item.name} 
-											type={item.type} 
-											className="form-control" 
-											placeholder={item.value} 
-											disabled={item.disabled} 
+										<input
+											name={item.name}
+											type={item.type}
+											className="form-control"
+											placeholder={item.value}
+											disabled={item.disabled}
 										/>
 									</div>
 								</div>

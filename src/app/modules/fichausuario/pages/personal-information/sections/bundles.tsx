@@ -1,11 +1,11 @@
 import { KTIcon } from '@zeus/_zeus/helpers'
 
-export function BundleSection () {
+export function BundleSection() {
 	return (
 		<div className="card" id="bundles">
 			<div className="card-header">
 				<h5 className="card-title">
-					Legajos
+					Mi documentación
 				</h5>
 			</div>
 			<div className="card-body">
@@ -34,7 +34,7 @@ export function BundleSection () {
 							<button className="btn btn-primary btn-sm">
 								<KTIcon
 									iconName="add-item"
-									iconType="duotone" 
+									iconType="duotone"
 								/>
 								Subir
 							</button>

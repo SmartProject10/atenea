@@ -2,14 +2,14 @@ const data = [
 	{
 		title: 'Nombres',
 		type: 'text',
-		value: 'Jhunior',
+		value: 'Abel',
 		disabled: true,
 		name: 'name',
 	},
 	{
 		title: 'Apellidos',
 		type: 'text',
-		value: 'Chavez Cruz',
+		value: 'Castillo',
 		disabled: true,
 		name: 'lastname',
 	},
@@ -30,55 +30,55 @@ const data = [
 	{
 		title: 'Correo personal',
 		type: 'email',
-		value: 'jhunior@gmail.com',
+		value: 'abelairton@gmail.com',
 		disabled: true,
 		name: 'email',
 	},
 	{
-		title: 'Dirección del domicilio',
+		title: 'Dirección exacta del domicilio',
 		type: 'text',
 		value: 'Calle 123, 123 123',
 		disabled: true,
 		name: 'address',
 	},
 	{
-		title: 'Ciudad',
+		title: 'País',
 		type: 'text',
-		value: 'Ciudad de México',
+		value: 'Ecuador',
 		disabled: true,
-		name: 'city',
+		name: 'country',
 	},
 	{
-		title: 'Estado',
+		title: 'Provincia',
 		type: 'text',
-		value: 'Estado de México',
+		value: 'Pichincha',
 		disabled: true,
-		name: 'state',
+		name: 'province',
 	},
 	{
 		title: 'Telefono personal',
 		type: 'tel',
-		value: '+52 (123) 4567-8910',
+		value: '+593 980513677',
 		disabled: true,
 		name: 'phone',
 	},
 	{
 		title: 'Telefono de casa',
 		type: 'tel',
-		value: '+52 (123) 4567-8910',
+		value: '+2600804',
 		disabled: true,
 		name: 'phonehome',
 	},
 	{
 		title: 'Telefono del trabajo',
 		type: 'tel',
-		value: '+52 (123) 4567-8910',
+		value: 'S/N',
 		disabled: true,
 		name: 'phonework',
 	},
 ]
 
-export function PersonalDataSection () {
+export function PersonalDataSection() {
 	return (
 		<div className="card mb-8" id="personal-data">
 			<div className="card-header">
@@ -94,12 +94,12 @@ export function PersonalDataSection () {
 										{item.title}
 									</label>
 									<div className="col-lg-8 col-md-9 col-sm-12">
-										<input 
-											name={item.name} 
-											type={item.type} 
-											className="form-control" 
-											placeholder={item.value} 
-											disabled={item.disabled} 
+										<input
+											name={item.name}
+											type={item.type}
+											className="form-control"
+											placeholder={item.value}
+											disabled={item.disabled}
 										/>
 									</div>
 								</div>
@@ -107,6 +107,7 @@ export function PersonalDataSection () {
 						}
 						<div className="d-flex justify-content-end mt-8">
 							<button className="btn btn-primary">Guardar cambios</button>
+							<button className="btn btn-secondary ml-2">Editar</button>
 						</div>
 					</form>
 				</div>

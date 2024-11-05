@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
+import { ComisionesRoutes } from '../modules/comisiones/comisiones.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
 import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
@@ -28,6 +29,7 @@ export const PrivateRoutes = () => {
 				<Route path="dashboard" element={<DashboardWrapper />} />
 				<Route path="menu-test" element={<MenuTestPage />} />
 				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
+				<Route path="comisiones/*" element={<ComisionesRoutes />} />
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="iso9001/*" element={<ISO9001Routes />} />

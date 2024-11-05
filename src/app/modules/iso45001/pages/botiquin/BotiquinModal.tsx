@@ -52,17 +52,17 @@ function BotiquinModal({ setNewData }: any) {
     })
 
     //#region Formulario y Contenido tabla
-    const [tableData, setTableData] = useState<any>([])
+    const [tableData, setTableData] = useState([])
     const [nombre, setNombre] = useState('')
     const [unidad, setUnidad] = useState('')
-    const [cantidad, setCantidad] = useState<string | number>(1)
+    const [cantidad, setCantidad] = useState(1)
     const [fechaVencimiento, setFechaVencimiento] = useState(dateInput(new Date().toISOString()))
     const [isEditTableData, setIsEditTableData] = useState({ index: undefined, edit: false })
     const [uneditableModal, setUneditableModal] = useState(false)
 
     useEffect(() => {
         ///(si el botón por el cual se llamó al modal tiene el atributo "data-uneditable" se mostrará el modal de forma ineditable)
-        const handleShow = (event: any) => {
+        const handleShow = (event) => {
             if (event.relatedTarget) {
                 setUneditableModal(event.relatedTarget.hasAttribute('data-uneditable'))
             }
@@ -103,19 +103,11 @@ function BotiquinModal({ setNewData }: any) {
 
         const data = Object.assign({ nombre, unidad, cantidad, fechaVencimiento })
         if (!isEditTableData.edit) {
-            setTableData((currData: any) => [...currData, data])
+            setTableData(currData => [...currData, data])
         }
         else {
             const indice = isEditTableData.index
-						setTableData((currentData: any) => {
-							return currentData.map((row: any, index: any) => {
-								if (index === indice) {
-									return { ...row, ...data }
-								}
-
-								return row
-							})
-						})
+            setTableData(currData => currData.map((row, index) => index === indice ? { ...row, ...data } : row))
         }
 
         setNombre('')
@@ -153,7 +145,7 @@ function BotiquinModal({ setNewData }: any) {
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log(typeof indice)
-                const newArr = tableData.filter((_: any, index: any) => index !== indice)
+                const newArr = tableData.filter((data, index) => index !== indice)
                 setTableData(newArr)
             }
         })
@@ -374,7 +366,7 @@ function BotiquinModal({ setNewData }: any) {
                                             </thead>
                                             <tbody>
                                                 {tableData.length > 0 ? <>
-                                                    {tableData.map((data: any, index: any) => <tr key={index}>
+                                                    {tableData.map((data, index) => <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{data.nombre}</td>
                                                         <td>{data.unidad}</td>
@@ -590,7 +582,7 @@ function BotiquinModal({ setNewData }: any) {
                                             </thead>
                                             <tbody>
                                                 {tableData.length > 0 ? <>
-                                                    {tableData.map((data: any, index: any) => <tr key={index}>
+                                                    {tableData.map((data, index) => <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{data.nombre}</td>
                                                         <td>{data.unidad}</td>

@@ -4,8 +4,8 @@ import * as XLSX from 'xlsx'
 import { useState } from 'react'
 
 function BotiquinTable({ dataSource, handleDeleteData }: any) {
-    const [totalPages] = useState<number>(1)
-    const [currentPage] = useState<number>(1)
+    const [totalPages, setTotalPages] = useState<number>(1)
+    const [currentPage, setCurrentPage] = useState<number>(1)
 
     const exportToExcel = () => {
         // Crear una hoja de trabajo a partir de los datos
@@ -59,7 +59,7 @@ function BotiquinTable({ dataSource, handleDeleteData }: any) {
                         <tbody>
                             {dataSource.length > 0 ?
                                 <>
-                                    {dataSource.map((_: any, index: any) =>
+                                    {dataSource.map((botiquin, index) =>
                                         <tr key={index}>
                                             {/* 
                                             <td>{index + 1}</td>
@@ -126,12 +126,13 @@ function BotiquinTable({ dataSource, handleDeleteData }: any) {
                             <li
                                 className={currentPage == 1 ? 'page-item previous disabled' : 'page-item previous'}>
                                 <button
+                                    onClick={() => navigatePage('previous')}
                                     className="page-link">
                                     <i
                                         className="previous"></i>
                                 </button>
                             </li>
-                            {[...Array(totalPages)].map((_, i) => (
+                            {[...Array(totalPages)].map((page, i) => (
                                 <li
                                     key={i}
                                     className={currentPage == i + 1 ? 'page-item active' : 'page-item'}>
@@ -145,7 +146,7 @@ function BotiquinTable({ dataSource, handleDeleteData }: any) {
                             <li
                                 className={currentPage == totalPages ? 'page-item next disabled' : 'page-item next'}>
                                 <button
-                                    // onClick={() => navigatePage('next')}
+                                    onClick={() => navigatePage('next')}
                                     className="page-link">
                                     <i
                                         className="next"></i>

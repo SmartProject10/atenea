@@ -1,5 +1,5 @@
-import {Link} from 'react-router-dom'
-import {KTIcon} from '../../../../_zeus/helpers'
+import { Link } from 'react-router-dom'
+import { KTIcon } from '../../../../_zeus/helpers'
 import {
   ChartsWidget1,
   ListsWidget5,
@@ -12,54 +12,54 @@ export function Overview() {
   return (
     <Content>
       <div
-className="card mb-5 mb-xl-10"
-id="kt_profile_details_view">
+        className="card mb-5 mb-xl-10"
+        id="kt_profile_details_view">
         <div
-className="card-header cursor-pointer">
+          className="card-header cursor-pointer">
           <div
-className="card-title m-0">
+            className="card-title m-0">
             <h3
-className="fw-bolder m-0">Profile Details</h3>
+              className="fw-bolder m-0">Detalles del perfil</h3>
           </div>
 
           <Link
-to="/crafted/account/settings"
-className="btn btn-primary align-self-center">
+            to="/crafted/account/settings"
+            className="btn btn-primary align-self-center">
             Edit Profile
           </Link>
         </div>
 
         <div
-className="card-body p-9">
+          className="card-body p-9">
           <div
-className="row mb-7">
+            className="row mb-7">
             <label
-className="col-lg-4 fw-bold text-muted">Full Name</label>
+              className="col-lg-4 fw-bold text-muted">Nombres Completos</label>
 
             <div
-className="col-lg-8">
+              className="col-lg-8">
               <span
-className="fw-bolder fs-6 text-gray-900">Max Smith</span>
+                className="fw-bolder fs-6 text-gray-900">Abel Castillo</span>
             </div>
           </div>
 
           <div
-className="row mb-7">
+            className="row mb-7">
             <label
-className="col-lg-4 fw-bold text-muted">Company</label>
+              className="col-lg-4 fw-bold text-muted">Empresa</label>
 
             <div
-className="col-lg-8 fv-row">
+              className="col-lg-8 fv-row">
               <span
-className="fw-bold fs-6">Keenthemes</span>
+                className="fw-bold fs-6">Iso and Iso</span>
             </div>
           </div>
 
           <div
-className="row mb-7">
+            className="row mb-7">
             <label
-className="col-lg-4 fw-bold text-muted">
-              Contact Phone
+              className="col-lg-4 fw-bold text-muted">
+              Contacto
               <i
                 className="fas fa-exclamation-circle ms-1 fs-7"
                 data-bs-toggle="tooltip"
@@ -68,35 +68,35 @@ className="col-lg-4 fw-bold text-muted">
             </label>
 
             <div
-className="col-lg-8 d-flex align-items-center">
+              className="col-lg-8 d-flex align-items-center">
               <span
-className="fw-bolder fs-6 me-2">044 3276 454 935</span>
+                className="fw-bolder fs-6 me-2">0980513677</span>
 
               <span
-className="badge badge-success">Verified</span>
+                className="badge badge-success">Aceptado</span>
             </div>
           </div>
 
           <div
-className="row mb-7">
+            className="row mb-7">
             <label
-className="col-lg-4 fw-bold text-muted">Company Site</label>
+              className="col-lg-4 fw-bold text-muted">Company Site</label>
 
             <div
-className="col-lg-8">
+              className="col-lg-8">
               <a
-href="#"
-className="fw-bold fs-6 text-gray-900 text-hover-primary">
+                href="#"
+                className="fw-bold fs-6 text-gray-900 text-hover-primary">
                 keenthemes.com
               </a>
             </div>
           </div>
 
           <div
-className="row mb-7">
+            className="row mb-7">
             <label
-className="col-lg-4 fw-bold text-muted">
-              Country
+              className="col-lg-4 fw-bold text-muted">
+              Pais
               <i
                 className="fas fa-exclamation-circle ms-1 fs-7"
                 data-bs-toggle="tooltip"
@@ -105,53 +105,53 @@ className="col-lg-4 fw-bold text-muted">
             </label>
 
             <div
-className="col-lg-8">
+              className="col-lg-8">
               <span
-className="fw-bolder fs-6 text-gray-900">Germany</span>
+                className="fw-bolder fs-6 text-gray-900">Ecuador</span>
             </div>
           </div>
 
           <div
-className="row mb-7">
+            className="row mb-7">
             <label
-className="col-lg-4 fw-bold text-muted">Communication</label>
+              className="col-lg-4 fw-bold text-muted">Formas de contacto</label>
 
             <div
-className="col-lg-8">
+              className="col-lg-8">
               <span
-className="fw-bolder fs-6 text-gray-900">Email, Phone</span>
+                className="fw-bolder fs-6 text-gray-900">Email, celular</span>
             </div>
           </div>
 
           <div
-className="row mb-10">
+            className="row mb-10">
             <label
-className="col-lg-4 fw-bold text-muted">Allow Changes</label>
+              className="col-lg-4 fw-bold text-muted">Allow Changes</label>
 
             <div
-className="col-lg-8">
+              className="col-lg-8">
               <span
-className="fw-bold fs-6">Yes</span>
+                className="fw-bold fs-6">Yes</span>
             </div>
           </div>
 
           <div
-className="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+            className="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
             <KTIcon
-iconName="information-5"
-className="fs-2tx text-warning me-4" />
+              iconName="information-5"
+              className="fs-2tx text-warning me-4" />
             <div
-className="d-flex flex-stack flex-grow-1">
+              className="d-flex flex-stack flex-grow-1">
               <div
-className="fw-bold">
+                className="fw-bold">
                 <h4
-className="text-gray-800 fw-bolder">We need your attention!</h4>
+                  className="text-gray-800 fw-bolder">We need your attention!</h4>
                 <div
-className="fs-6 text-gray-600">
+                  className="fs-6 text-gray-600">
                   Your payment was declined. To start using tools, please
                   <Link
-className="fw-bolder"
-to="/crafted/account/settings">
+                    className="fw-bolder"
+                    to="/crafted/account/settings">
                     {' '}
                     Add Payment Method
                   </Link>
@@ -164,32 +164,32 @@ to="/crafted/account/settings">
       </div>
 
       <div
-className="row gy-10 gx-xl-10">
+        className="row gy-10 gx-xl-10">
         <div
-className="col-xl-6">
+          className="col-xl-6">
           <ChartsWidget1
-className="card-xxl-stretch mb-5 mb-xl-10" />
+            className="card-xxl-stretch mb-5 mb-xl-10" />
         </div>
 
         <div
-className="col-xl-6">
+          className="col-xl-6">
           <TablesWidget1
-className="card-xxl-stretch mb-5 mb-xl-10" />
+            className="card-xxl-stretch mb-5 mb-xl-10" />
         </div>
       </div>
 
       <div
-className="row gy-10 gx-xl-10">
+        className="row gy-10 gx-xl-10">
         <div
-className="col-xl-6">
+          className="col-xl-6">
           <ListsWidget5
-className="card-xxl-stretch mb-5 mb-xl-10" />
+            className="card-xxl-stretch mb-5 mb-xl-10" />
         </div>
 
         <div
-className="col-xl-6">
+          className="col-xl-6">
           <TablesWidget5
-className="card-xxl-stretch mb-5 mb-xl-10" />
+            className="card-xxl-stretch mb-5 mb-xl-10" />
         </div>
       </div>
     </Content>
