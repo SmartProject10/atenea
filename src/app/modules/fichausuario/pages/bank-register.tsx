@@ -35,7 +35,7 @@ const data = [
 		banco: 'Banco Santander',
 		numeroCuenta: 'ES7620770024003102575766',
 		tipoCuenta: 'Corriente',
-		moneda: 'EUR',
+		moneda: 'DOLAR',
 		acciones: 'Ver detalles',
 	},
 ]

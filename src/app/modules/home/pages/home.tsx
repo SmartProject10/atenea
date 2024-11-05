@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import './carousel.scss'
 
 export function Home(): JSX.Element {
 	const navigate = useNavigate()
@@ -22,10 +23,45 @@ export function Home(): JSX.Element {
 			</div>
 
 			<div
-				className="card">
-				<img
-					src="https://placehold.co/600x200.png"
-					alt="Imagen Empresarial" />
+				id="kt_carousel_1_carousel"
+				className="carousel carousel-custom slide"
+				data-bs-ride="carousel"
+				data-bs-interval="8000"
+			>
+				<div className="d-flex align-items-center justify-content-between flex-wrap">
+					<span className="fs-4 fw-bolder pe-2">Proyectos</span>
+					<ol className="p-0 m-0 carousel-indicators carousel-indicators-dots">
+						<li
+							data-bs-target="#kt_carousel_1_carousel"
+							data-bs-slide-to="0"
+							className="ms-1 active"
+						></li>
+						<li
+							data-bs-target="#kt_carousel_1_carousel"
+							data-bs-slide-to="1"
+							className="ms-1"
+						></li>
+						<li
+							data-bs-target="#kt_carousel_1_carousel"
+							data-bs-slide-to="2"
+							className="ms-1"
+						></li>
+					</ol>
+				</div>
+
+				<div className="carousel-inner pt-8">
+					<div className="carousel-item active">
+						<img src="/1.png" className="d-block w-100" alt="First slide" />
+					</div>
+
+					<div className="carousel-item">
+						<img src="/2.png" className="d-block w-100" alt="Second slide" />
+					</div>
+
+					<div className="carousel-item">
+						<img src="/3.png" className="d-block w-100" alt="Third slide" />
+					</div>
+				</div>
 			</div>
 
 			<div

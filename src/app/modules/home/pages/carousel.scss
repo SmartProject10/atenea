@@ -1,0 +1,44 @@
+#kt_carousel_1_carousel {
+    .carousel-custom {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+
+        .carousel-indicators-dots {
+            li {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: #6c757d;
+                &.active {
+                    background-color: #007bff;
+                }
+            }
+        }
+
+        .carousel-inner {
+            .carousel-item {
+                font-size: 1rem;
+                line-height: 1.5;
+                color: #343a40;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                &.active {
+                    animation: fadeIn 1s ease-in-out;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
