@@ -25,7 +25,7 @@ export const SidebarFichaUsuario = () => {
 			<SidebarSubtitle label="empresa" />
 			<SidebarMenuItem
 				to="/comisiones"
-				icon="user"
+				icon="abstract-1"
 				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
 				fontIcon="bi-app-indicator"
 			/>

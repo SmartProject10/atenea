@@ -65,11 +65,6 @@ const HeaderUserMenu: FC = () => {
 
 					</div>
 
-					<div className='menu-item px-5'>
-						<a href='#' className='menu-link px-5'>
-							Estado
-						</a>
-					</div>
 
 					<div className='separator my-2'></div>
 				</>
@@ -79,7 +74,7 @@ const HeaderUserMenu: FC = () => {
 			{/*<Languages />*/}
 
 			<div className='menu-item px-5 my-1'>
-				<Link to='/crafted/account/settings' className='menu-link px-5'>
+				<Link to='#' className='menu-link px-5'>
 					Configuracion
 				</Link>
 			</div>

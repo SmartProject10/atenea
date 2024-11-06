@@ -46,21 +46,21 @@ className="d-flex fw-semibold text-primary fs-base">
 href="#"
 className="px-5"
 target="_blank">
-              Terms
+              Términos
             </a>
 
             <a
 href="#"
 className="px-5"
 target="_blank">
-              Plans
+              Planes
             </a>
 
             <a
 href="#"
 className="px-5"
 target="_blank">
-              Contact Us
+              Contáctanos
             </a>
           </div>
           {/* end::Links */}
