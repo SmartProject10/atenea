@@ -15,7 +15,7 @@ export function PersonalInformation() {
 							<a href="#employment-data">Datos Profesionales</a>
 						</li>
 						<li className="list-group-item">
-							<a href="#bundles">Archivos Adjuntos</a>
+							<a href="#bundles">Mis documentos</a>
 						</li>
 					</ul>
 				</div>

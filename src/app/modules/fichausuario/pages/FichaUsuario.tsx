@@ -8,16 +8,22 @@ import { PayHistory } from './pay-history'
 export function FichaUsuario() {
 	return (
 		<div className="ficha-usuario w-100">
-			<div className="d-flex flex-column align-items-center w-100">
+			<div className="d-flex flex-column align-items-center w-100 position-relative">
 				<img
 					src="https://placeholder.co/200.png"
 					alt=""
 					className="rounded-circle border border-info border-4"
 				/>
+				<button
+					className="btn btn-secondary position-absolute"
+					style={{ bottom: '10px', right: '10px' }}
+					onClick={() => alert('Change profile picture')}
+				>
+					<i className="bi bi-camera"></i>
+				</button>
 
 				<p className="fw-bold fs-1 mt-5 mb-2">Abel Castillo</p>
 				<p className="fw-bold fs-4 text-muted">Socio programador</p>
-
 			</div>
 
 			<ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mt-10 mb-5 fs-5">

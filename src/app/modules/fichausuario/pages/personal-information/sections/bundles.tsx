@@ -5,7 +5,7 @@ export function BundleSection() {
 		<div className="card" id="bundles">
 			<div className="card-header">
 				<h5 className="card-title">
-					Mi documentación
+					Mis documentos
 				</h5>
 			</div>
 			<div className="card-body">

@@ -50,7 +50,7 @@ function BankRegisterTable() {
 						<th>País</th>
 						<th>Banco</th>
 						<th>Número de cuenta</th>
-						<th>Tipo de Cuenta</th>
+						{/* <th>Tipo de Cuenta</th> */}
 						<th>Moneda</th>
 						<th>Acciones</th>
 					</tr>
@@ -64,7 +64,7 @@ function BankRegisterTable() {
 									<td>{item.pais}</td>
 									<td>{item.banco}</td>
 									<td>{item.numeroCuenta}</td>
-									<td>{item.tipoCuenta}</td>
+									{/*<td>{item.tipoCuenta}</td>*/}
 									<td>{item.moneda}</td>
 									<td>{item.acciones}</td>
 								</tr>
@@ -162,7 +162,7 @@ function AddAccountModal({ show, handleClose }: AddAccountModalProps) {
 						<Form.Label>Número de cuenta</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el número de cuenta" />
 					</Form.Group>
-					<Form.Group controlId="formTipoCuenta">
+					{/* <Form.Group controlId="formTipoCuenta">
 						<Form.Label>Tipo de Cuenta</Form.Label>
 						<Form.Control as="select">
 							<option value="">Seleccione el tipo de cuenta</option>
@@ -171,7 +171,7 @@ function AddAccountModal({ show, handleClose }: AddAccountModalProps) {
 							<option value="Nómina">Nómina</option>
 							<option value="Inversión">Inversión</option>
 						</Form.Control>
-					</Form.Group>
+					</Form.Group> */}
 					<Form.Group controlId="formMoneda">
 						<Form.Label>Moneda</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese la moneda" />
