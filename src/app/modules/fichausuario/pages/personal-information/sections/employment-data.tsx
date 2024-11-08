@@ -63,9 +63,9 @@ const data = [
 		name: 'availability',
 	},
 	{
-		title: 'Nivel de inglés',
+		title: 'Idiomas',
 		type: 'text',
-		value: 'Intermedio',
+		value: 'Inglés B2',
 		disabled: true,
 		name: 'english',
 	},

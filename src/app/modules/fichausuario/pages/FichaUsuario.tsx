@@ -33,7 +33,7 @@ export function FichaUsuario() {
 						data-bs-toggle="tab"
 						href="#kt_tab_pane_1"
 					>
-						Información laboral y personal
+						Datos personales
 					</a>
 				</li>
 

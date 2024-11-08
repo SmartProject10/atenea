@@ -36,6 +36,7 @@ const data = [
 		accountNumber: '1234567890',
 		accountType: 'Corriente',
 		country: 'México',
+		address: '123 Main St, Mexico City',
 		email: 'juan.perez@example.com',
 		phone: '555-1234',
 		percentage: '50%',
@@ -55,6 +56,7 @@ function FamilyPaymentsTable() {
 						<th>Número de cuenta del familiar</th>
 						<th>Tipo de cuenta</th>
 						<th>País del familiar</th>
+						<th>Dirección del familiar</th>
 						<th>Correo electrónico del familiar</th>
 						<th>Número de teléfono del familiar</th>
 						<th>Porcentaje de utilidad a recibir</th>
@@ -72,6 +74,7 @@ function FamilyPaymentsTable() {
 									<td>{item.accountNumber}</td>
 									<td>{item.accountType}</td>
 									<td>{item.country}</td>
+									<td>{item.address}</td>
 									<td>{item.email}</td>
 									<td>{item.phone}</td>
 									<td>{item.percentage}</td>
@@ -169,6 +172,10 @@ function AddFamilyMemberModal({ show, handleClose }: AddFamilyMemberModalProps) 
 							<option value="Brasil">Brasil</option>
 							<option value="Uruguay">Uruguay</option>
 						</Form.Control>
+					</Form.Group>
+					<Form.Group controlId="formAddress">
+						<Form.Label>Dirección del familiar</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese la dirección del familiar" />	
 					</Form.Group>
 					<Form.Group controlId="formEmail">
 						<Form.Label>Correo electrónico del familiar</Form.Label>
