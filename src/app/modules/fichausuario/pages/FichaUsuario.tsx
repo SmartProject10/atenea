@@ -1,9 +1,10 @@
 import './FichaUsuario.scss'
-
 import { BankRegister } from './bank-register'
-import { PersonalInformation } from './personal-information'
+import { EmploymentDataSection } from './employment-data'
 import { FamilyPayments } from './family-payments'
 import { PayHistory } from './pay-history'
+import { PersonalDataSection } from './personal-data'
+
 
 export function FichaUsuario() {
 	return (
@@ -43,7 +44,7 @@ export function FichaUsuario() {
 						data-bs-toggle="tab"
 						href="#kt_tab_pane_2"
 					>
-						Registro bancario
+						Datos profesionales
 					</a>
 				</li>
 
@@ -53,7 +54,7 @@ export function FichaUsuario() {
 						data-bs-toggle="tab"
 						href="#kt_tab_pane_3"
 					>
-						Pagos a familiares
+						Registro bancario
 					</a>
 				</li>
 
@@ -62,6 +63,16 @@ export function FichaUsuario() {
 						className="nav-link"
 						data-bs-toggle="tab"
 						href="#kt_tab_pane_4"
+					>
+						Pagos a familiares
+					</a>
+				</li>
+
+				<li className="nav-item">
+					<a
+						className="nav-link"
+						data-bs-toggle="tab"
+						href="#kt_tab_pane_5"
 					>
 						Historial de pagos
 					</a>
@@ -75,25 +86,32 @@ export function FichaUsuario() {
 					id="kt_tab_pane_1"
 					role="tabpanel"
 				>
-					<PersonalInformation />
+					<PersonalDataSection />
 				</div>
 				<div
 					className="tab-pane fade"
 					id="kt_tab_pane_2"
 					role="tabpanel"
 				>
-					<BankRegister />
+					<EmploymentDataSection />
 				</div>
 				<div
 					className="tab-pane fade"
 					id="kt_tab_pane_3"
 					role="tabpanel"
 				>
-					<FamilyPayments />
+					<BankRegister />
 				</div>
 				<div
 					className="tab-pane fade"
 					id="kt_tab_pane_4"
+					role="tabpanel"
+				>
+					<FamilyPayments />
+				</div>
+				<div
+					className="tab-pane fade"
+					id="kt_tab_pane_5"
 					role="tabpanel"
 				>
 					<PayHistory />

@@ -1,3 +1,5 @@
+import { KTIcon } from '@zeus/_zeus/helpers' 
+
 const data = [
 	{
 		title: 'Codigo del trabajador',
@@ -83,6 +85,13 @@ const data = [
 		disabled: true,
 		name: 'contract',
 	},
+	{
+		title: 'Curriculum Vitae',
+		type: 'file',
+		value: '',
+		disabled: false,
+		name: 'cv',
+	}
 ]
 
 export function EmploymentDataSection() {
