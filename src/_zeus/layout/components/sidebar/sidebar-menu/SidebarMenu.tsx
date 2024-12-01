@@ -4,9 +4,6 @@ import { useLocation } from 'react-router-dom'
 import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
 import { SidebarComisiones } from './sidebars/SidebarComisiones'
 import { SidebarMain } from './sidebars/SidebarMain'
-import { SidebarISO45001 } from './sidebars/SidebarISO45001'
-import { SidebarISO9001 } from './sidebars/SidebarISO9001'
-import { SidebarSGRRHH } from './sidebars/SidebarSGRRHH'
 
 interface SidebarMenuProps {
 	handleReloadMenu: () => void;
@@ -57,9 +54,6 @@ export const SidebarMenu = ({ handleReloadMenu }: SidebarMenuProps) => {
 					{isSidebarMain && <SidebarMain />}
 					{isSidebarFichaUsuario && <SidebarFichaUsuario />}
 					{pathname.startsWith('/comisiones') && <SidebarComisiones />}
-					{isSGRHH && <SidebarSGRRHH />}
-					{isISO45001 && <SidebarISO45001 handleReloadMenu={handleReloadMenu} />}
-					{isISO9001 && <SidebarISO9001 />}
 				</div>
 			</div>
 		</div>
