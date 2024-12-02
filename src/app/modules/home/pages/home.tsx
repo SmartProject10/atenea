@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import './carousel.scss'
 import { StatisticsWidget1 } from '../../../../_zeus/partials/widgets';
+import { Home as HomePage } from '../pages/home';
+
 
 export function Home(): JSX.Element {
 	const navigate = useNavigate()

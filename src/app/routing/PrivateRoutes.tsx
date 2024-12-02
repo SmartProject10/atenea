@@ -4,8 +4,6 @@ import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
 import { ComisionesRoutes } from '../modules/comisiones/comisiones.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
-import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
-import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { MenuTestPage } from '../pages/MenuTestPage'
 
@@ -32,8 +30,6 @@ export const PrivateRoutes = () => {
 				<Route path="comisiones/*" element={<ComisionesRoutes />} />
 
 				{/* ISO SOFTWARE MODULES */}
-				<Route path="iso9001/*" element={<ISO9001Routes />} />
-				<Route path="iso45001/*" element={<ISO45001Routes />} />
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
 
 				{/* Lazy Modules */}

@@ -20,28 +20,28 @@ const initialValues = {
 
 const registrationSchema = Yup.object().shape({
 	firstname: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('First name is required'),
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('El nombre es obligatorio'),
 	email: Yup.string()
-		.email('Wrong email format')
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Email is required'),
+		.email('Formato de correo incorrecto')
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('El correo es obligatorio'),
 	lastname: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Last name is required'),
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('El apellido es obligatorio'),
 	password: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Password is required'),
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('La contraseña es obligatoria'),
 	changepassword: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Password confirmation is required')
-		.oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
-	acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('La confirmación de la contraseña es obligatoria')
+		.oneOf([Yup.ref('password')], 'La contraseña y la confirmación no coinciden'),
+	acceptTerms: Yup.bool().required('Debes aceptar los términos y condiciones'),
 })
 
 export function Registration() {
@@ -66,9 +66,10 @@ export function Registration() {
 				console.log(auth.data.message)
 				console.log(values)
 			} catch (error) {
-				console.error(error.response.data.message)
+				const errorMessage = (error as any).response?.data?.message || 'An error occurred';
+				console.error(errorMessage)
 				saveAuth(undefined)
-				setStatus('The registration details is incorrect. Error Details: ' + error.response.data.message)
+				setStatus('The registration details is incorrect. Error Details: ' + (error as any).response.data.message)
 				setSubmitting(false)
 				setLoading(false)
 			}
@@ -91,11 +92,11 @@ export function Registration() {
 				className="text-center mb-11">
 				{/* begin::Title */}
 				<h1
-					className="text-gray-900 fw-bolder mb-3">Sign Up</h1>
+					className="text-gray-900 fw-bolder mb-3">Registro</h1>
 				{/* end::Title */}
 
 				<div
-					className="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
+					className="text-gray-500 fw-semibold fs-6">Inicia tu registro como socio</div>
 			</div>
 			{/* end::Heading */}
 
@@ -116,7 +117,7 @@ export function Registration() {
 							src={toAbsoluteUrl('media/svg/brand-logos/google-icon.svg')}
 							className="h-15px me-3"
 						/>
-						Sign in with Google
+						Iniciar sesión con Google
 					</a>
 					{/* end::Google link */}
 				</div>
@@ -141,7 +142,7 @@ export function Registration() {
 							src={toAbsoluteUrl('media/svg/brand-logos/apple-black-dark.svg')}
 							className="theme-dark-show h-15px me-3"
 						/>
-						Sign in with Apple
+						Iniciar sesión con Apple
 					</a>
 					{/* end::Google link */}
 				</div>
@@ -152,7 +153,7 @@ export function Registration() {
 			<div
 				className="separator separator-content my-14">
 				<span
-					className="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
+					className="w-125px text-gray-500 fw-semibold fs-7">o con tu correo</span>
 			</div>
 
 			{formik.status && (
@@ -167,9 +168,9 @@ export function Registration() {
 			<div
 				className="fv-row mb-8">
 				<label
-					className="form-label fw-bolder text-gray-900 fs-6">First name</label>
+					className="form-label fw-bolder text-gray-900 fs-6">Nombres</label>
 				<input
-					placeholder="First name"
+					placeholder="Ingresa tu nombre o nombres"
 					type="text"
 					autoComplete="off"
 					{...formik.getFieldProps('firstname')}
@@ -199,9 +200,9 @@ export function Registration() {
 				className="fv-row mb-8">
 				{/* begin::Form group Lastname */}
 				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Last name</label>
+					className="form-label fw-bolder text-gray-900 fs-6">Apellidos</label>
 				<input
-					placeholder="Last name"
+					placeholder="Ingresa tus apellidos"
 					type="text"
 					autoComplete="off"
 					{...formik.getFieldProps('lastname')}
@@ -232,9 +233,9 @@ export function Registration() {
 			<div
 				className="fv-row mb-8">
 				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Email</label>
+					className="form-label fw-bolder text-gray-900 fs-6">Correo personal</label>
 				<input
-					placeholder="Email"
+					placeholder="ingresa tu correo personal (no empresarial)"
 					type="email"
 					autoComplete="off"
 					{...formik.getFieldProps('email')}
@@ -266,12 +267,12 @@ export function Registration() {
 				<div
 					className="mb-1">
 					<label
-						className="form-label fw-bolder text-gray-900 fs-6">Password</label>
+						className="form-label fw-bolder text-gray-900 fs-6">Contraseña</label>
 					<div
 						className="position-relative mb-3">
 						<input
 							type="password"
-							placeholder="Password"
+							placeholder="Ingregar contraseña"
 							autoComplete="off"
 							{...formik.getFieldProps('password')}
 							className={clsx(
@@ -313,7 +314,7 @@ export function Registration() {
 				</div>
 				<div
 					className="text-muted">
-					Use 8 or more characters with a mix of letters, numbers & symbols.
+					Usa 8 o más caracteres con una combinación de letras, números y símbolos.
 				</div>
 			</div>
 			{/* end::Form group */}
@@ -322,10 +323,10 @@ export function Registration() {
 			<div
 				className="fv-row mb-5">
 				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Confirm Password</label>
+					className="form-label fw-bolder text-gray-900 fs-6">Confirmar contraseña</label>
 				<input
 					type="password"
-					placeholder="Password confirmation"
+					placeholder="Confirmación de tu contraseña"
 					autoComplete="off"
 					{...formik.getFieldProps('changepassword')}
 					className={clsx(
@@ -364,14 +365,14 @@ export function Registration() {
 						{...formik.getFieldProps('acceptTerms')}
 					/>
 					<span>
-						I Accept the{' '}
+						Yo acepto los{''}
 						<a
 							href="https://keenthemes.com/metronic/?page=faq"
 							target="_blank"
 							className="ms-1 link-primary"
 							rel="noreferrer"
 						>
-							Terms
+							Términos y condiciones
 						</a>
 						.
 					</span>
@@ -399,12 +400,12 @@ export function Registration() {
 					disabled={formik.isSubmitting || !formik.isValid || !formik.values.acceptTerms}
 				>
 					{!loading && <span
-						className="indicator-label">Submit</span>}
+						className="indicator-label">Registrarme</span>}
 					{loading && (
 						<span
 							className="indicator-progress"
 							style={{ display: 'block' }}>
-							Please wait...{' '}
+							Espera por favor...{' '}
 							<span
 								className="spinner-border spinner-border-sm align-middle ms-2"></span>
 						</span>
@@ -417,7 +418,7 @@ export function Registration() {
 						id="kt_login_signup_form_cancel_button"
 						className="btn btn-lg btn-light-primary w-100 mb-5"
 					>
-						Cancel
+						Cancelar
 					</button>
 				</Link>
 			</div>

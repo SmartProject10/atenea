@@ -11,14 +11,14 @@ import { backyService } from '@zeus/@services/api'
 
 const loginSchema = Yup.object().shape({
 	email: Yup.string()
-		.email('Wrong email format')
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Email is required'),
+		.email('Formato de email incorrecto')
+		.min(3, 'Mínimo 3 símbolos')
+		.max(50, 'Máximo 50 símbolos')
+		.required('El email es obligatorio'),
 	password: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Password is required'),
+		.min(3, 'Mínimo 3 símbolos')
+		.max(50, 'Máximo 50 símbolos')
+		.required('La contraseña es obligatoria'),
 })
 
 const initialValues = {
@@ -61,7 +61,11 @@ export function Login() {
 			} catch (error) {
 				console.error(error)
 				saveAuth(undefined)
-				setStatus('The login details are incorrect. Error Details: ' + error.response.data.message)
+				if (error instanceof Error && (error as any).response && (error as any).response.data) {
+					setStatus('The login details are incorrect. Error Details: ' + ((error as any).response?.data?.message || error.message))
+				} else {
+					setStatus('The login details are incorrect.')
+				}
 				setSubmitting(false)
 				setLoading(false)
 			}
@@ -99,7 +103,7 @@ export function Login() {
 				<label
 					className="form-label fs-6 fw-bolder text-gray-900">{intl.formatMessage({ id: 'AUTH.INPUT.EMAIL' })}</label>
 				<input
-					placeholder="Email"
+					placeholder="Ingresa tu correo electrónico"
 					{...formik.getFieldProps('email')}
 					className={clsx(
 						'form-control bg-transparent',
@@ -128,6 +132,7 @@ export function Login() {
 				<label
 					className="form-label fw-bolder text-gray-900 fs-6 mb-0">{intl.formatMessage({ id: 'AUTH.INPUT.PASSWORD' })}</label>
 				<input
+					placeholder="Ingresa tu contraseña"
 					type="password"
 					autoComplete="off"
 					{...formik.getFieldProps('password')}
@@ -163,7 +168,7 @@ export function Login() {
 				<Link
 					to="/auth/forgot-password"
 					className="link-primary">
-					Olvidaste la clave ?
+					¿Olvidaste tu contraseña?
 				</Link>
 				{/* end::Link */}
 			</div>
@@ -184,7 +189,7 @@ export function Login() {
 						<span
 							className="indicator-progress"
 							style={{ display: 'block' }}>
-							Please wait...
+							Espera por favor...
 							<span
 								className="spinner-border spinner-border-sm align-middle ms-2"></span>
 						</span>

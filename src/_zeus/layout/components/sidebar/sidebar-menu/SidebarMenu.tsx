@@ -12,10 +12,6 @@ interface SidebarMenuProps {
 export const SidebarMenu = ({ handleReloadMenu }: SidebarMenuProps) => {
 	const { pathname } = useLocation()
 
-	const isISO45001 = useMemo(() => pathname.startsWith('/iso45001'), [pathname])
-	const isISO9001 = useMemo(() => pathname.startsWith('/iso9001'), [pathname])
-	const isSGRHH = useMemo(() => pathname.startsWith('/sgrrhh'), [pathname])
-
 	const isSidebarMain = useMemo(() =>
 		[
 			'/dashboard',
