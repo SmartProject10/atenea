@@ -155,7 +155,7 @@ function AddAccountModal({ show, handleClose }: AddAccountModalProps) {
 						</Form.Control>
 					</Form.Group>
 					<Form.Group controlId="formBanco">
-						<Form.Label>Banco</Form.Label>
+						<Form.Label>Nombre del Banco</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el banco" />
 					</Form.Group>
 					<Form.Group controlId="formNumeroCuenta">
@@ -172,10 +172,6 @@ function AddAccountModal({ show, handleClose }: AddAccountModalProps) {
 							<option value="Inversión">Inversión</option>
 						</Form.Control>
 					</Form.Group> */}
-					<Form.Group controlId="formMoneda">
-						<Form.Label>Moneda</Form.Label>
-						<Form.Control type="text" placeholder="Ingrese la moneda" />
-					</Form.Group>
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>

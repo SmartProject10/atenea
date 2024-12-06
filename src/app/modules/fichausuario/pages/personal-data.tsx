@@ -1,17 +1,12 @@
+import { MdEdit } from 'react-icons/md';
+
 const data = [
 	{
-		title: 'Nombres',
+		title: 'Nombres Completos',
 		type: 'text',
-		value: 'Abel',
+		value: 'Abel Castillo',
 		disabled: true,
 		name: 'name',
-	},
-	{
-		title: 'Apellidos',
-		type: 'text',
-		value: 'Castillo',
-		disabled: true,
-		name: 'lastname',
 	},
 	{
 		title: 'Fecha de nacimiento',
@@ -49,36 +44,20 @@ const data = [
 		name: 'country',
 	},
 	{
-		title: 'Provincia',
-		type: 'text',
-		value: 'Pichincha',
-		disabled: true,
-		name: 'province',
-	},
-	{
-		title: 'Telefono personal',
-		type: 'tel',
+		title: 'Número de teléfono',
+		type: 'number',
 		value: '+593 980513677',
 		disabled: true,
 		name: 'phone',
 	},
-	{
-		title: 'Telefono de casa',
-		type: 'tel',
-		value: '+2600804',
-		disabled: true,
-		name: 'phonehome',
-	},
-	{
-		title: 'Telefono del trabajo',
-		type: 'tel',
-		value: 'S/N',
-		disabled: true,
-		name: 'phonework',
-	},
 ]
 
 export function PersonalDataSection() {
+	const handleEdit = (name: string) => {
+		// Logic to enable editing for the specific field
+		console.log(`Edit ${name}`);
+	}
+
 	return (
 		<div className="card mb-8" id="personal-data">
 			<div className="card-header">
@@ -93,11 +72,21 @@ export function PersonalDataSection() {
 									<label className="col-form-label col-lg-4 col-sm-12">
 										{item.title}
 									</label>
-									<div className="col-lg-8 col-md-9 col-sm-12">
+									<div className="col-lg-8 col-md-9 col-sm-12 position-relative">
+										{['phone', 'email', 'address'].includes(item.name) && (
+											<button
+												type="button"
+												className="btn btn-link p-0 position-absolute"
+												style={{ right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#007bff' }}
+												onClick={() => handleEdit(item.name)}
+											>
+												<MdEdit size={18} />
+											</button>
+										)}
 										<input
 											name={item.name}
 											type={item.type}
-											className="form-control"
+											className="form-control pr-5"
 											placeholder={item.value}
 											disabled={item.disabled}
 										/>
@@ -107,7 +96,6 @@ export function PersonalDataSection() {
 						}
 						<div className="d-flex justify-content-end mt-8">
 							<button className="btn btn-primary">Guardar cambios</button>
-							<button className="btn btn-secondary ml-2">Editar</button>
 						</div>
 					</form>
 				</div>

@@ -11,7 +11,7 @@ import { backyService } from '@zeus/@services/api'
 
 const initialValues = {
 	firstname: '',
-	lastname: '',
+	cellphone: '',
 	email: '',
 	password: '',
 	changepassword: '',
@@ -22,23 +22,23 @@ const registrationSchema = Yup.object().shape({
 	firstname: Yup.string()
 		.min(3, 'Mínimo 3 caracteres')
 		.max(50, 'Máximo 50 caracteres')
-		.required('El nombre es obligatorio'),
+		.required('Sus nombres son obligatorio'),
+	cellphone: Yup.string()
+		.min(8, 'Mínimo 8 caracteres')
+		.max(15, 'Máximo 15 caracteres')
+		.required('El número de celular es obligatorio'),
 	email: Yup.string()
 		.email('Formato de correo incorrecto')
-		.min(3, 'Mínimo 3 caracteres')
-		.max(50, 'Máximo 50 caracteres')
+		.min(12, 'Mínimo 12 caracteres')
+		.max(25, 'Máximo 25 caracteres')
 		.required('El correo es obligatorio'),
-	lastname: Yup.string()
-		.min(3, 'Mínimo 3 caracteres')
-		.max(50, 'Máximo 50 caracteres')
-		.required('El apellido es obligatorio'),
 	password: Yup.string()
-		.min(3, 'Mínimo 3 caracteres')
-		.max(50, 'Máximo 50 caracteres')
+		.min(8, 'Mínimo 8 caracteres')
+		.max(15, 'Máximo 15 caracteres')
 		.required('La contraseña es obligatoria'),
 	changepassword: Yup.string()
-		.min(3, 'Mínimo 3 caracteres')
-		.max(50, 'Máximo 50 caracteres')
+		.min(8, 'Mínimo 8 caracteres')
+		.max(15, 'Máximo 15 caracteres')
 		.required('La confirmación de la contraseña es obligatoria')
 		.oneOf([Yup.ref('password')], 'La contraseña y la confirmación no coinciden'),
 	acceptTerms: Yup.bool().required('Debes aceptar los términos y condiciones'),
@@ -57,7 +57,7 @@ export function Registration() {
 				const { data: auth } = await backyService.auth.register(
 					values.email,
 					values.firstname,
-					values.lastname,
+					values.cellphone,
 					values.password,
 				)
 				saveAuth(auth)
@@ -100,55 +100,23 @@ export function Registration() {
 			</div>
 			{/* end::Heading */}
 
-			{/* begin::Login options */}
-			<div
-				className="row g-3 mb-9">
-				{/* begin::Col */}
-				<div
-					className="col-md-6">
-					{/* begin::Google link */}
-					<a
-						href="#"
-						// eslint-disable-next-line max-len
-						className="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100"
-					>
-						<img
-							alt="Logo"
-							src={toAbsoluteUrl('media/svg/brand-logos/google-icon.svg')}
-							className="h-15px me-3"
-						/>
-						Iniciar sesión con Google
-					</a>
-					{/* end::Google link */}
-				</div>
-				{/* end::Col */}
-
-				{/* begin::Col */}
-				<div
-					className="col-md-6">
-					{/* begin::Google link */}
-					<a
-						href="#"
-						// eslint-disable-next-line max-len
-						className="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100"
-					>
-						<img
-							alt="Logo"
-							src={toAbsoluteUrl('media/svg/brand-logos/apple-black.svg')}
-							className="theme-light-show h-15px me-3"
-						/>
-						<img
-							alt="Logo"
-							src={toAbsoluteUrl('media/svg/brand-logos/apple-black-dark.svg')}
-							className="theme-dark-show h-15px me-3"
-						/>
-						Iniciar sesión con Apple
-					</a>
-					{/* end::Google link */}
-				</div>
-				{/* end::Col */}
-			</div>
-			{/* end::Login options */}
+						{/* begin::Login options */}
+						<div className="d-flex justify-content-center mb-9">
+							{/* begin::Google link */}
+							<a
+								href="#"
+								className="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap"
+							>
+								<img
+									alt="Logo"
+									src={toAbsoluteUrl('media/svg/brand-logos/google-icon.svg')}
+									className="h-15px me-3"
+								/>
+								Iniciar sesión con Google
+							</a>
+							{/* end::Google link */}
+						</div>
+						{/* end::Login options */}
 
 			<div
 				className="separator separator-content my-14">
@@ -168,9 +136,9 @@ export function Registration() {
 			<div
 				className="fv-row mb-8">
 				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Nombres</label>
+					className="form-label fw-bolder text-gray-900 fs-6">Nombres Completos</label>
 				<input
-					placeholder="Ingresa tu nombre o nombres"
+					placeholder="Ingresa tus nombres completos"
 					type="text"
 					autoComplete="off"
 					{...formik.getFieldProps('firstname')}
@@ -196,33 +164,39 @@ export function Registration() {
 				)}
 			</div>
 			{/* end::Form group */}
-			<div
-				className="fv-row mb-8">
-				{/* begin::Form group Lastname */}
-				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Apellidos</label>
-				<input
-					placeholder="Ingresa tus apellidos"
-					type="text"
-					autoComplete="off"
-					{...formik.getFieldProps('lastname')}
-					className={clsx(
-						'form-control bg-transparent',
-						{
-							'is-invalid': formik.touched.lastname && formik.errors.lastname,
-						},
-						{
-							'is-valid': formik.touched.lastname && !formik.errors.lastname,
-						},
-					)}
-				/>
-				{formik.touched.lastname && formik.errors.lastname && (
-					<div
-						className="fv-plugins-message-container">
-						<div
-							className="fv-help-block">
-							<span
-								role="alert">{formik.errors.lastname}</span>
+			<div className="fv-row mb-8">
+				{/* begin::Form group Cellphone */}
+				<label className="form-label fw-bolder text-gray-900 fs-6">Número de celular</label>
+				<div className="d-flex">
+					<select
+						className="form-select bg-transparent me-3 w-auto"
+						{...formik.getFieldProps('countryCode')}
+					>
+						<option value="+1">Estados Unidos (+1)</option>
+						<option value="+593">Ecuador (+593)</option>
+						<option value="+51">Perú (+51)</option>
+						{/* Add more country codes as needed */}
+					</select>
+					<input
+						placeholder="Número de celular"
+						type="text"
+						autoComplete="off"
+						{...formik.getFieldProps('cellphone')}
+						className={clsx(
+							'form-control bg-transparent',
+							{
+								'is-invalid': formik.touched.cellphone && formik.errors.cellphone,
+							},
+							{
+								'is-valid': formik.touched.cellphone && !formik.errors.cellphone,
+							},
+						)}
+					/>
+				</div>
+				{formik.touched.cellphone && formik.errors.cellphone && (
+					<div className="fv-plugins-message-container">
+						<div className="fv-help-block">
+							<span role="alert">{formik.errors.cellphone}</span>
 						</div>
 					</div>
 				)}
@@ -326,7 +300,7 @@ export function Registration() {
 					className="form-label fw-bolder text-gray-900 fs-6">Confirmar contraseña</label>
 				<input
 					type="password"
-					placeholder="Confirmación de tu contraseña"
+					placeholder="Confirma tu contraseña"
 					autoComplete="off"
 					{...formik.getFieldProps('changepassword')}
 					className={clsx(

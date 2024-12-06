@@ -1,4 +1,6 @@
 import React from 'react'
+import { saveAs } from 'file-saver'
+import * as XLSX from 'xlsx'
 
 function Pagination() {
 	return (
@@ -94,11 +96,20 @@ export function PayHistory() {
 				<div className="d-flex justify-content-end mt-16">
 					<div className="flex-1"></div>
 					<Pagination />
+					<div className="card-footer">
+						<button className="btn btn-primary" onClick={exportToExcel}>Exportar</button>
+					</div>
 				</div>
-			</div>
-			<div className="card-footer">
-				<button className="btn btn-primary">Exportar</button>
 			</div>
 		</div>
 	)
+}
+
+function exportToExcel() {
+	const ws = XLSX.utils.json_to_sheet(data)
+	const wb = XLSX.utils.book_new()
+	XLSX.utils.book_append_sheet(wb, ws, 'Historial de Pagos')
+	const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+	const blob = new Blob([wbout], { type: 'application/octet-stream' })
+	saveAs(blob, 'historial_de_pagos.xlsx')
 }
