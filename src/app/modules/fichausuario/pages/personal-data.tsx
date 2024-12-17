@@ -23,7 +23,7 @@ const data = [
 		name: 'sex',
 	},
 	{
-		title: 'Correo personal',
+		title: 'Correo personal (no institucional)',
 		type: 'email',
 		value: 'abelairton@gmail.com',
 		disabled: true,
