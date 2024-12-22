@@ -3,7 +3,6 @@ import './carousel.scss'
 import { StatisticsWidget1 } from '../../../../_zeus/partials/widgets';
 import { Home as HomePage } from '../pages/home';
 
-
 export function Home(): JSX.Element {
 	const navigate = useNavigate()
 
@@ -80,6 +79,26 @@ export function Home(): JSX.Element {
 						time="3:30PM - 4:20PM"
 						description="Reunión para discutir los servicios<br/>y proyectos de ISO AND ISO"
 					/>
+				</div>
+
+				<div className="col-lg-4 col-md-6 col-xs-12">
+					<div className="card">
+						<div className="card-body">
+							<div className="card-title fw-bold fs-1">Horas Trabajadas</div>
+							
+							<div className="d-flex justify-content-between mb-4">
+								<button className="btn btn-outline-primary">Día</button>
+								<button className="btn btn-outline-primary">Mes</button>
+								<button className="btn btn-outline-primary">Año</button>
+							</div>
+							
+							<div className="progress mt-4">
+								<div className="progress-bar" role="progressbar" style={{ width: '75%' }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
+									75%
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

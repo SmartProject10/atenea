@@ -12,7 +12,7 @@ export function SelectCompany(): JSX.Element {
 		{ id: '3', roleName: 'Analista', details: 'Detalles del analista' },
 		{ id: '4', roleName: 'Auditor', details: 'Auditor Socio representante de su país' },
 		{ id: '5', roleName: 'Abogado', details: 'Detalles del abogado' },
-		{ id: '6', roleName: 'Otros', details: 'Detalles de otros roles' }
+		{ id: '6', roleName: 'Administrador', details: 'Detalles de otros roles' }
 	]
 
 	return (

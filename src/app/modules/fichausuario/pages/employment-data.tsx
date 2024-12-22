@@ -67,7 +67,7 @@ const data = [
 	{
 		title: 'Idiomas',
 		type: 'text',
-		value: 'Inglés B2',
+		value: 'Inglés B2, Español nativo',
 		disabled: true,
 		name: 'english',
 	},
