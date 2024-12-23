@@ -3,11 +3,10 @@ import { SidebarMenuItem } from "../components/SidebarMenuItem";
 import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 import { SidebarSubtitle } from "../components/SidebarSubtitle";
 
+export const SidebarImplementacion = () => {
+	const intl = useIntl();
 
-export function SidebarMain(): JSX.Element {
-    const intl = useIntl();
-
-    return (
+	return (
 		<>
 			<SidebarMenuItem
 				to="/dashboard"

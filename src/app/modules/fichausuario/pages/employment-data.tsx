@@ -2,25 +2,18 @@ import { KTIcon } from '@zeus/_zeus/helpers'
 
 const data = [
 	{
-		title: 'Codigo del trabajador',
+		title: 'Codigo socio',
 		type: 'text',
 		value: '12345678',
 		disabled: true,
 		name: 'code',
 	},
 	{
-		title: 'Especialidades',
+		title: 'Sectores de especialización',
 		type: 'text',
-		value: 'Full-stack',
+		value: 'Finanzas, Salud, Educación',
 		disabled: true,
-		name: 'specialties',
-	},
-	{
-		title: 'Area del trabajador',
-		type: 'text',
-		value: 'Desarollo Móvil',
-		disabled: true,
-		name: 'area',
+		name: 'specialization',
 	},
 	{
 		title: 'Años de experiencia',
@@ -30,25 +23,11 @@ const data = [
 		name: 'experience',
 	},
 	{
-		title: 'Tecnologías dominadas',
+		title: 'Certificaciones de auditoría',
 		type: 'text',
-		value: 'React, Node, Express',
+		value: 'ISO 9001, ISO 27001',
 		disabled: true,
-		name: 'technologies',
-	},
-	{
-		title: 'Certificaciones técnicas',
-		type: 'text',
-		value: 'Certificación de React',
-		disabled: true,
-		name: 'certifications',
-	},
-	{
-		title: 'Portafolio git',
-		type: 'text',
-		value: 'https://github.com/usuario/proyecto1',
-		disabled: true,
-		name: 'portfolio',
+		name: 'auditCertifications',
 	},
 	{
 		title: 'Horario de trabajo',
@@ -74,7 +53,7 @@ const data = [
 	{
 		title: 'Estado',
 		type: 'text',
-		value: 'Activo',
+		value: 'Inactivo',
 		disabled: true,
 		name: 'status',
 	},

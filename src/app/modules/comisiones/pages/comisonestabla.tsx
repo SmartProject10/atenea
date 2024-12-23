@@ -154,9 +154,6 @@ export function Comisiones() {
 						<input type="date" className="form-control form-control-sm" placeholder="Fecha desde" />
 					</div>
 					<div className="col">
-						<input type="date" className="form-control form-control-sm" placeholder="Fecha hasta" />
-					</div>
-					<div className="col">
 						<button className="btn btn-secondary btn-sm">Exportar</button>
 					</div>
 				</div>

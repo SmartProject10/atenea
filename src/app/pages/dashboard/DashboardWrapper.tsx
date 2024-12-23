@@ -2,9 +2,13 @@ import { FC, useState } from 'react'
 import { Content } from '../../../_zeus/layout/components/content'
 import { PageTitle } from '../../../_zeus/layout/core'
 import { Line } from 'react-chartjs-2'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 
 const DashboardWrapper: FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
+  const [filterStatus, setFilterStatus] = useState('')
+  const [filterDateFrom, setFilterDateFrom] = useState('')
+  const [filterDateTo, setFilterDateTo] = useState('')
 
   const monthlyIncomeData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -28,14 +32,20 @@ const DashboardWrapper: FC = () => {
     { id: 4, number: 4, country: 'Brazil', ruc: '789123456', companyName: 'Company D', acquiredDate: '2023-04-01', amount: 25000, status: 'REJECTED' },
   ]
 
-  const filteredData = tableData.filter(item =>
-    item.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.ruc.includes(searchTerm) ||
-    item.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.acquiredDate.includes(searchTerm) ||
-    item.amount.toString().includes(searchTerm) ||
-    item.status.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const filteredData = tableData.filter(item => {
+    const matchesSearchTerm = item.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.ruc.includes(searchTerm) ||
+      item.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.acquiredDate.includes(searchTerm) ||
+      item.amount.toString().includes(searchTerm) ||
+      item.status.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const matchesStatus = filterStatus ? item.status.toLowerCase() === filterStatus.toLowerCase() : true
+    const matchesDateFrom = filterDateFrom ? new Date(item.acquiredDate) >= new Date(filterDateFrom) : true
+    const matchesDateTo = filterDateTo ? new Date(item.acquiredDate) <= new Date(filterDateTo) : true
+
+    return matchesSearchTerm && matchesStatus && matchesDateFrom && matchesDateTo
+  })
 
   const handleExport = () => {
     // Implement export functionality here
@@ -55,10 +65,10 @@ const DashboardWrapper: FC = () => {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">INFORMACIÓN</h5>
-                <p>Sección de clientes: 20 clientes</p>
-                <p>Número de usuarios: 4000</p>
-                <p>Ingreso acumulado: 80000</p>
-                <p>Ingreso promedio mensual: 9800</p>
+                <p><strong>Sección de clientes:</strong> 20 clientes</p>
+                <p><strong>Número de usuarios:</strong> 4000</p>
+                <p><strong>Ingreso acumulado:</strong> 80000</p>
+                <p><strong>Ingreso promedio mensual:</strong> 9800</p>
               </div>
             </div>
           </div>
@@ -77,6 +87,14 @@ const DashboardWrapper: FC = () => {
                 <i className="bi bi-search"></i>
               </span>
             </div>
+            <select className="form-control form-control-sm mx-2" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+              <option value="">Estado</option>
+              <option value="ACCEPTED">Aceptado</option>
+              <option value="PENDING">Pendiente</option>
+              <option value="CANCELLED">Cancelado</option>
+              <option value="REJECTED">Rechazado</option>
+            </select>
+            <input type="date" className="form-control form-control-sm mx-2" value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)} />
             <button className="btn btn-primary" onClick={handleExport}>
               Exportar
             </button>

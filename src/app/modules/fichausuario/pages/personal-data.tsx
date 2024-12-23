@@ -6,9 +6,16 @@ const data = [
 	{
 		title: 'Nombres Completos',
 		type: 'text',
-		value: 'Abel Castillo',
+		value: 'Juan Perez',
 		disabled: true,
 		name: 'name',
+	},
+	{
+		title: 'DNI',
+		type: 'text',
+		value: '1234567890',
+		disabled: true,
+		name: 'dni',
 	},
 	{
 		title: 'Fecha de nacimiento',

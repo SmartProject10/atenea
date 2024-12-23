@@ -29,6 +29,12 @@ export const SidebarFichaUsuario = () => {
 				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
 				fontIcon="bi-app-indicator"
 			/>
+			<SidebarMenuItem
+				to="/implementacion"
+				icon="gear"
+				title={intl.formatMessage({ id: "MENU.IMPLEMENTACION" })}
+				fontIcon="bi-app-indicator"
+			/>
 
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem

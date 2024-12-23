@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
 import { SidebarComisiones } from './sidebars/SidebarComisiones'
+import { SidebarImplementacion } from './sidebars/SidebarImplementacion'
 import { SidebarMain } from './sidebars/SidebarMain'
 
 interface SidebarMenuProps {
@@ -50,6 +51,7 @@ export const SidebarMenu = ({ handleReloadMenu }: SidebarMenuProps) => {
 					{isSidebarMain && <SidebarMain />}
 					{isSidebarFichaUsuario && <SidebarFichaUsuario />}
 					{pathname.startsWith('/comisiones') && <SidebarComisiones />}
+					{pathname.startsWith('/implementacion') && <SidebarImplementacion />}
 				</div>
 			</div>
 		</div>

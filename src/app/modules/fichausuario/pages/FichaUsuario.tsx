@@ -23,8 +23,8 @@ export function FichaUsuario() {
 					<i className="bi bi-camera"></i>
 				</button>
 
-				<p className="fw-bold fs-1 mt-5 mb-2">Abel Castillo</p>
-				<p className="fw-bold fs-4 text-muted">Socio programador</p>
+				<p className="fw-bold fs-1 mt-5 mb-2">Juan Perez</p>
+				<p className="fw-bold fs-4 text-muted">Socio Auditor</p>
 			</div>
 
 			<ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mt-10 mb-5 fs-5">

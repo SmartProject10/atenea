@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
 import { ComisionesRoutes } from '../modules/comisiones/comisiones.routes.tsx'
+import { ImplementacionRoutes } from '../modules/implementacion/implementacion.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { MenuTestPage } from '../pages/MenuTestPage'
@@ -28,6 +29,7 @@ export const PrivateRoutes = () => {
 				<Route path="menu-test" element={<MenuTestPage />} />
 				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
 				<Route path="comisiones/*" element={<ComisionesRoutes />} />
+				<Route path="implementacion/*" element={<ImplementacionRoutes />} />
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
