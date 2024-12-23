@@ -1,12 +1,13 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Content } from '../../../_zeus/layout/components/content'
-import { ToolbarWrapper } from '../../../_zeus/layout/components/toolbar'
 import { PageTitle } from '../../../_zeus/layout/core'
-import { Bar, Line } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 
 const DashboardWrapper: FC = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+
   const monthlyIncomeData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [
       {
         label: 'Monthly Income',
@@ -15,84 +16,30 @@ const DashboardWrapper: FC = () => {
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
         hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: [6500, 5900, 8000, 8100, 5600, 5500, 4000, 7000, 8500, 9000, 9500, 9800],
       },
     ],
   }
 
-  const clientsData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Clients',
-        backgroundColor: 'rgba(153,102,255,1)',
-        borderColor: 'rgba(153,102,255,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(153,102,255,0.4)',
-        hoverBorderColor: 'rgba(153,102,255,1)',
-        data: [12, 19, 3, 5, 2, 3, 9],
-      },
-    ],
-  }
+  const tableData = [
+    { id: 1, number: 1, country: 'USA', ruc: '123456789', companyName: 'Company A', acquiredDate: '2023-01-01', amount: 10000, status: 'ACCEPTED' },
+    { id: 2, number: 2, country: 'Canada', ruc: '987654321', companyName: 'Company B', acquiredDate: '2023-02-01', amount: 20000, status: 'PENDING' },
+    { id: 3, number: 3, country: 'Mexico', ruc: '456789123', companyName: 'Company C', acquiredDate: '2023-03-01', amount: 15000, status: 'CANCELLED' },
+    { id: 4, number: 4, country: 'Brazil', ruc: '789123456', companyName: 'Company D', acquiredDate: '2023-04-01', amount: 25000, status: 'REJECTED' },
+  ]
 
-  const programmedHoursData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Programmed Hours',
-        backgroundColor: 'rgba(255,159,64,1)',
-        borderColor: 'rgba(255,159,64,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,159,64,0.4)',
-        hoverBorderColor: 'rgba(255,159,64,1)',
-        data: [30, 45, 60, 70, 90, 100, 110],
-      },
-    ],
-  }
+  const filteredData = tableData.filter(item =>
+    item.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.ruc.includes(searchTerm) ||
+    item.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.acquiredDate.includes(searchTerm) ||
+    item.amount.toString().includes(searchTerm) ||
+    item.status.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
-  const usersData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Users',
-        backgroundColor: 'rgba(54,162,235,1)',
-        borderColor: 'rgba(54,162,235,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(54,162,235,0.4)',
-        hoverBorderColor: 'rgba(54,162,235,1)',
-        data: [200, 300, 400, 500, 600, 700, 800],
-      },
-    ],
-  }
-
-  const rankingCountriesData = {
-    labels: ['Country 1', 'Country 2', 'Country 3', 'Country 4', 'Country 5'],
-    datasets: [
-      {
-        label: 'Ranking',
-        backgroundColor: 'rgba(255,99,132,1)',
-        borderColor: 'rgba(255,99,132,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-        hoverBorderColor: 'rgba(255,99,132,1)',
-        data: [12, 19, 3, 5, 2],
-      },
-    ],
-  }
-
-  const rankingProgrammersData = {
-    labels: ['Programmer 1', 'Programmer 2', 'Programmer 3', 'Programmer 4', 'Programmer 5'],
-    datasets: [
-      {
-        label: 'Ranking',
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(75,192,192,0.4)',
-        hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [10, 20, 30, 40, 50],
-      },
-    ],
+  const handleExport = () => {
+    // Implement export functionality here
+    console.log('Exporting data...')
   }
 
   return (
@@ -100,34 +47,66 @@ const DashboardWrapper: FC = () => {
       <PageTitle breadcrumbs={[]}>{'Dashboard'}</PageTitle>
       <Content>
         <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
+          <div className="col-md-8 col-lg-8 col-xl-8 col-xxl-8 mb-md-5 mb-xl-10">
+            <h3>INGRESOS</h3>
             <Line data={monthlyIncomeData} />
-            <p>Total Utility: $100,000</p>
           </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingCountriesData} />
+          <div className="col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-md-5 mb-xl-10">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">INFORMACIÓN</h5>
+                <p>Sección de clientes: 20 clientes</p>
+                <p>Número de usuarios: 4000</p>
+                <p>Ingreso acumulado: 80000</p>
+                <p>Ingreso promedio mensual: 9800</p>
+              </div>
+            </div>
           </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={clientsData} />
-            <p>Total Clients: 100</p>
+        </div>
+        <div className="table-responsive my-16">
+          <div className="d-flex justify-content-between mb-3">
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Buscar..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <span className="input-group-text">
+                <i className="bi bi-search"></i>
+              </span>
+            </div>
+            <button className="btn btn-primary" onClick={handleExport}>
+              Exportar
+            </button>
           </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingCountriesData} />
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={programmedHoursData} />
-            <p>Total Programmers: 50</p>
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingProgrammersData} />
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={usersData} />
-            <p>Total Users: 800</p>
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingCountriesData} />
-          </div>
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>País</th>
+                <th>RUC</th>
+                <th>NOMBRE EMPRESA</th>
+                <th>FECHA ADQUIRIDA</th>
+                <th>MONTO</th>
+                <th>ESTADO</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.number}</td>
+                  <td>{item.country}</td>
+                  <td>{item.ruc}</td>
+                  <td>{item.companyName}</td>
+                  <td>{item.acquiredDate}</td>
+                  <td>{item.amount}</td>
+                  <td>{item.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </Content>
     </>

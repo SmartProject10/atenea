@@ -92,7 +92,7 @@ export function Home(): JSX.Element {
 				<div className="col-lg-4 col-md-6 col-xs-12">
 					<div className="card">
 						<div className="card-body">
-							<div className="card-title fw-bold fs-1">Ganancias</div>
+							<div className="card-title fw-bold fs-1">Salario</div>
 							
 							<div className="d-flex justify-content-between mb-4">
 								<button className="btn btn-outline-primary" onClick={() => setEarnings('month')}>Mes</button>
