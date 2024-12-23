@@ -48,7 +48,7 @@ export const NavbarItemModules = ({
 	return (
 		<>
 			{/* begin::Menu toggle */}
-			<a
+			{/* <a
 				href='#'
 				className={clsx('btn btn-icon ', toggleBtnClass)}
 				data-kt-menu-trigger={menuTrigger}
@@ -56,10 +56,10 @@ export const NavbarItemModules = ({
 				data-kt-menu-placement={menuPlacement}
 			>
 				<KTIcon iconName='abstract-13' className={clsx('theme-dark-hide', toggleBtnIconClass)} />
-			</a>
-			{/* begin::Menu toggle */}
+			</a> */}
+			{/* end::Menu toggle */}
 
-			<div
+			{/* <div
 				className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-primary fw-semibold py-4 fs-base w-175px'
 				data-kt-menu='true'
 			>
@@ -67,14 +67,13 @@ export const NavbarItemModules = ({
 					<div key={index} className='menu-item px-3 my-0'>
 						<Link
 							to={module.url}
-							// className={clsx('menu-link px-3 py-2', { active: menuMode === 'system' })}
 							className={clsx('menu-link px-3 py-2')}
 						>
 							<span className='menu-title'>{module.module}</span>
 						</Link>
 					</div>
 				))}
-			</div>
+			</div> */}
 		</>
 	)
 }
