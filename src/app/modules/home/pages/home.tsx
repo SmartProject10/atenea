@@ -22,7 +22,7 @@ export function Home(): JSX.Element {
 			<div className="d-flex flex-row justify-content-between">
 				<div>
 					<p className="fw-bold fs-1 mb-0">Inicio</p>
-					<p className="text-muted fw-bold fs-7">Bienvenido, Socio de Iso and Iso</p>
+					<p className="text-muted fw-bold fs-7">Bienvenido, Socio Programador</p>
 				</div>
 
 				<div>
