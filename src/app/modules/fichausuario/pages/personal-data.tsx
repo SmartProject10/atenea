@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 const data = [
 	{
@@ -53,9 +55,23 @@ const data = [
 ]
 
 export function PersonalDataSection() {
+	const [showModal, setShowModal] = useState(false);
+	const [currentField, setCurrentField] = useState({ name: '', value: '' });
+
 	const handleEdit = (name: string) => {
-		// Logic to enable editing for the specific field
-		console.log(`Edit ${name}`);
+		const field = data.find(item => item.name === name);
+		if (field) {
+			setCurrentField({ name: field.name, value: field.value });
+			setShowModal(true);
+		}
+	}
+
+	const handleSave = () => {
+		const field = data.find(item => item.name === currentField.name);
+		if (field) {
+			field.value = currentField.value;
+		}
+		setShowModal(false);
 	}
 
 	return (
@@ -73,15 +89,26 @@ export function PersonalDataSection() {
 										{item.title}
 									</label>
 									<div className="col-lg-8 col-md-9 col-sm-12 position-relative">
-										{['phone', 'email', 'address'].includes(item.name) && (
+										{['birthdate', 'phone', 'sex', 'email', 'country', 'address'].includes(item.name) && (
 											<button
-												type="button"
-												className="btn btn-link p-0 position-absolute"
-												style={{ right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#007bff' }}
-												onClick={() => handleEdit(item.name)}
-											>
-												<MdEdit size={18} />
-											</button>
+											type="button"
+											className="btn btn-link p-0 position-absolute"
+											style={{
+											  right: '10px',
+											  top: '50%',
+											  transform: 'translateY(-50%)',
+											  color: '#007bff',
+											  fontSize: '14px', 
+											  border: '2px solid #007bff', 
+											  padding: '10px', 
+											  borderRadius: '10px', 
+											  backgroundColor: 'rgba(0, 123, 255, 0.1)', 
+											}}
+											onClick={() => handleEdit(item.name)}
+										  >
+											<MdEdit size={20} />
+										  </button>
+										  
 										)}
 										<input
 											name={item.name}
@@ -100,6 +127,32 @@ export function PersonalDataSection() {
 					</form>
 				</div>
 			</div>
+
+			<Modal show={showModal} onHide={() => setShowModal(false)}>
+				<Modal.Header closeButton>
+					<Modal.Title>Editar Información</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Form>
+						<Form.Group controlId={`form${currentField.name}`}>
+							<Form.Label>{data.find(item => item.name === currentField.name)?.title}</Form.Label>
+							<Form.Control
+								type={data.find(item => item.name === currentField.name)?.type}
+								value={currentField.value}
+								onChange={(e) => setCurrentField({ ...currentField, value: e.target.value })}
+							/>
+						</Form.Group>
+					</Form>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={() => setShowModal(false)}>
+						Cancelar
+					</Button>
+					<Button variant="primary" onClick={handleSave}>
+						Guardar
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		</div>
 	)
 }
