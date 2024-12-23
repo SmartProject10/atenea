@@ -3,8 +3,19 @@ import './carousel.scss'
 import { StatisticsWidget1 } from '../../../../_zeus/partials/widgets';
 import { Home as HomePage } from '../pages/home';
 
+import { useState } from 'react';
+
 export function Home(): JSX.Element {
 	const navigate = useNavigate()
+	const [progress, setProgress] = useState<string>('0');
+	const [earnings, setEarnings] = useState<string>('month'); // State to manage earnings filter
+	const totalHours = 0; // Initialize totalHours with a default value
+
+	const earningsData = {
+		month: 5000,
+		year: 60000,
+		profitPercentage: 0.1
+	};
 
 	return (
 		<div>
@@ -45,31 +56,6 @@ export function Home(): JSX.Element {
 			</div>
 
 			<div className="row mt-8">
-				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="g-col-6 g-col-md-4">
-						<div className="card">
-							<div className="card-body">
-								<div className="card-title fw-bold fs-1">Mesa de ayuda</div>
-								<p className="fw-bold mt-0 mb-12">¿Necesitas asistencia o guía?</p>
-
-								<p className="fw-light fs-6">
-									Para consultas sobre la plataforma, los servicios de ISO AND ISO y otros temas,
-									comunícate con nuestros expertos.
-									El horario de atención es de lunes a viernes en horario de oficina.
-								</p>
-
-								<div className="card bg-gray">
-									<div className="card-body">
-										<p className="m-0 mb-2">Horario de respuesta</p>
-										<p className="m-0 fw-bold">8:00 AM - 8:00 PM</p>
-									</div>
-								</div>
-							</div>
-
-							<button className="btn btn-bg-light btn-color-info">Registrar ticket de ayuda</button>
-						</div>
-					</div>
-				</div>
 
 				<div className="col-lg-4 col-md-6 col-xs-12">
 					<StatisticsWidget1
@@ -87,16 +73,35 @@ export function Home(): JSX.Element {
 							<div className="card-title fw-bold fs-1">Horas Trabajadas</div>
 							
 							<div className="d-flex justify-content-between mb-4">
-								<button className="btn btn-outline-primary">Día</button>
-								<button className="btn btn-outline-primary">Mes</button>
-								<button className="btn btn-outline-primary">Año</button>
+								<button className="btn btn-outline-primary" onClick={() => setProgress('25')}>Día</button>
+								<button className="btn btn-outline-primary" onClick={() => setProgress('50')}>Mes</button>
+								<button className="btn btn-outline-primary" onClick={() => setProgress('75')}>Año</button>
 							</div>
 							
+							<p className="text-center fw-bold fs-2 mb-4">Total: {progress === '25' ? 5 : progress === '50' ? 50 : 200} horas</p>
+							
 							<div className="progress mt-4">
-								<div className="progress-bar" role="progressbar" style={{ width: '75%' }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
-									75%
+								<div className="progress-bar" role="progressbar" style={{ width: `${progress}%` }} aria-valuenow={parseInt(progress)} aria-valuemin={0} aria-valuemax={100}>
+									{progress}%
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+
+				<div className="col-lg-4 col-md-6 col-xs-12">
+					<div className="card">
+						<div className="card-body">
+							<div className="card-title fw-bold fs-1">Ganancias</div>
+							
+							<div className="d-flex justify-content-between mb-4">
+								<button className="btn btn-outline-primary" onClick={() => setEarnings('month')}>Mes</button>
+								<button className="btn btn-outline-primary" onClick={() => setEarnings('year')}>Año</button>
+							</div>
+							
+							<p className="text-center fw-bold fs-2 mb-4">Total: ${earnings === 'month' ? earningsData.month : earningsData.year}</p>
+							
+							<p className="text-center fw-bold fs-2 mb-4">Utilidades: {earningsData.profitPercentage * 100}%</p>
 						</div>
 					</div>
 				</div>
