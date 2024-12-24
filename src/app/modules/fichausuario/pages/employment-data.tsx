@@ -9,11 +9,25 @@ const data = [
 		name: 'code',
 	},
 	{
-		title: 'Sectores de especialización',
+		title: 'Número de identificación profesional',
 		type: 'text',
-		value: 'Finanzas, Salud, Educación',
+		value: '0987654321',
 		disabled: true,
-		name: 'specialization',
+		name: 'professionalId',
+	},
+	{
+		title: 'Especialidades legales, financieras, etc',
+		type: 'text',
+		value: 'Derecho Corporativo, Finanzas Internacionales',
+		disabled: true,
+		name: 'legalSpecialties',
+	},
+	{
+		title: 'Certificaciones o licencias (aplica o no aplica)',
+		type: 'text',
+		value: 'Aplica',
+		disabled: true,
+		name: 'certificationsOrLicenses',
 	},
 	{
 		title: 'Años de experiencia',
@@ -21,13 +35,6 @@ const data = [
 		value: '5',
 		disabled: true,
 		name: 'experience',
-	},
-	{
-		title: 'Certificaciones de auditoría',
-		type: 'text',
-		value: 'ISO 9001, ISO 27001',
-		disabled: true,
-		name: 'auditCertifications',
 	},
 	{
 		title: 'Horario de trabajo',

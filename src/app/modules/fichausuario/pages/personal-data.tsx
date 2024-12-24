@@ -6,7 +6,7 @@ const data = [
 	{
 		title: 'Nombres Completos',
 		type: 'text',
-		value: 'Juan Perez',
+		value: 'Pepe José',
 		disabled: true,
 		name: 'name',
 	},
