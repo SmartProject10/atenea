@@ -1,9 +1,10 @@
 import './FichaUsuario.scss'
 import { BankRegister } from './bank-register'
-import { EmploymentDataSection } from './employment-data'
 import { FamilyPayments } from './family-payments'
 import { PayHistory } from './pay-history'
 import { PersonalDataSection } from './personal-data'
+import { Recibos } from './recibos'
+import { Sistemas } from './sistemas'
 
 
 export function FichaUsuario() {
@@ -23,8 +24,8 @@ export function FichaUsuario() {
 					<i className="bi bi-camera"></i>
 				</button>
 
-				<p className="fw-bold fs-1 mt-5 mb-2">Abel Castillo</p>
-				<p className="fw-bold fs-4 text-muted">Socio programador</p>
+				<p className="fw-bold fs-1 mt-5 mb-2">Angel Aniceto</p>
+				<p className="fw-bold fs-4 text-muted">Administrador</p>
 			</div>
 
 			<ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mt-10 mb-5 fs-5">
@@ -35,16 +36,6 @@ export function FichaUsuario() {
 						href="#kt_tab_pane_1"
 					>
 						Datos personales
-					</a>
-				</li>
-
-				<li className="nav-item">
-					<a
-						className="nav-link"
-						data-bs-toggle="tab"
-						href="#kt_tab_pane_2"
-					>
-						Datos profesionales
 					</a>
 				</li>
 
@@ -77,6 +68,24 @@ export function FichaUsuario() {
 						Historial de pagos
 					</a>
 				</li>
+				<li className="nav-item">
+					<a
+						className="nav-link"
+						data-bs-toggle="tab"
+						href="#kt_tab_pane_6"
+					>
+						Recibos
+					</a>
+				</li>
+				<li className="nav-item">
+					<a
+						className="nav-link"
+						data-bs-toggle="tab"
+						href="#kt_tab_pane_7"
+					>
+						Sistemas
+					</a>
+				</li>
 
 			</ul>
 
@@ -87,13 +96,6 @@ export function FichaUsuario() {
 					role="tabpanel"
 				>
 					<PersonalDataSection />
-				</div>
-				<div
-					className="tab-pane fade"
-					id="kt_tab_pane_2"
-					role="tabpanel"
-				>
-					<EmploymentDataSection />
 				</div>
 				<div
 					className="tab-pane fade"
@@ -115,6 +117,20 @@ export function FichaUsuario() {
 					role="tabpanel"
 				>
 					<PayHistory />
+				</div>
+				<div
+					className="tab-pane fade"
+					id="kt_tab_pane_6"
+					role="tabpanel"
+				>
+					<Recibos />
+				</div>
+				<div
+					className="tab-pane fade"
+					id="kt_tab_pane_7"
+					role="tabpanel"
+				>
+					<Sistemas />
 				</div>
 			</div>
 		</div>

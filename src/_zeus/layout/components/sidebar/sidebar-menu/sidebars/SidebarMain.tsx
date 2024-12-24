@@ -30,7 +30,12 @@ export function SidebarMain(): JSX.Element {
 				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
 				fontIcon="bi-app-indicator"
 			/>
-
+			<SidebarMenuItem
+				to="/tareas"
+				icon="check-circle"
+				title={intl.formatMessage({ id: "MENU.TAREAS" })}
+				fontIcon="bi-app-indicator"
+			/>
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem
 				to="/mesa-ayuda"

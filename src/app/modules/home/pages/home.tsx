@@ -22,7 +22,7 @@ export function Home(): JSX.Element {
 			<div className="d-flex flex-row justify-content-between">
 				<div>
 					<p className="fw-bold fs-1 mb-0">Inicio</p>
-					<p className="text-muted fw-bold fs-7">Bienvenido, Socio Programador</p>
+					<p className="text-muted fw-bold fs-7">Bienvenido, Socio Administrador</p>
 				</div>
 
 				<div>
@@ -70,7 +70,7 @@ export function Home(): JSX.Element {
 				<div className="col-lg-4 col-md-6 col-xs-12">
 					<div className="card">
 						<div className="card-body">
-							<div className="card-title fw-bold fs-1">Horas Trabajadas</div>
+							<div className="card-title fw-bold fs-1">Horas Trabajadas de socios</div>
 							
 							<div className="d-flex justify-content-between mb-4">
 								<button className="btn btn-outline-primary" onClick={() => setProgress('25')}>Día</button>

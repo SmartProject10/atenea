@@ -6,7 +6,7 @@ const data = [
 	{
 		title: 'Nombres Completos',
 		type: 'text',
-		value: 'Abel Castillo',
+		value: 'Angel Aniceto',
 		disabled: true,
 		name: 'name',
 	},
@@ -27,7 +27,7 @@ const data = [
 	{
 		title: 'Correo personal (no institucional)',
 		type: 'email',
-		value: 'abelairton@gmail.com',
+		value: 'smartosh24@gmail.com',
 		disabled: true,
 		name: 'email',
 	},
@@ -41,14 +41,14 @@ const data = [
 	{
 		title: 'País',
 		type: 'text',
-		value: 'Ecuador',
+		value: 'Perú',
 		disabled: true,
 		name: 'country',
 	},
 	{
 		title: 'Número de teléfono',
 		type: 'number',
-		value: '+593 980513677',
+		value: '+51 980513677',
 		disabled: true,
 		name: 'phone',
 	},
