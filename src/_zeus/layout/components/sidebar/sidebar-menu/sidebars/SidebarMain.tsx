@@ -36,6 +36,12 @@ export function SidebarMain(): JSX.Element {
 				title={intl.formatMessage({ id: "MENU.TAREAS" })}
 				fontIcon="bi-app-indicator"
 			/>
+			<SidebarMenuItem
+                to="/socios"
+                icon="people"
+                title={intl.formatMessage({ id: "MENU.SOCIOS" })}
+                fontIcon="bi-app-indicator"
+            />
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem
 				to="/mesa-ayuda"
