@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
+import { Modal, Button, Form } from 'react-bootstrap'
+import { KTIcon } from '@zeus/_zeus/helpers'
 
 function Pagination() {
 	return (
@@ -44,19 +46,19 @@ const data = [
 
 function PayHistoryTable() {
 	return (
-		<div className="table-response my-16">
+		<div className="table-responsive my-16">
 			<table className="table table-bordered">
 				<thead>
 					<tr>
-						<th>Número</th>
-						<th>Fecha del pago</th>
-						<th>Método de pago</th>
-						<th>Beneficiario</th>
-						<th>Descripción</th>
-						<th>Número de referencia</th>
-						<th>Estado del pago</th>
-						<th>Porcentaje de utilidad recibida</th>
-						<th>Notas adicionales</th>
+						<th style={{ minWidth: '80px' }}>Número</th>
+						<th style={{ minWidth: '150px' }}>Fecha del pago</th>
+						<th style={{ minWidth: '150px' }}>Método de pago</th>
+						<th style={{ minWidth: '150px' }}>Beneficiario</th>
+						<th style={{ minWidth: '200px' }}>Descripción</th>
+						<th style={{ minWidth: '200px' }}>Número de referencia</th>
+						<th style={{ minWidth: '150px' }}>Estado del pago</th>
+						<th style={{ minWidth: '200px' }}>Porcentaje de utilidad recibida</th>
+						<th style={{ minWidth: '200px' }}>Notas adicionales</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -84,8 +86,24 @@ function PayHistoryTable() {
 }
 
 export function PayHistory() {
+	const [showModal, setShowModal] = useState(false)
+
+	const handleShow = () => setShowModal(true)
+	const handleClose = () => setShowModal(false)
+
 	return (
 		<div className="card">
+			<div className="card-header align-items-center">
+				<h5 className="card-title flex-1 align-items-center">Historial de Pagos</h5>
+				<button className="btn btn-primary btn-sm" onClick={handleShow}>
+					<KTIcon
+						iconName="add-item"
+						iconType="duotone"
+					/>
+					Agregar pago
+				</button>
+				<AddPaymentModal show={showModal} handleClose={handleClose} />
+			</div>
 			<div className="card-body">
 				<div className="card-content">
 					<p>
@@ -112,4 +130,67 @@ function exportToExcel() {
 	const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
 	const blob = new Blob([wbout], { type: 'application/octet-stream' })
 	saveAs(blob, 'historial_de_pagos.xlsx')
+}
+
+interface AddPaymentModalProps {
+	show: boolean
+	handleClose: () => void
+}
+
+function AddPaymentModal({ show, handleClose }: AddPaymentModalProps) {
+	return (
+		<Modal show={show} onHide={handleClose}>
+			<Modal.Header closeButton>
+				<Modal.Title>Agregar pago</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<Form>
+					<Form.Group controlId="formNumero">
+						<Form.Label>Número</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese el número" />
+					</Form.Group>
+					<Form.Group controlId="formFechaPago">
+						<Form.Label>Fecha del pago</Form.Label>
+						<Form.Control type="date" />
+					</Form.Group>
+					<Form.Group controlId="formMetodoPago">
+						<Form.Label>Método de pago</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese el método de pago" />
+					</Form.Group>
+					<Form.Group controlId="formBeneficiario">
+						<Form.Label>Beneficiario</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese el beneficiario" />
+					</Form.Group>
+					<Form.Group controlId="formDescripcion">
+						<Form.Label>Descripción</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese la descripción" />
+					</Form.Group>
+					<Form.Group controlId="formNumeroReferencia">
+						<Form.Label>Número de referencia</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese el número de referencia" />
+					</Form.Group>
+					<Form.Group controlId="formEstadoPago">
+						<Form.Label>Estado del pago</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese el estado del pago" />
+					</Form.Group>
+					<Form.Group controlId="formPorcentajeUtilidad">
+						<Form.Label>Porcentaje de utilidad recibida</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese el porcentaje de utilidad recibida" />
+					</Form.Group>
+					<Form.Group controlId="formNotasAdicionales">
+						<Form.Label>Notas adicionales</Form.Label>
+						<Form.Control type="text" placeholder="Ingrese las notas adicionales" />
+					</Form.Group>
+				</Form>
+			</Modal.Body>
+			<Modal.Footer>
+				<Button variant="secondary" onClick={handleClose}>
+					Cerrar
+				</Button>
+				<Button variant="primary" onClick={handleClose}>
+					Agregar pago
+				</Button>
+			</Modal.Footer>
+		</Modal>
+	)
 }

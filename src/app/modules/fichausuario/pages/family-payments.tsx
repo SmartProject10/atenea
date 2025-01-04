@@ -46,21 +46,21 @@ const data = [
 
 function FamilyPaymentsTable() {
 	return (
-		<div className="table-response my-16">
+		<div className="table-responsive my-16">
 			<table className="table table-bordered">
 				<thead>
 					<tr>
-						<th>Número</th>
-						<th>Nombre del familiar</th>
-						<th>Relación con el socio</th>
-						<th>Número de cuenta del familiar</th>
-						<th>Tipo de cuenta</th>
-						<th>País del familiar</th>
-						<th>Dirección del familiar</th>
-						<th>Correo electrónico del familiar</th>
-						<th>Número de teléfono del familiar</th>
-						<th>Porcentaje de utilidad a recibir</th>
-						<th>Autorización del familiar</th>
+						<th style={{ minWidth: '80px' }}>Número</th>
+						<th style={{ minWidth: '150px' }}>Nombre del familiar</th>
+						<th style={{ minWidth: '100px' }}>Relación</th>
+						<th style={{ minWidth: '150px' }}>Número de cuenta</th>
+						<th style={{ minWidth: '140px' }}>Tipo de cuenta</th>
+						<th style={{ minWidth: '100px' }}>País</th>
+						<th style={{ minWidth: '200px' }}>Dirección</th>
+						<th style={{ minWidth: '200px' }}>Correo electrónico</th>
+						<th style={{ minWidth: '100px' }}>Teléfono</th>
+						<th style={{ minWidth: '120px' }}>Porcentaje</th>
+						<th style={{ minWidth: '150px' }}>Autorización</th>
 					</tr>
 				</thead>
 				<tbody>
