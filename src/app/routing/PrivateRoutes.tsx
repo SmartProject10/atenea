@@ -5,6 +5,7 @@ import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.
 import { ComisionesRoutes } from '../modules/comisiones/comisiones.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
+import { Ranking } from '../modules/ranking/ranking.routes'; 
 import { MenuTestPage } from '../pages/MenuTestPage'
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
@@ -28,6 +29,7 @@ export const PrivateRoutes = () => {
 				<Route path="menu-test" element={<MenuTestPage />} />
 				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
 				<Route path="comisiones/*" element={<ComisionesRoutes />} />
+				<Route path="ranking/*" element={<Ranking />} />
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />

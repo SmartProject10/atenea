@@ -10,6 +10,7 @@ import { Logout } from '../modules/_auth/pages/Logout'
 import { ErrorsPage } from '../modules/errors/ErrorsPage'
 import { SelectCompanyRoutes } from '../modules/selectCompany/selecCompany.routes'
 
+
 /**
  * Base URL of the website.
  *

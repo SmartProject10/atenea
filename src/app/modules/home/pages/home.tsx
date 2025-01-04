@@ -8,7 +8,7 @@ import { useState } from 'react';
 export function Home(): JSX.Element {
 	const navigate = useNavigate()
 	const [progress, setProgress] = useState<string>('0');
-	const [earnings, setEarnings] = useState<string>('month'); // State to manage earnings filter
+	const [earnings, setEarnings] = useState<'month' | 'year'>('month'); // State to manage earnings filter
 	const totalHours = 0; // Initialize totalHours with a default value
 
 	const earningsData = {
@@ -18,15 +18,11 @@ export function Home(): JSX.Element {
 	};
 
 	return (
-		<div>
+		<div className="container mt-4">
 			<div className="d-flex flex-row justify-content-between">
 				<div>
 					<p className="fw-bold fs-1 mb-0">Inicio</p>
 					<p className="text-muted fw-bold fs-7">Bienvenido, Socio Programador</p>
-				</div>
-
-				<div>
-					<button className="btn btn-secondary" onClick={() => navigate('/ficha-usuario')}>Ver mi perfil</button>
 				</div>
 			</div>
 
@@ -56,7 +52,6 @@ export function Home(): JSX.Element {
 			</div>
 
 			<div className="row mt-8">
-
 				<div className="col-lg-4 col-md-6 col-xs-12">
 					<StatisticsWidget1
 						className="card-xl-stretch mb-xl-8"
@@ -67,41 +62,38 @@ export function Home(): JSX.Element {
 					/>
 				</div>
 
-				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="card">
-						<div className="card-body">
-							<div className="card-title fw-bold fs-1">Horas Trabajadas</div>
-							
-							<div className="d-flex justify-content-between mb-4">
-								<button className="btn btn-outline-primary" onClick={() => setProgress('25')}>Día</button>
-								<button className="btn btn-outline-primary" onClick={() => setProgress('50')}>Mes</button>
-								<button className="btn btn-outline-primary" onClick={() => setProgress('75')}>Año</button>
-							</div>
-							
-							<p className="text-center fw-bold fs-2 mb-4">Total: {progress === '25' ? 5 : progress === '50' ? 50 : 200} horas</p>
-							
-							<div className="progress mt-4">
-								<div className="progress-bar" role="progressbar" style={{ width: `${progress}%` }} aria-valuenow={parseInt(progress)} aria-valuemin={0} aria-valuemax={100}>
-									{progress}%
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="card">
-						<div className="card-body">
-							<div className="card-title fw-bold fs-1">Ganancias</div>
-							
-							<div className="d-flex justify-content-between mb-4">
-								<button className="btn btn-outline-primary" onClick={() => setEarnings('month')}>Mes</button>
-								<button className="btn btn-outline-primary" onClick={() => setEarnings('year')}>Año</button>
-							</div>
-							
-							<p className="text-center fw-bold fs-2 mb-4">Total: ${earnings === 'month' ? earningsData.month : earningsData.year}</p>
-							
-							<p className="text-center fw-bold fs-2 mb-4">Utilidades: {earningsData.profitPercentage * 100}%</p>
+				<div className="col-lg-8 col-md-12 col-xs-12">
+					<div className="card-xl-stretch mb-xl-8 position-relative">
+						<StatisticsWidget1
+							className="mb-4"
+							image="abstract-1.svg"
+							title="Horas Totales Acumuladas"
+							time=""
+							description="Total: 1000 horas"
+						/>
+						<StatisticsWidget1
+							className="mb-4"
+							image="abstract-2.svg"
+							title="Horas Totales de Programadores"
+							time=""
+							description="Total: 8000 horas"
+						/>
+						<StatisticsWidget1
+							className="mb-4"
+							image="abstract-3.svg"
+							title="Mis Horas Trabajadas"
+							time=""
+							description="Total: 200 horas"
+						/>
+						<StatisticsWidget1
+							className="mb-4"
+							image="abstract-4.svg"
+							title="Mis Horas en el Último Mes"
+							time=""
+							description="Total: 50 horas"
+						/>
+						<div className="d-flex justify-content-end">
+							<button className="btn btn-primary mt-2 me-2" onClick={() => navigate('/ranking')}>Ver Más</button>
 						</div>
 					</div>
 				</div>

@@ -36,5 +36,7 @@
   "AUTH.VALIDATION.INVALID_FIELD": "Field is not valid",
   "MENU.DASHBOARD": "Inicio",
   "MENU.USER_TAB": "Mi perfil",
-  "MENU.COMISIONES": "Comisiones"
+  "MENU.COMISIONES": "Comisiones",
+  "MENU.RANKING": "Ranking",
+  "MENU.TAREAS": "Tareas"
 }

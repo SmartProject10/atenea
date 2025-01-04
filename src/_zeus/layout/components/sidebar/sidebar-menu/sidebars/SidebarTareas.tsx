@@ -3,7 +3,7 @@ import { SidebarMenuItem } from "../components/SidebarMenuItem";
 import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 import { SidebarSubtitle } from "../components/SidebarSubtitle";
 
-export const SidebarFichaUsuario = () => {
+export const SidebarTareas = () => {
 	const intl = useIntl();
 
 	return (
@@ -23,7 +23,7 @@ export const SidebarFichaUsuario = () => {
 				fontIcon="bi-app-indicator"
 			/>
 
-			<SidebarMenuItem
+            <SidebarMenuItem
                 to="/tareas"
                 icon="check-circle"
                 title={intl.formatMessage({ id: "MENU.TAREAS" })}

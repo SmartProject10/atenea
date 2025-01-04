@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
-
 import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
 import { SidebarComisiones } from './sidebars/SidebarComisiones'
 import { SidebarMain } from './sidebars/SidebarMain'
+import { SidebarTareas } from './sidebars/SidebarTareas'
+import { SidebarRanking } from './sidebars/SidebarRanking'
 
 interface SidebarMenuProps {
 	handleReloadMenu: () => void;
@@ -50,6 +51,8 @@ export const SidebarMenu = ({ handleReloadMenu }: SidebarMenuProps) => {
 					{isSidebarMain && <SidebarMain />}
 					{isSidebarFichaUsuario && <SidebarFichaUsuario />}
 					{pathname.startsWith('/comisiones') && <SidebarComisiones />}
+					{pathname.startsWith('/tareas') && <SidebarTareas />}
+					{pathname.startsWith('/ranking') && <SidebarRanking />}
 				</div>
 			</div>
 		</div>
