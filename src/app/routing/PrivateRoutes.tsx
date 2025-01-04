@@ -6,6 +6,7 @@ import { ComisionesRoutes } from '../modules/comisiones/comisiones.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { Ranking } from '../modules/ranking/ranking.routes'; 
+import { TareasRoutes } from '../modules/tareas/tareas.routes.tsx'
 import { MenuTestPage } from '../pages/MenuTestPage'
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
@@ -30,6 +31,7 @@ export const PrivateRoutes = () => {
 				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
 				<Route path="comisiones/*" element={<ComisionesRoutes />} />
 				<Route path="ranking/*" element={<Ranking />} />
+				<Route path="tareas/*" element={<TareasRoutes />} />
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
