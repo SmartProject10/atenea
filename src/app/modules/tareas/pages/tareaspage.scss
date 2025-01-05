@@ -2,7 +2,6 @@
     padding: 20px;
     background-color: #f0f2f5;
     height: 100vh;
-    overflow: auto;
 
     .send-progress-button {
         margin-bottom: 20px;
@@ -46,7 +45,6 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        overflow-x: auto;
 
         .task-column {
             flex: 1;
