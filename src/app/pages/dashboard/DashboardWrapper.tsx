@@ -14,7 +14,15 @@ const DashboardWrapper: FC = () => {
     datasets: [
       {
         label: 'Ingresos Mensuales',
-        backgroundColor: 'rgba(75,192,192,1)',
+        backgroundColor: [
+          'rgba(75,192,192,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+        ],
         borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
@@ -29,7 +37,15 @@ const DashboardWrapper: FC = () => {
     datasets: [
       {
         label: 'Clientes',
-        backgroundColor: 'rgba(153,102,255,1)',
+        backgroundColor: [
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(255,206,86,1)',
+          'rgba(153,102,255,1)',
+        ],
         borderColor: 'rgba(153,102,255,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(153,102,255,0.4)',
@@ -44,7 +60,15 @@ const DashboardWrapper: FC = () => {
     datasets: [
       {
         label: 'Horas Programadas',
-        backgroundColor: 'rgba(255,159,64,1)',
+        backgroundColor: [
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,206,86,1)',
+          'rgba(255,159,64,1)',
+        ],
         borderColor: 'rgba(255,159,64,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255,159,64,0.4)',
@@ -59,7 +83,15 @@ const DashboardWrapper: FC = () => {
     datasets: [
       {
         label: 'Usuarios',
-        backgroundColor: 'rgba(54,162,235,1)',
+        backgroundColor: [
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(255,206,86,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+        ],
         borderColor: 'rgba(54,162,235,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(54,162,235,0.4)',
@@ -74,7 +106,13 @@ const DashboardWrapper: FC = () => {
     datasets: [
       {
         label: 'Ranking',
-        backgroundColor: 'rgba(255,99,132,1)',
+        backgroundColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+        ],
         borderColor: 'rgba(255,99,132,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255,99,132,0.4)',
@@ -89,7 +127,13 @@ const DashboardWrapper: FC = () => {
     datasets: [
       {
         label: 'Horas trabajadas',
-        backgroundColor: 'rgba(75,192,192,1)',
+        backgroundColor: [
+          'rgba(75,192,192,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+        ],
         borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
