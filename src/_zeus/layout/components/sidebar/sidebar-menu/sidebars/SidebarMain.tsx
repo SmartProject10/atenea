@@ -10,7 +10,7 @@ export function SidebarMain(): JSX.Element {
     return (
 		<>
 			<SidebarMenuItem
-				to="/dashboard"
+				to="/home"
 				icon="home"
 				title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
 				fontIcon="bi-app-indicator"
@@ -21,6 +21,13 @@ export function SidebarMain(): JSX.Element {
 				to="/comisiones"
 				icon="abstract-1"
 				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
+				fontIcon="bi-app-indicator"
+			/>
+			
+			<SidebarMenuItem
+				to="/dashboard"
+				icon= "percentage"
+				title="Estadísticas"
 				fontIcon="bi-app-indicator"
 			/>
 

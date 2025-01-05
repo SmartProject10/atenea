@@ -9,12 +9,12 @@ export const SidebarComisiones = () => {
 	return (
 		<>
 			<SidebarMenuItem
-				to="/dashboard"
+				to="/home"
 				icon="home"
 				title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
 				fontIcon="bi-app-indicator"
 			/>
-		
+
 			<SidebarSubtitle label="empresa" />
 			<SidebarMenuItem
 				to="/comisiones"
@@ -23,6 +23,13 @@ export const SidebarComisiones = () => {
 				fontIcon="bi-app-indicator"
 			/>
 			
+			<SidebarMenuItem
+				to="/dashboard"
+				icon= "percentage"
+				title="Estadísticas"
+				fontIcon="bi-app-indicator"
+			/>
+
 			<SidebarMenuItem
 				to="/tareas"
 				icon="check-circle"

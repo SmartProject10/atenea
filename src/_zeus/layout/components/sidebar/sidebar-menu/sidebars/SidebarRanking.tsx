@@ -9,7 +9,7 @@ export const SidebarRanking = () => {
 	return (
 		<>
 			<SidebarMenuItem
-				to="/dashboard"
+				to="/home"
 				icon="home"
 				title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
 				fontIcon="bi-app-indicator"
@@ -22,13 +22,20 @@ export const SidebarRanking = () => {
 				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
 				fontIcon="bi-app-indicator"
 			/>
+			
+			<SidebarMenuItem
+				to="/dashboard"
+				icon= "percentage"
+				title="Estadísticas"
+				fontIcon="bi-app-indicator"
+			/>
 
-            <SidebarMenuItem
-                to="/tareas"
-                icon="check-circle"
-                title={intl.formatMessage({ id: "MENU.TAREAS" })}
-                fontIcon="bi-app-indicator"
-            />
+			<SidebarMenuItem
+				to="/tareas"
+				icon="check-circle"
+				title={intl.formatMessage({ id: "MENU.TAREAS" })}
+				fontIcon="bi-app-indicator"
+			/>
 
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem

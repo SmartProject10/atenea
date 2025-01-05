@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Input, Select, notification, Table, Tag, DatePicker, Upload } from 'antd';
-import { BellOutlined, EditOutlined, DeleteOutlined, SearchOutlined, UploadOutlined } from '@ant-design/icons';
+import { Modal, Button, Form, Input, Select, notification, Table, Tag, DatePicker, Upload, Progress } from 'antd';
+import { BellOutlined, EditOutlined, DeleteOutlined, SearchOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { saveAs } from 'file-saver';
 import './tareaspage.scss';
 import moment from 'moment';
 
@@ -9,7 +10,7 @@ const { Option } = Select;
 
 const TareasPage: React.FC = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [tasks, setTasks] = useState<{ id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents?: any[] }[]>([
+    const [tasks, setTasks] = useState<{ id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents?: any[]; comments?: string; progress?: number }[]>([
         {
             id: 1,
             title: 'Tarea 1',
@@ -20,7 +21,9 @@ const TareasPage: React.FC = () => {
             dueDate: '2025-01-10',
             priority: 'alta',
             supervisor: 'Supervisor 1',
-            documents: []
+            documents: [],
+            comments: '',
+            progress: 0
         },
         {
             id: 2,
@@ -32,7 +35,9 @@ const TareasPage: React.FC = () => {
             dueDate: '2025-01-15',
             priority: 'media',
             supervisor: 'Supervisor 2',
-            documents: []
+            documents: [],
+            comments: '',
+            progress: 50
         },
         {
             id: 3,
@@ -44,11 +49,13 @@ const TareasPage: React.FC = () => {
             dueDate: '2025-01-20',
             priority: 'baja',
             supervisor: 'Supervisor 3',
-            documents: []
+            documents: [],
+            comments: '',
+            progress: 100
         }
     ]);
-    const [newTask, setNewTask] = useState<{ id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents: any[] }>({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [] });
-    const [editingTask, setEditingTask] = useState<{ id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents?: any[] } | null>(null);
+    const [newTask, setNewTask] = useState<{ id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents: any[]; comments?: string; progress?: number }>({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [], comments: '', progress: 0 });
+    const [editingTask, setEditingTask] = useState<{ id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents?: any[]; comments?: string; progress?: number } | null>(null);
 
     const showModal: () => void = () => {
         setIsModalVisible(true);
@@ -62,7 +69,7 @@ const TareasPage: React.FC = () => {
             setTasks([...tasks, newTask]);
         }
         setIsModalVisible(false);
-        setNewTask({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [] });
+        setNewTask({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [], comments: '', progress: 0 });
         notification.success({ message: 'Tarea agregada exitosamente' });
     };
 
@@ -86,7 +93,7 @@ const TareasPage: React.FC = () => {
         setNewTask({ ...newTask, [field]: dateString });
     };
 
-    const handleEdit = (task: { id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents?: any[] }) => {
+    const handleEdit = (task: { id: number; title: string; description: string; stage: string; status: string; sendDate?: string; dueDate?: string; priority?: string; supervisor?: string; documents?: any[]; comments?: string; progress?: number }) => {
         setNewTask({ ...task, documents: task.documents || [] });
         setEditingTask(task);
         setIsModalVisible(true);
@@ -104,6 +111,27 @@ const TareasPage: React.FC = () => {
         movedTask.stage = result.destination.droppableId;
         updatedTasks.splice(result.destination.index, 0, movedTask);
         setTasks(updatedTasks);
+    };
+
+    const exportToCSV = () => {
+        const csvContent = [
+            ['ID', 'Título', 'Descripción', 'Estado', 'Fecha de Envío', 'Fecha de Vencimiento', 'Prioridad', 'Supervisor', 'Comentarios', 'Progreso'],
+            ...tasks.map(task => [
+                task.id,
+                task.title,
+                task.description,
+                task.status,
+                task.sendDate,
+                task.dueDate,
+                task.priority,
+                task.supervisor,
+                task.comments,
+                task.progress
+            ])
+        ].map(e => e.join(",")).join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        saveAs(blob, 'tareas.csv');
     };
 
     const columns = [
@@ -242,6 +270,17 @@ const TareasPage: React.FC = () => {
             render: (documents: any[]) => documents.length,
         },
         {
+            title: 'Comentarios',
+            dataIndex: 'comments',
+            key: 'comments',
+        },
+        {
+            title: 'Progreso',
+            dataIndex: 'progress',
+            key: 'progress',
+            render: (progress: number) => <Progress percent={progress} />,
+        },
+        {
             title: 'Acciones',
             key: 'actions',
             render: (_text: string, record: { id: number; title: string; description: string; stage: string; status: string }) => (
@@ -258,6 +297,9 @@ const TareasPage: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Button type="primary" className="send-progress-button">
                     Enviar Avances
+                </Button>
+                <Button type="default" icon={<DownloadOutlined />} onClick={exportToCSV} style={{ marginLeft: 8 }}>
+                    Exportar CSV
                 </Button>
             </div>
             <div className="header">
@@ -292,6 +334,7 @@ const TareasPage: React.FC = () => {
                                                 >
                                                     <h3>{task.title}</h3>
                                                     <p>{task.description}</p>
+                                                    <Progress percent={task.progress} />
                                                     <Button icon={<EditOutlined />} onClick={() => handleEdit(task)} />
                                                     <Button icon={<DeleteOutlined />} onClick={() => handleDelete(task.id)} />
                                                 </div>
@@ -317,6 +360,9 @@ const TareasPage: React.FC = () => {
                         </Form.Item>
                         <Form.Item label="Observaciones">
                             <Input.TextArea name="description" value={newTask.description} onChange={handleChange} />
+                        </Form.Item>
+                        <Form.Item label="Comentarios">
+                            <Input.TextArea name="comments" value={newTask.comments} onChange={handleChange} />
                         </Form.Item>
                         <Form.Item label="Adjuntar Archivo">
                             <Upload>
