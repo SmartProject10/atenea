@@ -21,16 +21,17 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                         <Form.Label>Nombre de la tarea</Form.Label>
                         <Form.Control type="text" placeholder="Ingrese el nombre de la tarea" />
                     </Form.Group>
-                    <Form.Group controlId="formTaskHours">
-                        <Form.Label>Horas de la tarea</Form.Label>
-                        <Form.Control type="number" placeholder="Ingrese las horas de la tarea" />
-                    </Form.Group>
-                    <Form.Group controlId="formDifficultyLevel">
-                        <Form.Label>Nivel de dificultad</Form.Label>
-                        <Form.Control type="text" placeholder="Ingrese el nivel de dificultad" />
+                    <Form.Group controlId="formSystemName">
+                        <Form.Label>Nombre del sistema</Form.Label>
+                        <Form.Control as="select">
+                            <option value="">Seleccione el sistema</option>
+                            <option value="ISO 45001">ISO 45001</option>
+                            <option value="ISO 9001">ISO 9001</option>
+                            <option value="ISO 14001">ISO 14001</option>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formProgrammerType">
-                        <Form.Label>Tipo de programador</Form.Label>
+                        <Form.Label>Título de programador</Form.Label>
                         <Form.Control as="select">
                             <option value="">Seleccione el tipo de programador</option>
                             <option value="artist"><strong>Artista:</strong> valor de 1.5 (vistas front)</option>
@@ -43,32 +44,9 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                             <option value="todos">Todos</option>
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group controlId="formProgrammerSearch">
-                        <Form.Label>Buscar programador</Form.Label>
-                        <InputGroup>
-                            <Form.Control type="text" placeholder="Buscar al programador(s)" />
-                            <InputGroup.Text>
-                                <Button variant="outline-secondary">
-                                    <FaSearch />
-                                </Button>
-                            </InputGroup.Text>
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group controlId="formExperienceYears">
-                        <Form.Label>Años de experiencia</Form.Label>
-                        <Form.Control type="number" placeholder="Aquí cargan los años de exp del programador, ej. (5)" disabled />
-                    </Form.Group>
                     <Form.Group controlId="formAssignmentDate">
                         <Form.Label>Fecha de asignación</Form.Label>
-                        <Form.Control type="date" />
-                    </Form.Group>
-                    <Form.Group controlId="formDueDate">
-                        <Form.Label>Fecha de vencimiento</Form.Label>
-                        <Form.Control type="date" />
-                    </Form.Group>
-                    <Form.Group controlId="formLastDate">
-                        <Form.Label>Última fecha</Form.Label>
-                        <Form.Control type="date" />
+                        <Form.Control type="date" defaultValue={new Date().toISOString().split('T')[0]} readOnly />
                     </Form.Group>
                     <Form.Group controlId="formPriority">
                         <Form.Label>Prioridad</Form.Label>
