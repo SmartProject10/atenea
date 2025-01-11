@@ -3,6 +3,7 @@ import { Modal, Button, Form, Input, Select, DatePicker, Upload, Progress, Row, 
 import { EditOutlined, DeleteOutlined, SearchOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 import { saveAs } from 'file-saver';
 import './tareaspage.scss';
+import dayjs, { Dayjs } from 'dayjs';
 import moment from 'moment';
 import { ColumnsType } from 'antd/es/table';
 
@@ -27,7 +28,8 @@ const TareasPage: React.FC = () => {
             documents: [],
             comments: '',
             progress: 0,
-            difficulty: 'facil'
+            difficulty: 'facil',
+            link: ''
         },
         {
             id: 2,
@@ -41,8 +43,9 @@ const TareasPage: React.FC = () => {
             supervisor: 'Supervisor 2',
             documents: [],
             progress: 50,
-            difficulty: 'medio',
-            comments: ''
+            comments: '',
+            link: '',
+            difficulty: 'media'
         },
         {
             id: 3,
@@ -57,10 +60,12 @@ const TareasPage: React.FC = () => {
             documents: [],
             progress: 100,
             difficulty: 'dificil',
-            comments: ''
+            comments: '',
+            link: ''
         }
     ]);
     interface Task {
+        link: string;
         id: number;
         title: string;
         description: string;
@@ -77,7 +82,7 @@ const TareasPage: React.FC = () => {
         assignedTo?: string;
     }
     
-    const [newTask, setNewTask] = useState<Task>({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [], comments: '', progress: 0, difficulty: '', assignedTo: '' });
+    const [newTask, setNewTask] = useState<Task>({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [], comments: '', progress: 0, difficulty: '', assignedTo: '', link: '' });
     const [editingTask, setEditingTask] = useState<Task | null>(null);
 
     const showModal = () => {
@@ -92,7 +97,7 @@ const TareasPage: React.FC = () => {
             setTasks([...tasks, newTask]);
         }
         setIsModalVisible(false);
-        setNewTask({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [], comments: '', progress: 0, difficulty: '' });
+        setNewTask({ id: tasks.length + 1, title: '', description: '', stage: 'asignada', status: 'incompleta', sendDate: '', dueDate: '', priority: '', supervisor: '', documents: [], comments: '', progress: 0, difficulty: '', link: '' });
         notification.success({ message: 'Tarea agregada exitosamente' });
     };
 
@@ -109,11 +114,9 @@ const TareasPage: React.FC = () => {
         setNewTask({ ...newTask, [field]: value });
     };
 
-    const handleDateChange = (_date: moment.Moment | null, dateString: string | [string, string], field: string) => {
-        if (Array.isArray(dateString)) {
-            dateString = dateString[0];
-        }
-        setNewTask({ ...newTask, [field]: dateString });
+    const handleDateChange = (_date: Dayjs | null, dateString: string, field: string) => {
+        const dateStr = Array.isArray(dateString) ? dateString[0] : dateString;
+        setNewTask({ ...newTask, [field]: dateStr });
     };
 
     const handleEdit = (task: typeof newTask) => {
@@ -311,13 +314,6 @@ const TareasPage: React.FC = () => {
             onFilter: (value, record) => record.difficulty.includes(value as string),
         },
         {
-            title: 'Reunión',
-            key: 'meeting',
-            render: (_text, record) => (
-                <Button onClick={() => showMeetingModal(record)}>Reunión</Button>
-            ),
-        },
-        {
             title: 'Acciones',
             key: 'actions',
             render: (_text: any, record: typeof newTask) => (
@@ -483,28 +479,54 @@ const TareasPage: React.FC = () => {
                 </Form>
             </Modal>
             <Modal title={editingTask ? "Editar Tarea" : "Agregar Nueva Tarea"} open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                    <Form layout="vertical">
-                        <Form.Item label="Estado">
-                            <Select value={newTask.status} onChange={(value) => handleSelectChange(value, 'status')} dropdownStyle={{ maxHeight: 200, overflow: 'auto' }}>
-                                <Option value="enviada">Enviada</Option>
-                                <Option value="incompleta">Incompleta</Option>
-                                <Option value="en proceso">En Proceso</Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item label="Observaciones">
-                            <Input.TextArea name="description" value={newTask.description} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Comentarios">
-                            <Input.TextArea name="comments" value={newTask.comments} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Adjuntar Archivo">
-                            <Upload>
-                                <Button icon={<UploadOutlined />}>Seleccionar Archivo</Button>
-                            </Upload>
-                        </Form.Item>
-                    </Form>
-                </div>
+                <Form layout="vertical">
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item label="Estado">
+                                <Select value={newTask.status} onChange={(value) => handleSelectChange(value, 'status')} dropdownStyle={{ maxHeight: 200, overflow: 'auto' }}>
+                                    <Option value="enviada">Enviada</Option>
+                                    <Option value="incompleta">Incompleta</Option>
+                                    <Option value="en proceso">En Proceso</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label="Comentarios">
+                                <Input.TextArea name="comments" value={newTask.comments} onChange={handleChange} />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item label="Adjuntar Archivo">
+                                <Upload>
+                                    <Button icon={<UploadOutlined />}>Seleccionar Archivo</Button>
+                                </Upload>
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label="Horario del Trabajador">
+                                <Input value="Lunes a Viernes, 9:00 AM - 6:00 PM" disabled />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item label="Fecha y Hora">
+                                <DatePicker
+                                    showTime
+                                    format="YYYY-MM-DD HH:mm:ss"
+                                    onChange={(date, dateString) => handleDateChange(date, dateString as string, 'sendDate')}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label="Enlace">
+                                <Input name="link" value={newTask.link} onChange={handleChange} placeholder="Ingrese el enlace" />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Form>
             </Modal>
         </div>
     );
