@@ -4,7 +4,7 @@ import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 import { SidebarSubtitle } from "../components/SidebarSubtitle";
 
 
-export function SidebarSocios(): JSX.Element {
+export function SidebarCompras(): JSX.Element {
     const intl = useIntl();
 
     return (
@@ -29,19 +29,21 @@ export function SidebarSocios(): JSX.Element {
                 title={intl.formatMessage({ id: "MENU.TAREAS" })}
                 fontIcon="bi-app-indicator"
             />
+
             <SidebarMenuItem
                 to="/socios"
                 icon="people"
                 title={intl.formatMessage({ id: "MENU.SOCIOS" })}
                 fontIcon="bi-app-indicator"
             />
-
+            
             <SidebarMenuItem
                 to="/compras"
                 icon="shop"
                 title={intl.formatMessage({ id: "MENU.COMPRAS" })}
                 fontIcon="bi-app-indicator"
             />
+
             <SidebarSubtitle label="soporte y ayuda" />
             <SidebarMenuItem
                 to="/mesa-ayuda"

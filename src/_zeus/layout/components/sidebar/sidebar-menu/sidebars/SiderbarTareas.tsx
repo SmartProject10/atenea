@@ -22,13 +22,6 @@ export const SidebarTareas = () => {
 				fontIcon="bi-app-indicator"
 			/>
 
-			<SidebarSubtitle label="empresa" />
-			<SidebarMenuItem
-				to="/comisiones"
-				icon="abstract-1"
-				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
-				fontIcon="bi-app-indicator"
-			/>
             <SidebarMenuItem
                 to="/tareas"
                 icon="check-circle"
@@ -41,6 +34,13 @@ export const SidebarTareas = () => {
                 title={intl.formatMessage({ id: "MENU.SOCIOS" })}
                 fontIcon="bi-app-indicator"
             />
+
+			<SidebarMenuItem
+				to="/compras"
+				icon="shop"
+				title={intl.formatMessage({ id: "MENU.COMPRAS" })}
+				fontIcon="bi-app-indicator"
+			/>
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem
 				to="/mesa-ayuda"

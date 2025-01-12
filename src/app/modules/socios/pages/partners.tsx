@@ -35,11 +35,14 @@ const data = [
         nombre: 'Juan Pérez',
         celular: '1234567890',
         tipoSocio: 'Abogado',
+        fechaIngreso: '2023-01-01',
+        fechaSalida: '2023-12-31',
         utilidad: '0.5%',
         ingresoUtilidad: '500',
         nombreBco: 'Banco XYZ',
         numeroCuenta: '123456789',
         estado: 'Activo',
+        idiomas: 'Español, Inglés',
     },
 ]
 
@@ -81,11 +84,14 @@ function DeveloperTable() {
                         <th>Nombre</th>
                         <th>Celular</th>
                         <th>Tipo de Socio</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Salida</th>
                         <th>Utilidad</th>
                         <th>Ingreso Utilidad</th>
                         <th>Nombre Bco</th>
                         <th>Número de cuenta</th>
                         <th>Estado</th>
+                        <th>Idiomas</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -99,6 +105,8 @@ function DeveloperTable() {
                                     <td>{item.nombre}</td>
                                     <td>{item.celular}</td>
                                     <td>{item.tipoSocio}</td>
+                                    <td>{item.fechaIngreso}</td>
+                                    <td>{item.fechaSalida}</td>
                                     <td>
                                         {editIndex === index ? (
                                             <input
@@ -114,6 +122,7 @@ function DeveloperTable() {
                                     <td>{item.nombreBco}</td>
                                     <td>{item.numeroCuenta}</td>
                                     <td>{item.estado}</td>
+                                    <td>{item.idiomas}</td>
                                     <td>
                                         {editIndex === index ? (
                                             <button className="btn btn-success btn-sm" onClick={() => handleSaveClick(index)}>
@@ -157,6 +166,7 @@ const newApplicantsData = [
         cv: 'cv_ana_gomez.pdf',
         aprobar: false,
         estado: 'Pendiente',
+        idiomas: 'Español, Inglés',
     },
 ]
 
@@ -207,6 +217,7 @@ function NewApplicantsTable() {
                         <th>Tipo de Profesión</th>
                         <th>Años de Experiencia</th>
                         <th>CV</th>
+                        <th>Idiomas</th>
                         <th>Aprobar</th>
                         <th>Estado</th>
                     </tr>
@@ -229,6 +240,7 @@ function NewApplicantsTable() {
                                             <span>Descargar CV</span>
                                         </a>
                                     </td>
+                                    <td>{item.idiomas}</td>
                                     <td>
                                         <label className="switch" style={{ position: 'relative', display: 'inline-block', width: '40px', height: '20px' }}>
                                             <input type="checkbox" checked={item.aprobar} onChange={() => { item.aprobar = !item.aprobar }} style={{ opacity: 0, width: 0, height: 0 }} />
@@ -272,7 +284,7 @@ export function Partners() {
             <div className="card-body">
                 <div className="card-content">
                     <p>
-                        El historial de socios permite a los usuarios almacenar y gestionar la información de los socios de manera segura y eficiente. Los datos registrados incluyen el número, país, nombre, celular, tipo de socio, utilidad, ingreso por utilidad, nombre del banco, número de cuenta y estado.
+                        El historial de socios permite a los usuarios almacenar y gestionar la información de los socios de manera segura y eficiente. Los datos registrados incluyen el número, país, nombre, celular, tipo de socio, fecha de ingreso, fecha de salida, utilidad, ingreso por utilidad, nombre del banco, número de cuenta y estado.
                     </p>
                 </div>
                 <DeveloperTable />

@@ -23,13 +23,6 @@ export function SidebarMain(): JSX.Element {
 				fontIcon="bi-app-indicator"
 			/>
 
-			<SidebarSubtitle label="empresa" />
-			<SidebarMenuItem
-				to="/comisiones"
-				icon="abstract-1"
-				title={intl.formatMessage({ id: "MENU.COMISIONES" })}
-				fontIcon="bi-app-indicator"
-			/>
 			<SidebarMenuItem
 				to="/tareas"
 				icon="check-circle"
@@ -40,6 +33,13 @@ export function SidebarMain(): JSX.Element {
                 to="/socios"
                 icon="people"
                 title={intl.formatMessage({ id: "MENU.SOCIOS" })}
+                fontIcon="bi-app-indicator"
+            />
+
+			<SidebarMenuItem
+                to="/compras"
+                icon="shop"
+                title={intl.formatMessage({ id: "MENU.COMPRAS" })}
                 fontIcon="bi-app-indicator"
             />
 			<SidebarSubtitle label="soporte y ayuda" />

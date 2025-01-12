@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
-import { SidebarComisiones } from './sidebars/SidebarComisiones'
 import { SidebarTareas } from './sidebars/SiderbarTareas'
 import { SidebarSocios } from './sidebars/SidebarSocios'
+import { SidebarCompras } from './sidebars/SiderbarCompras'
 import { SidebarMain } from './sidebars/SidebarMain'
 
 
@@ -51,9 +51,9 @@ export const SidebarMenu = ({ handleReloadMenu }: SidebarMenuProps) => {
 				>
 					{isSidebarMain && <SidebarMain />}
 					{isSidebarFichaUsuario && <SidebarFichaUsuario />}
-					{pathname.startsWith('/comisiones') && <SidebarComisiones />}
 					{pathname.startsWith('/tareas') && <SidebarTareas />}
 					{pathname.startsWith('/socios') && <SidebarSocios />}
+					{pathname.startsWith('/compras') && <SidebarCompras />}
 				</div>
 			</div>
 		</div>

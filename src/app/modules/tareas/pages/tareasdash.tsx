@@ -21,6 +21,15 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                         <Form.Label>Nombre de la tarea</Form.Label>
                         <Form.Control type="text" placeholder="Ingrese el nombre de la tarea" />
                     </Form.Group>
+                    <Form.Group controlId="formCountry">
+                        <Form.Label>País</Form.Label>
+                        <Form.Control as="select">
+                            <option value="">Seleccione el país</option>
+                            <option value="Peru">Peru</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Argentina">Argentina</option>
+                        </Form.Control>
+                    </Form.Group>
                     <Form.Group controlId="formSystemName">
                         <Form.Label>Nombre del sistema</Form.Label>
                         <Form.Control as="select">
@@ -80,6 +89,8 @@ export function Tareas() {
     const tasksData = [
         {
             id: 1,
+            namesystem: 'ISO 45001',
+            country: 'Perú',
             taskName: 'Implementar API',
             taskHours: 10,
             difficultyLevel: 'Media',
@@ -90,21 +101,8 @@ export function Tareas() {
             dueDate: '2023-01-15',
             lastDate: '2023-01-10',
             priority: 'Alta',
+            difficulty: 'Intermedia',
             attachment: 'api-docs.pdf'
-        },
-        {
-            id: 2,
-            taskName: 'Diseñar UI',
-            taskHours: 20,
-            difficultyLevel: 'Alta',
-            programmerType: 'Frontend',
-            programmer: 'María López',
-            experienceYears: 3,
-            assignmentDate: '2023-02-01',
-            dueDate: '2023-02-20',
-            lastDate: '2023-02-18',
-            priority: 'Media',
-            attachment: 'ui-design.pdf'
         }
     ];
 
@@ -193,16 +191,19 @@ export function Tareas() {
                         <thead>
                             <tr>
                                 <th>N°</th>
+                                <th>Nombre del sistema</th>
+                                <th>País</th>
                                 <th>Nombre de la tarea</th>
                                 <th>Horas de la tarea</th>
                                 <th>Nivel de dificultad</th>
-                                <th>Tipo de programador</th>
+                                <th>Tipo de tarea</th>
                                 <th>Programador</th>
                                 <th>Años de experiencia</th>
                                 <th>Fecha de asignación</th>
                                 <th>Fecha de vencimiento</th>
                                 <th>Última fecha</th>
                                 <th>Prioridad</th>
+                                <th>Dificultad</th>
                                 <th>Archivo adjunto</th>
                             </tr>
                         </thead>
@@ -210,6 +211,8 @@ export function Tareas() {
                             {tasksData.map((task) => (
                                 <tr key={task.id}>
                                     <td>{task.id}</td>
+                                    <td>{task.namesystem}</td>
+                                    <td>{task.country}</td>
                                     <td>{task.taskName}</td>
                                     <td>{task.taskHours}</td>
                                     <td>{task.difficultyLevel}</td>
@@ -220,76 +223,8 @@ export function Tareas() {
                                     <td>{task.dueDate}</td>
                                     <td>{task.lastDate}</td>
                                     <td>{task.priority}</td>
+                                    <td>{task.difficulty}</td>
                                     <td>{task.attachment}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="table-responsive my-16">
-                    <h5>Módulos asignados</h5>
-                    <div className="filters mb-3">
-                        <div className="row">
-                            <div className="col">
-                                <input type="text" placeholder="Buscar..." className="form-control form-control-sm" />
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">País</option>
-                                    <option value="Peru">Peru</option>
-                                    <option value="Chile">Chile</option>
-                                    <option value="Argentina">Argentina</option>
-                                </select>
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">Tipo</option>
-                                    <option value="comprado">Comprado</option>
-                                    <option value="alquiler">Alquiler</option>
-                                </select>
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">Estado</option>
-                                    <option value="cancelado">Cancelado</option>
-                                    <option value="1 comisión">1 Comisión</option>
-                                    <option value="pendiente">Pendiente</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>N°</th>
-                                <th>Nombre de sistema</th>
-                                <th>País</th>
-                                <th>Programador</th>
-                                <th>Tipo de tarea</th>
-                                <th>Nombre de la tarea</th>
-                                <th>Prioridad</th>
-                                <th>Dificultad</th>
-                                <th>Fecha de inicio</th>
-                                <th>Fecha de vencimiento</th>
-                                <th>Estado</th>
-                                <th>Aprobado por</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tasksData.map((task) => (
-                                <tr key={task.id}>
-                                    <td>{task.id}</td>
-                                    <td>{task.taskName}</td>
-                                    <td>{task.programmerType}</td>
-                                    <td>{task.programmer}</td>
-                                    <td>{task.programmerType}</td>
-                                    <td>{task.taskName}</td>
-                                    <td>{task.priority}</td>
-                                    <td>{task.difficultyLevel}</td>
-                                    <td>{task.assignmentDate}</td>
-                                    <td>{task.dueDate}</td>
-                                    <td>En Proceso</td>
-                                    <td>Admin</td>
                                 </tr>
                             ))}
                         </tbody>

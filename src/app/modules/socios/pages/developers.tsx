@@ -29,7 +29,7 @@ function Pagination() {
     )
 }
 
-const data = [
+const initialData = [
     {
         id: 1,
         numero: '1',
@@ -47,7 +47,27 @@ const data = [
     },
 ]
 
-function DeveloperTable() {
+const initialNewApplicantsData = [
+    {
+        id: 1,
+        numero: '1',
+        pais: 'México',
+        nombre: 'Ana Gómez',
+        celular: '0987654321',
+        fechaPostulacion: '2023-10-01',
+        especialidad: 'Frontend',
+        expBack: '2',
+        expFront: '3',
+        expMobile: '1',
+        expOtra: '0',
+        expTotal: '6',
+        cv: 'cv_ana_gomez.pdf',
+        aprobar: false,
+        estado: 'Pendiente',
+    },
+]
+
+function DeveloperTable({ data }: { data: typeof initialData }) {
     const [searchTerm, setSearchTerm] = useState('')
     const [editIndex, setEditIndex] = useState<number | null>(null)
     const [editValue, setEditValue] = useState('')
@@ -62,7 +82,23 @@ function DeveloperTable() {
         setEditIndex(null)
     }
 
-    const filteredData = data.filter(item =>
+    interface Developer {
+        id: number;
+        numero: string;
+        pais: string;
+        nombre: string;
+        celular: string;
+        htMesAnterior: string;
+        mesActual: string;
+        horasAcumuladas: string;
+        utilidad: string;
+        ingresoUtilidad: string;
+        nombreBco: string;
+        numeroCuenta: string;
+        estado: string;
+    }
+
+    const filteredData = data.filter((item: Developer) =>
         Object.values(item).some(val =>
             String(val).toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -92,12 +128,11 @@ function DeveloperTable() {
                         <th>Nombre Bco</th>
                         <th>Número de cuenta</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        filteredData.map((item, index) => {
+                        filteredData.map((item: typeof initialData[0], index: number) => {
                             return (
                                 <tr key={item.id}>
                                     <td>{item.numero}</td>
@@ -107,32 +142,10 @@ function DeveloperTable() {
                                     <td>{item.htMesAnterior}</td>
                                     <td>{item.mesActual}</td>
                                     <td>{item.horasAcumuladas}</td>
-                                    <td>
-                                        {editIndex === index ? (
-                                            <input
-                                                type="text"
-                                                value={editValue}
-                                                onChange={e => setEditValue(e.target.value)}
-                                            />
-                                        ) : (
-                                            item.utilidad
-                                        )}
-                                    </td>
                                     <td>{item.ingresoUtilidad}</td>
                                     <td>{item.nombreBco}</td>
                                     <td>{item.numeroCuenta}</td>
                                     <td>{item.estado}</td>
-                                    <td>
-                                        {editIndex === index ? (
-                                            <button className="btn btn-success btn-sm" onClick={() => handleSaveClick(index)}>
-                                                <FontAwesomeIcon icon={faSave} /> Guardar
-                                            </button>
-                                        ) : (
-                                            <button className="btn btn-primary btn-sm" onClick={() => handleEditClick(index, item.utilidad)}>
-                                                <FontAwesomeIcon icon={faPencilAlt} /> Editar
-                                            </button>
-                                        )}
-                                    </td>
                                 </tr>
                             )
                         })
@@ -143,38 +156,75 @@ function DeveloperTable() {
     )
 }
 
-function exportToExcel() {
-    const ws = XLSX.utils.json_to_sheet(data)
-    const wb = XLSX.utils.book_new()
+interface DeveloperData {
+    id: number;
+    numero: string;
+    pais: string;
+    nombre: string;
+    celular: string;
+    htMesAnterior: string;
+    mesActual: string;
+    horasAcumuladas: string;
+    utilidad: string;
+    ingresoUtilidad: string;
+    nombreBco: string;
+    numeroCuenta: string;
+    estado: string;
+}
+
+function exportToExcel(data: DeveloperData[]) {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data)
+    const wb: XLSX.WorkBook = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, 'Historial de Desarrolladores')
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-    const blob = new Blob([wbout], { type: 'application/octet-stream' })
+    const wbout: ArrayBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+    const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' })
     saveAs(blob, 'historial_de_desarrolladores.xlsx')
 }
 
-const newApplicantsData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        nombre: 'Ana Gómez',
-        celular: '0987654321',
-        fechaPostulacion: '2023-10-01',
-        especialidad: 'Frontend',
-        expBack: '2',
-        expFront: '3',
-        expMobile: '1',
-        expOtra: '0',
-        expTotal: '6',
-        cv: 'cv_ana_gomez.pdf',
-        aprobar: false,
-        estado: 'Pendiente',
-    },
-]
+interface NewApplicant {
+    id: number;
+    numero: string;
+    pais: string;
+    nombre: string;
+    celular: string;
+    fechaPostulacion: string;
+    especialidad: string;
+    expBack: string;
+    expFront: string;
+    expMobile: string;
+    expOtra: string;
+    expTotal: string;
+    cv: string;
+    aprobar: boolean;
+    estado: string;
+}
 
-function NewApplicantsTable() {
+function NewApplicantsTable({ newApplicantsData, setDevelopersData }: { newApplicantsData: NewApplicant[], setDevelopersData: React.Dispatch<React.SetStateAction<DeveloperData[]>> }) {
     const [searchTerm, setSearchTerm] = useState('')
     const [filterApproved, setFilterApproved] = useState<'all' | 'approved' | 'notApproved'>('all')
+
+    const handleApproveChange = (index: number) => {
+        const updatedApplicants = [...newApplicantsData]
+        updatedApplicants[index].aprobar = !updatedApplicants[index].aprobar
+        if (updatedApplicants[index].aprobar) {
+            const newDeveloper = {
+                id: updatedApplicants[index].id,
+                numero: updatedApplicants[index].numero,
+                pais: updatedApplicants[index].pais,
+                nombre: updatedApplicants[index].nombre,
+                celular: updatedApplicants[index].celular,
+                htMesAnterior: '0',
+                mesActual: '0',
+                horasAcumuladas: '0',
+                utilidad: '0%',
+                ingresoUtilidad: '0',
+                nombreBco: '',
+                numeroCuenta: '',
+                estado: 'Activo',
+            }
+            setDevelopersData(prevData => [...prevData, newDeveloper])
+        }
+    }
 
     const filteredData = newApplicantsData.filter(item => {
         const matchesSearchTerm = Object.values(item).some(val =>
@@ -229,7 +279,7 @@ function NewApplicantsTable() {
                 </thead>
                 <tbody>
                     {
-                        filteredData.map((item) => {
+                        filteredData.map((item, index) => {
                             return (
                                 <tr key={item.id}>
                                     <td>{item.numero}</td>
@@ -252,7 +302,7 @@ function NewApplicantsTable() {
 
                                     <td>
                                         <label className="switch" style={{ position: 'relative', display: 'inline-block', width: '40px', height: '20px' }}>
-                                            <input type="checkbox" checked={item.aprobar} onChange={() => { item.aprobar = !item.aprobar }} style={{ opacity: 0, width: 0, height: 0 }} />
+                                            <input type="checkbox" checked={item.aprobar} onChange={() => handleApproveChange(index)} style={{ opacity: 0, width: 0, height: 0 }} />
                                             <span className="slider round" style={{
                                                 position: 'absolute',
                                                 cursor: 'pointer',
@@ -289,6 +339,9 @@ function NewApplicantsTable() {
 }
 
 export function Developers() {
+    const [developersData, setDevelopersData] = useState(initialData)
+    const [newApplicantsData, setNewApplicantsData] = useState(initialNewApplicantsData)
+
     return (
         <div className="card">
             <div className="card-body">
@@ -296,14 +349,23 @@ export function Developers() {
                     <p>
                         El historial de desarrolladores permite a los usuarios almacenar y gestionar la información de los desarrolladores de manera segura y eficiente. Los datos registrados incluyen el número, país, nombre, celular, horas trabajadas el mes anterior, horas trabajadas el mes actual, horas acumuladas, utilidad, ingreso por utilidad, nombre del banco, número de cuenta y estado.
                     </p>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <label htmlFor="percentageProgrammers" className="form-label">Colocar porcentaje de programadores:</label>
+                        <input type="number" id="percentageProgrammers" className="form-control" placeholder="%" />
+                        <button className="btn btn-primary ms-3">Guardar</button>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <label htmlFor="accumulatedHours" className="form-label">Horas de trabajo acumuladas de los programadores:</label>
+                        <input type="text" id="accumulatedHours" className="form-control" value="1000" disabled />
+                    </div>
                 </div>
-                <DeveloperTable />
-                <NewApplicantsTable />
+                <DeveloperTable data={developersData} />
+                <NewApplicantsTable newApplicantsData={newApplicantsData} setDevelopersData={setDevelopersData} />
                 <div className="d-flex justify-content-end mt-16">
                     <div className="flex-1"></div>
                     <Pagination />
                     <div className="card-footer">
-                        <button className="btn btn-primary" onClick={exportToExcel}>Exportar</button>
+                        <button className="btn btn-primary" onClick={() => exportToExcel(developersData)}>Exportar</button>
                     </div>
                 </div>
             </div>
