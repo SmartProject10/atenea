@@ -29,23 +29,27 @@ function AddImplementationModal({ show, handleClose }: AddImplementationModalPro
                             <option value="Argentina">Argentina</option>
                         </Form.Control>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formISO">
-                        <Form.Label>ISO</Form.Label>
+                        <Form.Label>Sistema</Form.Label>
                         <Form.Control as="select">
-                            <option value="select">Seleccione ISO</option>
+                            <option value="select">Seleccione Sistema</option>
                             <option value="ISO 9001">ISO 9001</option>
                             <option value="ISO 14001">ISO 14001</option>
                             <option value="ISO 45001">ISO 45001</option>
                         </Form.Control>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formOtherISO">
-                        <Form.Label>Otra ISO</Form.Label>
-                        <Form.Control type="text" placeholder="Ingrese otra ISO" />
+                        <Form.Label>Otro Sistema</Form.Label>
+                        <Form.Control type="text" placeholder="Ingrese otro Sistema (opcional)" />
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formObservations">
                         <Form.Label>Observaciones</Form.Label>
                         <Form.Control as="textarea" rows={3} />
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formFile">
                         <Form.Label>Subir un archivo</Form.Label>
                         <Form.Control type="file" />

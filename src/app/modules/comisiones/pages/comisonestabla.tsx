@@ -23,10 +23,12 @@ function AddClientModal({ show, handleClose }: AddClientModalProps) {
 						<Form.Label>RUC</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el RUC" />
 					</Form.Group>
+					<br />
 					<Form.Group controlId="formCompanyName">
 						<Form.Label>Nombre o razón social</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el nombre o razón social" />
 					</Form.Group>
+					<br />
 					<Form.Group controlId="formCountry">
 						<Form.Label>País</Form.Label>
 						<Form.Control as="select">
@@ -117,7 +119,7 @@ export function Comisiones() {
 		<div>
 			<h1>Comisiones de Iso and Iso</h1>
 			<p>En esta sección, puede ver y gestionar las comisiones generadas por las transacciones de la empresa Iso and Iso. Utilice los filtros para buscar y exportar la información relevante.
-				TODO CLIENTE SUBIDO TENDRÁ UN DURACIÓN DE 3 MESES
+				TODO CLIENTE SUBIDO TENDRÁ UNA DURACIÓN DE 3 MESES
 			</p>
 			<button className="btn btn-primary mb-3" onClick={handleNewClient}>NUEVO CLIENTE</button>
 			<div className="separator my-10"></div>
