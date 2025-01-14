@@ -5,6 +5,7 @@ import { SidebarComisiones } from './sidebars/SidebarComisiones'
 import { SidebarMain } from './sidebars/SidebarMain'
 import { SidebarTareas } from './sidebars/SidebarTareas'
 import { SidebarRanking } from './sidebars/SidebarRanking'
+import { SidebarProfile } from './sidebars/SidebarProfile'
 
 interface SidebarMenuProps {
 	handleReloadMenu: () => void;
@@ -53,6 +54,7 @@ export const SidebarMenu = ({ handleReloadMenu }: SidebarMenuProps) => {
 					{pathname.startsWith('/comisiones') && <SidebarComisiones />}
 					{pathname.startsWith('/tareas') && <SidebarTareas />}
 					{pathname.startsWith('/ranking') && <SidebarRanking />}
+					{pathname.startsWith('/profile') && <SidebarProfile />}
 				</div>
 			</div>
 		</div>

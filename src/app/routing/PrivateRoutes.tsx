@@ -8,6 +8,7 @@ import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { Ranking } from '../modules/ranking/ranking.routes'; 
 import { TareasRoutes } from '../modules/tareas/tareas.routes.tsx'
 import { MenuTestPage } from '../pages/MenuTestPage'
+import { ProfileView } from '../modules/ranking/components/ProfileView';
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
 const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))
@@ -32,6 +33,7 @@ export const PrivateRoutes = () => {
 				<Route path="comisiones/*" element={<ComisionesRoutes />} />
 				<Route path="ranking/*" element={<Ranking />} />
 				<Route path="tareas/*" element={<TareasRoutes />} />
+				<Route path="profile/:id" element={<ProfileView />} />
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />

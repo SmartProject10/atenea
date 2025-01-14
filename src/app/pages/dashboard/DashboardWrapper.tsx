@@ -55,29 +55,6 @@ const DashboardWrapper: FC = () => {
     ],
   }
 
-  const programmedHoursData = {
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
-    datasets: [
-      {
-        label: 'Horas Programadas',
-        backgroundColor: [
-          'rgba(255,159,64,1)',
-          'rgba(255,99,132,1)',
-          'rgba(54,162,235,1)',
-          'rgba(75,192,192,1)',
-          'rgba(153,102,255,1)',
-          'rgba(255,206,86,1)',
-          'rgba(255,159,64,1)',
-        ],
-        borderColor: 'rgba(255,159,64,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,159,64,0.4)',
-        hoverBorderColor: 'rgba(255,159,64,1)',
-        data: [30, 45, 60, 70, 90, 100, 110],
-      },
-    ],
-  }
-
   const usersData = {
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
     datasets: [
@@ -97,6 +74,29 @@ const DashboardWrapper: FC = () => {
         hoverBackgroundColor: 'rgba(54,162,235,0.4)',
         hoverBorderColor: 'rgba(54,162,235,1)',
         data: [200, 300, 400, 500, 600, 700, 800],
+      },
+    ],
+  }
+  
+  const programmedHoursData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+    datasets: [
+      {
+        label: 'Horas Programadas',
+        backgroundColor: [
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,206,86,1)',
+          'rgba(255,159,64,1)',
+        ],
+        borderColor: 'rgba(255,159,64,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255,159,64,0.4)',
+        hoverBorderColor: 'rgba(255,159,64,1)',
+        data: [30, 45, 60, 70, 90, 100, 110],
       },
     ],
   }
@@ -155,7 +155,7 @@ const DashboardWrapper: FC = () => {
               <p>Utilidad Total: $100,000</p>
             </div>
             <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
-              <h3>Ranking por País</h3>
+              <h3>Ranking de Ingresos por País</h3>
               <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
             </div>
             <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
@@ -164,7 +164,16 @@ const DashboardWrapper: FC = () => {
               <p>Total de Clientes: 100</p>
             </div>
             <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
-              <h3>Ranking por País</h3>
+              <h3>Ranking de Clientes</h3>
+              <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Usuarios</h3>
+              <Line data={usersData} />
+              <p>Total de Usuarios: 800</p>
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Ranking de Usuarios</h3>
               <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
             </div>
             <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
@@ -173,19 +182,10 @@ const DashboardWrapper: FC = () => {
               <p>Total de Programadores: 50</p>
             </div>
             <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
-              <h3>Top Programadores con más horas</h3>
+              <h3>Programadores con más horas trabajadas</h3>
               <Bar data={rankingProgrammersData} options={{ indexAxis: 'y' }} />
               <button className="custom-button" onClick={() => navigate('/ranking')}>Ver todo el ranking</button>
-            </div>
-            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
-              <h3>Usuarios</h3>
-              <Line data={usersData} />
-              <p>Total de Usuarios: 800</p>
-            </div>
-            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
-              <h3>Ranking por País</h3>
-              <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
-            </div>
+            </div>  
           </div>
         </div>
       </Content>

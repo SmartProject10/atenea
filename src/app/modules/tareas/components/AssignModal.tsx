@@ -212,11 +212,17 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             name="programmingType"
                             rules={[{ required: true, message: 'Por favor seleccione el tipo de programación' }]}
                         >
-                            <Select placeholder="Seleccione el tipo de programación">
+                            <Select
+                                mode="multiple"
+                                placeholder="Seleccione el tipo de programación"
+                                optionFilterProp="children"
+                            >
                                 <Option value="back">Back</Option>
                                 <Option value="front">Front</Option>
                                 <Option value="mobile">Mobile</Option>
-                                <Option value="otro">Otro</Option>
+                                <Option value="fullstack">Fullstack</Option>
+                                <Option value="devops">DevOps</Option>
+                                <Option value="data">Data</Option>
                             </Select>
                         </Form.Item>
                     </Col>

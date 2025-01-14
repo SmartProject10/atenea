@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { Ranking as RankingPage } from './pages/rankingpage'
+import { Ranking as RankingPage } from './components/rankingpage'
 
 export const Ranking = () => (
     <Routes>
