@@ -11,7 +11,6 @@ interface RankingChartsProps {
 export const RankingCharts: React.FC<RankingChartsProps> = ({
     totalHoursData,
     myHoursData,
-    myLastMonthHoursData,
     totalProgrammersHours
 }) => {
     return (
@@ -24,11 +23,6 @@ export const RankingCharts: React.FC<RankingChartsProps> = ({
             <div className="chart-container mt-4" style={{ width: '60%', margin: '0 auto' }}>
                 <h3>Mis Horas Trabajadas</h3>
                 <Line data={myHoursData} />
-            </div>
-
-            <div className="chart-container mt-4" style={{ width: '60%', margin: '0 auto' }}>
-                <h3>Mis Horas Trabajadas en el Último Mes</h3>
-                <Bar data={myLastMonthHoursData} options={{ indexAxis: 'y' }} />
             </div>
 
             <div className="chart-container mt-4" style={{ width: '60%', margin: '0 auto' }}>

@@ -1,9 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
-import './profileview.scss';
 
-export const ProfileView: React.FC = () => {
+export const PubProfile: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     
     // Mock data for demonstration purposes
@@ -16,7 +15,7 @@ export const ProfileView: React.FC = () => {
         hoursLastTwoMonths: 160,
         totalHours: 1200,
         tasksCompleted: 50,
-        rank: "Oro" // Changed rank to "Oro"
+        rank: "Diamante"
     };
 
     const radarData = {
@@ -37,7 +36,7 @@ export const ProfileView: React.FC = () => {
             <div className="card mb-5 mb-xl-10">
                 <div className="card-header">
                     <div className="card-title m-0">
-                        <h3 className="fw-bolder m-0">Detalles del Programador</h3>
+                        <h3 className="fw-bolder m-0">Tus detalles personales</h3>
                     </div>
                 </div>
                 <div className="card-body p-9">
@@ -100,7 +99,7 @@ export const ProfileView: React.FC = () => {
                                 <span className="fw-bolder fs-6 text-dark"># de Tareas Cumplidas: {profileData.tasksCompleted}</span>
                             </div>
                             <div className="mt-3">
-                                <i className="fas fa-medal" style={{ color: 'gold', fontSize: '2rem' }}></i> <br />
+                                <i className="fas fa-gem" style={{ color: 'blue', fontSize: '2rem' }}></i> <br />
                                 <span className="fw-bolder fs-6 text-dark">Rango: {profileData.rank}</span>
                             </div>
                         </div>

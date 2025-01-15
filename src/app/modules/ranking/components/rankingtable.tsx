@@ -6,6 +6,7 @@ interface HoursData {
     id: number;
     programmer: string;
     module: string;
+    country: string;
     supervisor: string;
     entryDate: string;
     lastMonthHours: number;
@@ -75,7 +76,8 @@ export const RankingTable: React.FC<RankingTableProps> = ({ hoursData }) => {
                         <tr className="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                             <th className="min-w-50px">N°</th>
                             <th className="min-w-100px">Programador</th>
-                            <th className="min-w-150px">Módulo</th>
+                            <th className="min-w-150px">Sistema de Gestión</th>
+                            <th className="min-w-100px">País</th>
                             <th className="min-w-150px">Supervisor</th>
                             <th className="min-w-150px">Fecha de Ingreso</th>
                             <th className="min-w-150px">Horas Último Mes</th>
@@ -89,6 +91,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({ hoursData }) => {
                                 <td>{index + 1}</td>
                                 <td>{item.programmer}</td>
                                 <td>{item.module}</td>
+                                <td>{item.country}</td>
                                 <td>{item.supervisor}</td>
                                 <td>{item.entryDate}</td>
                                 <td>{item.lastMonthHours}</td>
