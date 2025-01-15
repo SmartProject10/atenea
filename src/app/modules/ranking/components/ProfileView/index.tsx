@@ -10,17 +10,18 @@ export const ProfileView: React.FC = () => {
     const profileData = {
         name: "Juan Pérez",
         country: "México",
-        systems: ["Sistema A", "Sistema B", "Sistema C"],
-        technicalProfile: "Full Stack",
+        technicalProfile: "Back-End Developer, Front-End Developer",
+        phone: "1234567890",
         joinDate: "01/01/2020",
         hoursLastTwoMonths: 160,
         totalHours: 1200,
         tasksCompleted: 50,
+        status: "Activo",
         rank: "Oro" // Changed rank to "Oro"
     };
 
     const radarData = {
-        labels: ['Back', 'Front', 'Mobile', 'Data', 'Otros'],
+        labels: ['Back', 'Front', 'Mobile', 'Data', 'IA'],
         datasets: [
             {
                 label: 'Habilidades',
@@ -62,15 +63,15 @@ export const ProfileView: React.FC = () => {
                                 </div>
                             </div>
                             <div className="row mb-7">
-                                <label className="col-lg-4 fw-bold text-muted">Sistemas Trabajados</label>
-                                <div className="col-lg-8">
-                                    <span className="fw-bolder fs-6 text-dark">{profileData.systems.join(', ')}</span>
-                                </div>
-                            </div>
-                            <div className="row mb-7">
                                 <label className="col-lg-4 fw-bold text-muted">Perfil Técnico</label>
                                 <div className="col-lg-8">
                                     <span className="fw-bolder fs-6 text-dark">{profileData.technicalProfile}</span>
+                                </div>
+                            </div>
+                            <div className="row mb-7">
+                                <label className="col-lg-4 fw-bold text-muted">Teléfono</label>
+                                <div className="col-lg-8">
+                                    <span className="fw-bolder fs-6 text-dark">{profileData.phone}</span>
                                 </div>
                             </div>
                             <div className="row mb-7">
@@ -89,6 +90,12 @@ export const ProfileView: React.FC = () => {
                                 <label className="col-lg-4 fw-bold text-muted">Horas Totales Trabajadas</label>
                                 <div className="col-lg-8">
                                     <span className="fw-bolder fs-6 text-dark">{profileData.totalHours}</span>
+                                </div>
+                            </div>
+                            <div className="row mb-7">
+                                <label className="col-lg-4 fw-bold text-muted">Estado</label>
+                                <div className="col-lg-8">
+                                    <span className="fw-bolder fs-6 text-dark">{profileData.status}</span>
                                 </div>
                             </div>
                         </div>
