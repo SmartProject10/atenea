@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
 import './profileview.scss';
@@ -32,6 +32,18 @@ export const ProfileView: React.FC = () => {
             },
         ],
     };
+
+    const [filterMonth, setFilterMonth] = useState<string>('');
+
+    const tasks = [
+        { number: 1, name: 'Tarea 1', country: 'México', system: 'Sistema A', date: '01/01/2023' },
+        { number: 2, name: 'Tarea 2', country: 'México', system: 'Sistema B', date: '02/01/2023' },
+        // Add more tasks as needed
+    ];
+
+    const filteredTasks = tasks.filter(task => 
+        filterMonth === '' || new Date(task.date).getMonth() + 1 === parseInt(filterMonth)
+    );
 
     return (
         <div className="perfil-programador">
@@ -111,6 +123,53 @@ export const ProfileView: React.FC = () => {
                                 <span className="fw-bolder fs-6 text-dark">Rango: {profileData.rank}</span>
                             </div>
                         </div>
+                    </div>
+                    <div className="mt-5">
+                        <h4 className="fw-bolder">TAREAS REALIZADAS</h4>
+                        <div className="mb-3">
+                            <label className="fw-bold text-muted">Filtrar por mes:</label>
+                            <select 
+                                className="form-select" 
+                                value={filterMonth} 
+                                onChange={(e) => setFilterMonth(e.target.value)}
+                            >
+                                <option value="">Todos</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nombre de tarea</th>
+                                    <th>País</th>
+                                    <th>Sistema</th>
+                                    <th>Fecha de envio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredTasks.map(task => (
+                                    <tr key={task.number}>
+                                        <td>{task.number}</td>
+                                        <td>{task.name}</td>
+                                        <td>{task.country}</td>
+                                        <td>{task.system}</td>
+                                        <td>{task.date}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

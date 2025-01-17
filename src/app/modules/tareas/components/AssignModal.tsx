@@ -1,6 +1,6 @@
-import React from 'react';
-import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col } from 'antd';
-import { SearchOutlined, UploadOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col, Table } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -13,6 +13,10 @@ interface AssignModalProps {
 
 const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) => {
     const [form] = Form.useForm();
+    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+    const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
+    const [selectedTask, setSelectedTask] = useState<string | null>(null);
+
     const latinCountries = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'República Dominicana', 'Uruguay', 'Venezuela'];
     const systems = ['Sistema 1', 'Sistema 2', 'Sistema 3'];
     const availableTasks = ['Tarea A', 'Tarea B', 'Tarea C'];
@@ -30,8 +34,20 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
             });
     };
 
+    const taskData = [
+        { key: '1', number: '1', taskName: 'Tarea A', programmers: 'Juan Pérez, Ana García' },
+        { key: '2', number: '2', taskName: 'Tarea B', programmers: 'Carlos López, María Rodriguez' },
+        { key: '3', number: '3', taskName: 'Tarea C', programmers: 'Pedro Martinez, Laura Sánchez' },
+    ];
+
+    const columns = [
+        { title: 'N°', dataIndex: 'number', key: 'number' },
+        { title: 'Nombre de Tarea', dataIndex: 'taskName', key: 'taskName' },
+        { title: 'Nombres de Programadores', dataIndex: 'programmers', key: 'programmers' },
+    ];
+
     return (
-        <Modal title="Asignar Tarea" open={isVisible} onOk={handleOk} onCancel={onCancel}>
+        <Modal title="Asignar Tarea" open={isVisible} onOk={handleOk} onCancel={onCancel} width={800}>
             <Form form={form} layout="vertical">
                 <Row gutter={16}>
                     <Col span={12}>
@@ -220,7 +236,6 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                 <Option value="back">Back</Option>
                                 <Option value="front">Front</Option>
                                 <Option value="mobile">Mobile</Option>
-                                <Option value="fullstack">Fullstack</Option>
                                 <Option value="devops">DevOps</Option>
                                 <Option value="data">Data</Option>
                             </Select>
@@ -248,6 +263,54 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                     // Aquí puedes agregar más programadores
                                 ]}
                             />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Form.Item label="Apoyo">
+                            <Row gutter={16}>
+                                <Col span={8}>
+                                    <Select
+                                        placeholder="Seleccione el país"
+                                        onChange={value => setSelectedCountry(value)}
+                                    >
+                                        {latinCountries.map(country => (
+                                            <Option key={country} value={country}>{country}</Option>
+                                        ))}
+                                    </Select>
+                                </Col>
+                                <Col span={8}>
+                                    <Select
+                                        placeholder="Seleccione el sistema"
+                                        onChange={value => setSelectedSystem(value)}
+                                        disabled={!selectedCountry}
+                                    >
+                                        {systems.map(system => (
+                                            <Option key={system} value={system}>{system}</Option>
+                                        ))}
+                                    </Select>
+                                </Col>
+                                <Col span={8}>
+                                    <Select
+                                        placeholder="Seleccione la tarea"
+                                        onChange={value => setSelectedTask(value)}
+                                        disabled={!selectedSystem}
+                                    >
+                                        {availableTasks.map(task => (
+                                            <Option key={task} value={task}>{task}</Option>
+                                        ))}
+                                    </Select>
+                                </Col>
+                            </Row>
+                            {selectedTask && (
+                                <Table
+                                    columns={columns}
+                                    dataSource={taskData}
+                                    rowSelection={{ type: 'checkbox' }}
+                                    style={{ marginTop: 16 }}
+                                />
+                            )}
                         </Form.Item>
                     </Col>
                 </Row>

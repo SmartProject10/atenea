@@ -171,6 +171,12 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
         onFilter: (value, record) => record.difficulty === value,
     },
     {
+        title: 'Apoyos',
+        dataIndex: 'support',
+        key: 'support',
+        render: (support: string) => <span>{support}</span>,
+    },
+    {
         title: 'Enlace',
         dataIndex: 'link',
         key: 'link',

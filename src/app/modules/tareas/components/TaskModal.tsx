@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col, Table } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Dayjs } from 'dayjs';
 
@@ -35,12 +35,65 @@ const TaskModal: React.FC<TaskModalProps> = ({
     onSelectChange,
     onDateChange
 }) => {
+    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+    const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
+    const [selectedTask, setSelectedTask] = useState<string | null>(null);
+
+    const handleCountryChange = (value: string) => {
+        setSelectedCountry(value);
+        setSelectedSystem(null);
+        setSelectedTask(null);
+    };
+
+    const handleSystemChange = (value: string) => {
+        setSelectedSystem(value);
+        setSelectedTask(null);
+    };
+
+    const handleTaskChange = (value: string) => {
+        setSelectedTask(value);
+    };
+
+    const columns = [
+        {
+            title: 'N°',
+            dataIndex: 'number',
+            key: 'number',
+        },
+        {
+            title: 'Nombre de Tarea',
+            dataIndex: 'taskName',
+            key: 'taskName',
+        },
+        {
+            title: 'Nombres de Programadores',
+            dataIndex: 'programmers',
+            key: 'programmers',
+        },
+    ];
+
+    const data = [
+        {
+            key: '1',
+            number: '1',
+            taskName: 'Tarea 1',
+            programmers: 'Programador 1, Programador 2',
+        },
+        {
+            key: '2',
+            number: '2',
+            taskName: 'Tarea 2',
+            programmers: 'Programador 3, Programador 4',
+        },
+    ];
+
     return (
         <Modal 
             title={editingTask ? "Editar Tarea" : "Agregar Nueva Tarea"} 
             open={isVisible} 
             onOk={onOk} 
             onCancel={onCancel}
+            width={800}
         >
             <Form layout="vertical">
                 <Row gutter={16}>
@@ -136,6 +189,60 @@ const TaskModal: React.FC<TaskModalProps> = ({
                         </Form.Item>
                     </Col>
                 </Row>
+                <p><strong>Apoyo</strong></p>
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <Form.Item 
+                            label="País"
+                            rules={[{ required: true, message: 'Por favor seleccione un país' }]}
+                        >
+                            <Select 
+                                value={selectedCountry} 
+                                onChange={handleCountryChange}
+                            >
+                                <Option value="pais1">País 1</Option>
+                                <Option value="pais2">País 2</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item 
+                            label="Sistema"
+                            rules={[{ required: true, message: 'Por favor seleccione un sistema' }]}
+                        >
+                            <Select 
+                                value={selectedSystem} 
+                                onChange={handleSystemChange}
+                                disabled={!selectedCountry}
+                            >
+                                <Option value="sistema1">Sistema 1</Option>
+                                <Option value="sistema2">Sistema 2</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item 
+                            label="Lista de Tareas"
+                            rules={[{ required: true, message: 'Por favor seleccione una tarea' }]}
+                        >
+                            <Select 
+                                value={selectedTask} 
+                                onChange={handleTaskChange}
+                                disabled={!selectedSystem}
+                            >
+                                <Option value="tarea1">Tarea 1</Option>
+                                <Option value="tarea2">Tarea 2</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                </Row>
+                {selectedTask && (
+                    <Table 
+                        columns={columns} 
+                        dataSource={data} 
+                        rowSelection={{ type: 'checkbox' }} 
+                    />
+                )}
             </Form>
         </Modal>
     );
