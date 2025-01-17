@@ -36,8 +36,8 @@ export const ProfileView: React.FC = () => {
     const [filterMonth, setFilterMonth] = useState<string>('');
 
     const tasks = [
-        { number: 1, name: 'Tarea 1', country: 'México', system: 'Sistema A', date: '01/01/2023' },
-        { number: 2, name: 'Tarea 2', country: 'México', system: 'Sistema B', date: '02/01/2023' },
+        { number: 1, name: 'Tarea 1', country: 'México', system: 'Sistema A', supervisor: 'Supervisor 1', date: '01/01/2023' },
+        { number: 2, name: 'Tarea 2', country: 'México', system: 'Sistema B', supervisor: 'Supervisor 2', date: '02/01/2023' },
         // Add more tasks as needed
     ];
 
@@ -152,19 +152,21 @@ export const ProfileView: React.FC = () => {
                             <thead>
                                 <tr>
                                     <th>N°</th>
-                                    <th>Nombre de tarea</th>
                                     <th>País</th>
                                     <th>Sistema</th>
-                                    <th>Fecha de envio</th>
+                                    <th>Nombre de tarea</th>
+                                    <th>Supervisor</th>
+                                    <th>Fecha de entrega</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredTasks.map(task => (
                                     <tr key={task.number}>
                                         <td>{task.number}</td>
-                                        <td>{task.name}</td>
                                         <td>{task.country}</td>
                                         <td>{task.system}</td>
+                                        <td>{task.name}</td>
+                                        <td>{task.supervisor}</td>
                                         <td>{task.date}</td>
                                     </tr>
                                 ))}

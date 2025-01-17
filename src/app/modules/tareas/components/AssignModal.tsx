@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col, Table } from 'antd';
+import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col, Table, Tag } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
@@ -228,17 +228,32 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             name="programmingType"
                             rules={[{ required: true, message: 'Por favor seleccione el tipo de programación' }]}
                         >
-                            <Select
-                                mode="multiple"
-                                placeholder="Seleccione el tipo de programación"
-                                optionFilterProp="children"
-                            >
-                                <Option value="back">Back</Option>
-                                <Option value="front">Front</Option>
-                                <Option value="mobile">Mobile</Option>
-                                <Option value="devops">DevOps</Option>
-                                <Option value="data">Data</Option>
-                            </Select>
+                            <div>
+                                {['Back', 'Front', 'Mobile', 'IA', 'Data'].map(type => (
+                                    <Button
+                                        key={type}
+                                        onClick={() => {
+                                            const currentTypes = form.getFieldValue('programmingType') || [];
+                                            if (!currentTypes.includes(type)) {
+                                                form.setFieldsValue({ programmingType: [...currentTypes, type] });
+                                            }
+                                        }}
+                                        style={{ marginRight: 8, marginBottom: 8 }}
+                                    >
+                                        {type}
+                                    </Button>
+                                ))}
+                            </div>
+                            <div style={{ marginTop: 8 }}>
+                                {form.getFieldValue('programmingType')?.map((type: string) => (
+                                    <Tag key={type} closable onClose={() => {
+                                        const currentTypes = form.getFieldValue('programmingType') || [];
+                                        form.setFieldsValue({ programmingType: currentTypes.filter((t: string) => t !== type) });
+                                    }}>
+                                        {type}
+                                    </Tag>
+                                ))}
+                            </div>
                         </Form.Item>
                     </Col>
                 </Row>
