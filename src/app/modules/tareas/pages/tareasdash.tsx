@@ -10,75 +10,113 @@ interface AddTaskModalProps {
 }
 
 function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidated(true);
+    };
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Agregar Nueva Tarea</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
-                    <Form.Group controlId="formTaskName">
-                        <Form.Label>Nombre de la tarea</Form.Label>
-                        <Form.Control type="text" placeholder="Ingrese el nombre de la tarea" />
-                    </Form.Group>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Form.Group controlId="formCountry">
                         <Form.Label>País</Form.Label>
-                        <Form.Control as="select">
+                        <Form.Control as="select" required>
                             <option value="">Seleccione el país</option>
                             <option value="Peru">Peru</option>
                             <option value="Chile">Chile</option>
                             <option value="Argentina">Argentina</option>
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione un país.
+                        </Form.Control.Feedback>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formSystemName">
                         <Form.Label>Nombre del sistema</Form.Label>
-                        <Form.Control as="select">
+                        <Form.Control as="select" required>
                             <option value="">Seleccione el sistema</option>
                             <option value="ISO 45001">ISO 45001</option>
                             <option value="ISO 9001">ISO 9001</option>
                             <option value="ISO 14001">ISO 14001</option>
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione un sistema.
+                        </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group controlId="formProgrammerType">
-                        <Form.Label>Título de programador</Form.Label>
-                        <Form.Control as="select">
-                            <option value="">Seleccione el tipo de programador</option>
-                            <option value="artist"><strong>Artista:</strong> valor de 1.5 (vistas front)</option>
-                            <option value="obsesionado"><strong>Obsesionado:</strong> valor de 1.3 (el 20% de los programadores)</option>
-                            <option value="innovador"><strong>Innovador:</strong> valor de 1.2 (los que mejoran el sistema)</option>
-                            <option value="dedicado">Dedicado (los que cumplen con el tiempo)</option>
-                            <option value="comprometido">Comprometido (los últimos 10% de los programadores, con posibilidad de salir del proyecto)</option>
-                            <option value="realiza_por_compromiso">Realiza por compromiso</option>
-                            <option value="el_demoron">El demorón</option>
-                            <option value="todos">Todos</option>
+                    <br />
+                    <Form.Group controlId="formTaskName">
+                        <Form.Label>Nombre de la tarea</Form.Label>
+                        <Form.Control type="text" placeholder="Ingrese el nombre de la tarea" required />
+                        <Form.Control.Feedback type="invalid">
+                            Por favor ingrese el nombre de la tarea.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <br />
+                    <Form.Group controlId="formTaskDescription">
+                        <Form.Label>Descripción de la tarea</Form.Label>
+                        <Form.Control as="textarea" rows={3} placeholder="Ingrese la descripción de la tarea" required />
+                        <Form.Control.Feedback type="invalid">
+                            Por favor ingrese la descripción de la tarea.
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <br />
+                    <Form.Group controlId="formTechnologies">
+                        <Form.Label>Tecnologías</Form.Label>
+                        <Form.Control as="select" multiple required>
+                            <option value="Mobile">Mobile</option>
+                            <option value="IA">IA</option>
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione al menos una tecnología.
+                        </Form.Control.Feedback>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formAssignmentDate">
                         <Form.Label>Fecha de asignación</Form.Label>
-                        <Form.Control type="date" defaultValue={new Date().toISOString().split('T')[0]} readOnly />
+                        <Form.Control type="date" defaultValue={new Date().toISOString().split('T')[0]} readOnly required />
+                        <Form.Control.Feedback type="invalid">
+                            Por favor ingrese la fecha de asignación.
+                        </Form.Control.Feedback>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formPriority">
-                        <Form.Label>Prioridad</Form.Label>
-                        <Form.Control as="select">
+                        <Form.Label>Dependencia</Form.Label>
+                        <Form.Control as="select" required>
                             <option value="alta">Alta</option>
                             <option value="media">Media</option>
                             <option value="baja">Baja</option>
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                            Por favor seleccione una dependencia.
+                        </Form.Control.Feedback>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formAttachment">
                         <Form.Label>Archivo adjunto</Form.Label>
-                        <Form.Control type="file" />
+                        <Form.Control type="file" required />
+                        <Form.Control.Feedback type="invalid">
+                            Por favor adjunte un archivo.
+                        </Form.Control.Feedback>
                     </Form.Group>
+                    <br />
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cerrar
+                    </Button>
+                    <Button variant="primary" type="submit">
+                        Guardar
+                    </Button>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Guardar
-                </Button>
-            </Modal.Footer>
         </Modal>
     );
 }
@@ -89,8 +127,8 @@ export function Tareas() {
     const tasksData = [
         {
             id: 1,
-            namesystem: 'ISO 45001',
             country: 'Perú',
+            namesystem: 'ISO 45001',
             taskName: 'Implementar API',
             taskHours: 10,
             difficultyLevel: 'Media',
@@ -108,8 +146,8 @@ export function Tareas() {
 
     const systemsData = [
         {
-            systemName: 'ISO 45001',
             country: 'País',
+            systemName: 'ISO 45001',
             user: 'Usuario',
             status: 'En proceso',
             auditorPercentage: 50,
@@ -191,8 +229,8 @@ export function Tareas() {
                         <thead>
                             <tr>
                                 <th>N°</th>
-                                <th>Nombre del sistema</th>
                                 <th>País</th>
+                                <th>Nombre del sistema</th>
                                 <th>Nombre de la tarea</th>
                                 <th>Horas de la tarea</th>
                                 <th>Nivel de dificultad</th>
@@ -211,8 +249,8 @@ export function Tareas() {
                             {tasksData.map((task) => (
                                 <tr key={task.id}>
                                     <td>{task.id}</td>
-                                    <td>{task.namesystem}</td>
                                     <td>{task.country}</td>
+                                    <td>{task.namesystem}</td>
                                     <td>{task.taskName}</td>
                                     <td>{task.taskHours}</td>
                                     <td>{task.difficultyLevel}</td>
@@ -266,17 +304,17 @@ export function Tareas() {
                         <thead>
                             <tr>
                                 <th>N°</th>
-                                <th>Nombre del sistema</th>
                                 <th>País</th>
+                                <th>Nombre del sistema</th>
                                 <th>Usuario</th>
                                 <th>Estado</th>
                                 <th>Porcentaje auditor</th>
                                 <th>Porcentaje Programador</th>
-                                <th>Front-Tareas (%)</th>
-                                <th>Back-Tareas (%)</th>
-                                <th>Mobile-Tareas (%)</th>
-                                <th>RV-Tareas (%)</th>
-                                <th>IA-Tareas (%)</th>
+                                <th>Front (%)</th>
+                                <th>Back (%)</th>
+                                <th>Mobile (%)</th>
+                                <th>Data (%)</th>
+                                <th>IA (%)</th>
                                 <th>Fecha final proyecto</th>
                                 <th>Estado Proyecto</th>
                             </tr>
@@ -285,8 +323,8 @@ export function Tareas() {
                             {systemsData.map((system, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td>{system.systemName}</td>
                                     <td>{system.country}</td>
+                                    <td>{system.systemName}</td>
                                     <td>{system.user}</td>
                                     <td>{system.status}</td>
                                     <td>{system.auditorPercentage}%</td>

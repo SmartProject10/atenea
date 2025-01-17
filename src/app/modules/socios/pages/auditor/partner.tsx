@@ -26,10 +26,10 @@ const initialData = [
         id: 1,
         numero: '1',
         pais: 'México',
+        paisSistema: 'México',
+        sgDigital: 'SG123',
         nombres: 'Juan Pérez',
         celular: '1234567890',
-        sgDigital: 'SG123',
-        paisSistema: 'México',
         utilidad: '0.5%',
         ingresoUtilidad: '500',
         nombreBco: 'Banco XYZ',
@@ -76,10 +76,10 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
                     <tr>
                         <th>N°</th>
                         <th>País</th>
+                        <th>País Sistema</th>
+                        <th>SG Digital</th>
                         <th>Nombres</th>
                         <th>Celular</th>
-                        <th>SG Digital</th>
-                        <th>País Sistema</th>
                         <th>Utilidad</th>
                         <th>Ingreso Utilidad ($)</th>
                         <th>Nombre del Bco</th>
@@ -95,10 +95,10 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
                             <tr key={item.id}>
                                 <td>{item.numero}</td>
                                 <td>{item.pais}</td>
+                                <td>{item.paisSistema}</td>
+                                <td>{item.sgDigital}</td>
                                 <td>{item.nombres}</td>
                                 <td>{item.celular}</td>
-                                <td>{item.sgDigital}</td>
-                                <td>{item.paisSistema}</td>
                                 <td>
                                     {editIndex === index ? (
                                         <input
