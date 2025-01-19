@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Tag, Select } from 'antd';
+import { Table, Tag, Select, Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -13,16 +13,16 @@ interface Programador {
     tecnologias: string;
     fechaIngreso: string;
     rango?: string;
+    sublider?: boolean;
 }
 
 const ListaProgramadoresPage: React.FC = () => {
     const [filtroPais, setFiltroPais] = useState<string | undefined>(undefined);
-
-    const programadores: Programador[] = [
+    const [programadores, setProgramadores] = useState<Programador[]>([
         { id: 1, pais: 'Argentina', nombre: 'Juan Perez', tecnologias: 'React, Node.js', fechaIngreso: '2021-01-15' },
         { id: 2, pais: 'México', nombre: 'Ana Gomez', tecnologias: 'Angular, Java', fechaIngreso: '2020-06-23' },
         { id: 3, pais: 'España', nombre: 'Carlos Ruiz', tecnologias: 'Vue, Python', fechaIngreso: '2019-11-30' },
-    ];
+    ]);
 
     const getRango = (fechaIngreso: string) => {
         const years = moment().diff(fechaIngreso, 'years');
@@ -30,6 +30,16 @@ const ListaProgramadoresPage: React.FC = () => {
         if (years >= 2) return 'Oro';
         if (years >= 1) return 'Plata';
         return 'Bronce';
+    };
+
+    const toggleSublider = (id: number) => {
+        setProgramadores(prevProgramadores =>
+            prevProgramadores.map(programador =>
+                programador.id === id
+                    ? { ...programador, sublider: !programador.sublider }
+                    : programador
+            )
+        );
     };
 
     const programadoresConRango = programadores.map(programador => ({
@@ -83,6 +93,15 @@ const ListaProgramadoresPage: React.FC = () => {
                 >
                     <i className="fas fa-eye"></i>
                 </Link>
+            ),
+        },
+        {
+            title: 'Asignar como sublíder',
+            key: 'sublider',
+            render: (text, record) => (
+                <Button onClick={() => toggleSublider(record.id)}>
+                    {record.sublider ? 'Revocar sublíder' : 'Asignar como sublíder'}
+                </Button>
             ),
         },
     ];
