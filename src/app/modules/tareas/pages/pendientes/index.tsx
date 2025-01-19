@@ -95,6 +95,11 @@ const TareasListaPage: React.FC = () => {
             dataIndex: 'comentarios',
             key: 'comentarios',
         },
+        {
+            title: 'Materiales',
+            dataIndex: 'materiales',
+            key: 'materiales',
+        }
     ];
 
     return (
