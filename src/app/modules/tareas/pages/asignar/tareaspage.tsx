@@ -3,62 +3,68 @@ import { Button, notification } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { saveAs } from 'file-saver';
 import './tareaspage.scss';
-import TaskTable from '../components/TaskTable';
-import TaskModal from '../components/TaskModal';
-import AssignModal from '../components/AssignModal';
-import { Task } from '../components/TaskTable';
+import TaskTable from './components/TaskTable';
+import TaskModal from './components/TaskModal';
+import AssignModal from './components/AssignModal';
+import { Task } from './components/TaskTable';
 
-const TareasPage: React.FC = () => {
+const TareasAsignar: React.FC = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isAssignModalVisible, setIsAssignModalVisible] = useState(false);
     const [tasks, setTasks] = useState<Task[]>([
         {
             id: 1,
-            title: 'Tarea 1',
+            title: 'asdads',
             description: 'Descripción de la tarea 1',
-            stage: 'asignada',
             status: 'incompleta',
             sendDate: '2025-01-01',
             dueDate: '2025-01-10',
+            lastDate: '2025-01-05',
             priority: 'alta',
+            programmingType: 'front',
             supervisor: 'Supervisor 1',
             documents: [],
             comments: 'corregir el endpoint',
             progress: 50,
             difficulty: 'facil',
-            link: ''
+            assignedTo: 'Developer 1',
+            link: '',
         },
         {
             id: 2,
             title: 'Tarea 2',
             description: 'Descripción de la tarea 2',
-            stage: 'en proceso',
             status: 'completa',
             sendDate: '2025-01-02',
             dueDate: '2025-01-12',
+            lastDate: '2025-01-07',
             priority: 'media',
+            programmingType: 'front',
             supervisor: 'Supervisor 2',
             documents: [],
             comments: 'crear los componentes',
             progress: 75,
             difficulty: 'media',
-            link: ''
+            assignedTo: 'Developer 1',
+            link: '',
         },
         {
             id: 3,
             title: 'Tarea 3',
             description: 'Descripción de la tarea 3',
-            stage: 'en proceso',
             status: 'en proceso',
             sendDate: '2025-01-03',
             dueDate: '2025-01-13',
+            lastDate: '2025-01-08',
             priority: 'baja',
+            programmingType: 'back',
             supervisor: 'Supervisor 3',
             documents: [],
             comments: 'modificar el diseño',
             progress: 100,
             difficulty: 'dificil',
-            link: ''
+            assignedTo: 'Developer 2',
+            link: '',
         }
     ]);
 
@@ -66,18 +72,19 @@ const TareasPage: React.FC = () => {
         id: tasks.length + 1,
         title: '',
         description: '',
-        stage: 'asignada',
         status: 'incompleta',
         sendDate: '',
         dueDate: '',
+        lastDate: '',
         priority: '',
+        programmingType: '',
         supervisor: '',
         documents: [],
         comments: '',
         progress: 0,
         difficulty: '',
         assignedTo: '',
-        link: ''
+        link: '',
     });
     
     const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -124,18 +131,23 @@ const TareasPage: React.FC = () => {
 
     const exportToCSV = () => {
         const csvContent = [
-            ['ID', 'Título', 'Descripción', 'Estado', 'Fecha de Envío', 'Fecha de Vencimiento', 'Prioridad', 'Supervisor', 'Comentarios', 'Progreso'],
+            ['ID', 'Título', 'Descripción', 'Estado', 'Fecha de Envío', 'Fecha de Vencimiento', 'Última Fecha', 'Prioridad', 'Tipo de Programación', 'Supervisor', 'Comentarios', 'Progreso', 'Dificultad', 'Asignado a', 'Enlace'],
             ...tasks.map(task => [
-                task.id,
-                task.title,
-                task.description,
-                task.status,
-                task.sendDate,
-                task.dueDate,
-                task.priority,
-                task.supervisor,
-                task.comments,
-                task.progress
+            task.id,
+            task.title,
+            task.description,
+            task.status,
+            task.sendDate,
+            task.dueDate,
+            task.lastDate,
+            task.priority,
+            task.programmingType || '',
+            task.supervisor,
+            task.comments,
+            task.progress,
+            task.difficulty,
+            task.assignedTo || '',
+            task.link
             ])
         ].map(e => e.join(",")).join("\n");
 
@@ -183,4 +195,4 @@ const TareasPage: React.FC = () => {
     );
 };
 
-export default TareasPage;
+export default TareasAsignar;

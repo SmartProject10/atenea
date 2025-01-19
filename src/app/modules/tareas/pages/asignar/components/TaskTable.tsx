@@ -1,18 +1,19 @@
 import React from 'react';
 import { Table, Tag, Progress, Button, Input, DatePicker } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import moment, { MomentInput } from 'moment';
 import { ColumnsType } from 'antd/es/table';
 
 export interface Task {
     id: number;
     title: string;
     description: string;
-    stage: string;
     status: string;
     sendDate: string;
     dueDate: string;
+    lastDate: MomentInput;
     priority: string;
+    programmingType?: string;
     supervisor: string;
     documents: any[];
     comments: string;
@@ -86,7 +87,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             },
         },
         {
-            title: 'Fecha de Envío',
+            title: 'Fecha asignada',
             dataIndex: 'sendDate',
             key: 'sendDate',
             sorter: (a, b) => moment(a.sendDate).unix() - moment(b.sendDate).unix(),
@@ -102,6 +103,20 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
                     <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
                         Resetear
                     </Button>
+            </div>
+        ),
+    },
+    {
+        title: 'Fecha de Vencimiento',
+        dataIndex: 'dueDate',
+        key: 'dueDate',
+        sorter: (a, b) => moment(a.dueDate).unix() - moment(b.dueDate).unix(),
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={{ padding: 8 }}>
+                <DatePicker
+                    onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
+                    style={{ marginBottom: 8, display: 'block' }}
+                />
                 <Button type="primary" onClick={() => confirm({ closeDropdown: true })} size="small" style={{ width: 90, marginRight: 8 }}>
                     Buscar
                 </Button>
@@ -112,10 +127,24 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
         ),
     },
     {
-        title: 'Fecha de Vencimiento',
-        dataIndex: 'dueDate',
-        key: 'dueDate',
-        sorter: (a, b) => moment(a.dueDate).unix() - moment(b.dueDate).unix(),
+        title: 'Última Fecha',
+        dataIndex: 'lastDate',
+        key: 'lastDate',
+        sorter: (a, b) => moment(a.lastDate).unix() - moment(b.lastDate).unix(),
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={{ padding: 8 }}>
+                <DatePicker
+                    onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
+                    style={{ marginBottom: 8, display: 'block' }}
+                />
+                <Button type="primary" onClick={() => confirm({ closeDropdown: true })} size="small" style={{ width: 90, marginRight: 8 }}>
+                    Buscar
+                </Button>
+                <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                    Resetear
+                </Button>
+            </div>
+        ),
     },
     {
         title: 'Prioridad',
@@ -127,6 +156,17 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             { text: 'Baja', value: 'baja' },
         ],
         onFilter: (value, record) => record.priority === value,
+    },
+    {
+        title: 'Tipo programación',
+        dataIndex: 'programmingType',
+        key: 'programmingType',
+        filters: [
+            { text: 'Back', value: 'back' },
+            { text: 'Front', value: 'front' },
+            { text: 'Mobile', value: 'mobile' },
+        ],
+        onFilter: (value, record) => record.programmingType === value,
     },
     {
         title: 'Supervisor',
@@ -169,6 +209,11 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             { text: 'Complejo', value: 'complejo' },
         ],
         onFilter: (value, record) => record.difficulty === value,
+    },
+    {
+        title: 'Asignado a',
+        dataIndex: 'assignedTo',
+        key: 'assignedTo',
     },
     {
         title: 'Apoyos',

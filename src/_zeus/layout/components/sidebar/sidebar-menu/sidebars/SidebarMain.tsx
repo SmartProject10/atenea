@@ -31,12 +31,31 @@ export function SidebarMain(): JSX.Element {
 				fontIcon="bi-app-indicator"
 			/>
 
-			<SidebarMenuItem
+			<SidebarMenuItemWithSub
 				to="/tareas"
 				icon="check-circle"
 				title={intl.formatMessage({ id: "MENU.TAREAS" })}
 				fontIcon="bi-app-indicator"
-			/>
+			>
+				<SidebarMenuItem
+					to="/tareas/pendientes"
+					icon="notification-bing"
+					title="Pendientes"
+					fontIcon="bi-app-indicator"
+				/>
+				<SidebarMenuItem
+					to="/tareas/asignar"
+					icon="calendar"
+					title="Asignar"
+					fontIcon="bi-app-indicator"
+				/>
+				<SidebarMenuItem
+					to="/tareas/lista"
+					icon="file-added"
+					title="Programadores activos"
+					fontIcon="bi-app-indicator"
+				/>
+			</SidebarMenuItemWithSub>
 
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem

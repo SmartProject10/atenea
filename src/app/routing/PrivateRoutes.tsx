@@ -1,12 +1,12 @@
 import { lazy } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
 import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
 import { ComisionesRoutes } from '../modules/comisiones/comisiones.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { Ranking } from '../modules/ranking/ranking.routes'; 
-import { TareasRoutes } from '../modules/tareas/tareas.routes.tsx'
+import TareasRoutes from '../modules/tareas/tareas.routes.tsx'
 import { MenuTestPage } from '../pages/MenuTestPage'
 import { ProfileView } from '../modules/ranking/components/ProfileView';
 
@@ -32,8 +32,17 @@ export const PrivateRoutes = () => {
 				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
 				<Route path="comisiones/*" element={<ComisionesRoutes />} />
 				<Route path="ranking/*" element={<Ranking />} />
-				<Route path="tareas/*" element={<TareasRoutes />} />
+				<Route path='/tareas/*' element={<Outlet />}>
+                {TareasRoutes.map((route, index) => (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        element={route.element}
+                    />
+                ))}
+            	</Route>
 				<Route path="profile/:id" element={<ProfileView />} />
+				
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
