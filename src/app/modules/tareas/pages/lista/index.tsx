@@ -1,8 +1,10 @@
-import React from 'react';
-import { Table, Tag } from 'antd';
+import React, { useState } from 'react';
+import { Table, Tag, Select } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+
+const { Option } = Select;
 
 interface Programador {
     id: number;
@@ -14,6 +16,8 @@ interface Programador {
 }
 
 const ListaProgramadoresPage: React.FC = () => {
+    const [filtroPais, setFiltroPais] = useState<string | undefined>(undefined);
+
     const programadores: Programador[] = [
         { id: 1, pais: 'Argentina', nombre: 'Juan Perez', tecnologias: 'React, Node.js', fechaIngreso: '2021-01-15' },
         { id: 2, pais: 'México', nombre: 'Ana Gomez', tecnologias: 'Angular, Java', fechaIngreso: '2020-06-23' },
@@ -33,6 +37,10 @@ const ListaProgramadoresPage: React.FC = () => {
         rango: getRango(programador.fechaIngreso),
     }));
 
+    const programadoresFiltrados = filtroPais
+        ? programadoresConRango.filter(programador => programador.pais === filtroPais)
+        : programadoresConRango;
+
     const columns: ColumnsType<Programador> = [
         {
             title: 'N°',
@@ -50,7 +58,7 @@ const ListaProgramadoresPage: React.FC = () => {
             key: 'nombre',
         },
         {
-            title: 'Tecnologías',
+            title: 'Perfil Tecnológico',
             dataIndex: 'tecnologias',
             key: 'tecnologias',
         },
@@ -82,7 +90,16 @@ const ListaProgramadoresPage: React.FC = () => {
     return (
         <div>
             <h1>Programadores Activos</h1>
-            <Table dataSource={programadoresConRango} columns={columns} rowKey="id" />
+            <Select
+                placeholder="Selecciona un país"
+                onChange={value => setFiltroPais(value)}
+                style={{ width: 200, marginBottom: 20 }}
+            >
+                <Option value="Argentina">Argentina</Option>
+                <Option value="México">México</Option>
+                <Option value="España">España</Option>
+            </Select>
+            <Table dataSource={programadoresFiltrados} columns={columns} rowKey="id" />
         </div>
     );
 };

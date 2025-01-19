@@ -7,6 +7,8 @@ import { ColumnsType } from 'antd/es/table';
 export interface Task {
     id: number;
     title: string;
+    country: string;
+    system: string;
     description: string;
     status: string;
     sendDate: string;
@@ -65,6 +67,27 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             ),
             filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
             onFilter: (value, record) => record.title.toLowerCase().includes(String(value).toLowerCase()),
+        },
+        {
+            title: 'País',
+            dataIndex: 'country',
+            key: 'country',
+            filters: [
+                { text: 'USA', value: 'USA' },
+                { text: 'Mexico', value: 'Mexico' },
+                { text: 'Canada', value: 'Canada' },
+            ],
+            onFilter: (value, record) => record.country === value,
+        },
+        {
+            title: 'Sistema',
+            dataIndex: 'system',
+            key: 'system',
+            filters: [
+                { text: 'Sistema A', value: 'Sistema A' },
+                { text: 'Sistema B', value: 'Sistema B' },
+            ],
+            onFilter: (value, record) => record.system === value,
         },
         {
             title: 'Descripción',

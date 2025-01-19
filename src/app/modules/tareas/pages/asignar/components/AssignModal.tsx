@@ -16,6 +16,10 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
     const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
     const [selectedTask, setSelectedTask] = useState<string | null>(null);
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+
+    // Watch for changes in programmingType
+    Form.useWatch('programmingType', form);
 
     const latinCountries = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'República Dominicana', 'Uruguay', 'Venezuela'];
     const systems = ['Sistema 1', 'Sistema 2', 'Sistema 3'];
@@ -226,30 +230,42 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                         <Form.Item
                             label="Tipo de Programación"
                             name="programmingType"
-                            rules={[{ required: true, message: 'Por favor seleccione el tipo de programación' }]}
                         >
                             <div>
-                                {['Back', 'Front', 'Mobile', 'IA', 'Data'].map(type => (
-                                    <Button
-                                        key={type}
-                                        onClick={() => {
-                                            const currentTypes = form.getFieldValue('programmingType') || [];
-                                            if (!currentTypes.includes(type)) {
-                                                form.setFieldsValue({ programmingType: [...currentTypes, type] });
-                                            }
-                                        }}
-                                        style={{ marginRight: 8, marginBottom: 8 }}
-                                    >
-                                        {type}
-                                    </Button>
-                                ))}
-                            </div>
-                            <div style={{ marginTop: 8 }}>
-                                {form.getFieldValue('programmingType')?.map((type: string) => (
-                                    <Tag key={type} closable onClose={() => {
+                                    {['Back', 'Front', 'Mobile', 'IA', 'Data'].map(type => {
                                         const currentTypes = form.getFieldValue('programmingType') || [];
-                                        form.setFieldsValue({ programmingType: currentTypes.filter((t: string) => t !== type) });
-                                    }}>
+                                        const isSelected = currentTypes.includes(type);
+                                        
+                                        return !isSelected && (
+                                            <Button
+                                                key={type}
+                                                onClick={() => {
+                                                    const currentTypes = form.getFieldValue('programmingType') || [];
+                                                    if (!currentTypes.includes(type)) {
+                                                        form.setFieldsValue({ 
+                                                            programmingType: [...currentTypes, type] 
+                                                        });
+                                                    }
+                                                }}
+                                                style={{ marginRight: 8, marginBottom: 8 }}
+                                            >
+                                                {type}
+                                            </Button>
+                                        );
+                                    })}
+                                </div>
+                            <div style={{ marginTop: 8 }}>
+                                {(form.getFieldValue('programmingType') || []).map((type: string) => (
+                                    <Tag 
+                                        key={type} 
+                                        closable 
+                                        onClose={() => {
+                                            const currentTypes = form.getFieldValue('programmingType') || [];
+                                            form.setFieldsValue({ 
+                                                programmingType: currentTypes.filter((t: string) => t !== type) 
+                                            });
+                                        }}
+                                    >
                                         {type}
                                     </Tag>
                                 ))}
