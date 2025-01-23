@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Partner } from './partner';
-import { NewPartner } from './newpartner';
+import { NewPart } from './newpart';
+import { PartActiv } from './partactiv';
 
-export const Auditors: React.FC = () => {
+export const Partners: React.FC = () => {
     const [activeTab, setActiveTab] = useState('kt_tab_pane_1');
 
     const handleTabClick = (e: React.MouseEvent, tabId: string) => {
@@ -17,16 +17,16 @@ export const Auditors: React.FC = () => {
                     <a
                         className={`nav-link ${activeTab === 'kt_tab_pane_1' ? 'active' : ''} btn-active-light-secondary`}
                         onClick={(e) => handleTabClick(e, 'kt_tab_pane_1')}
-                        href="./partner"
+                        href="./partactiv"
                     >
-                        Auditores activos
+                        Socios activos
                     </a>
                 </li>
                 <li className="nav-item">
                     <a
                         className={`nav-link ${activeTab === 'kt_tab_pane_2' ? 'active' : ''} btn-active-light-secondary`}
                         onClick={(e) => handleTabClick(e, 'kt_tab_pane_2')}
-                        href="./newpartner"
+                        href="./newpart"
                     >
                         Nuevos postulantes
                     </a>
@@ -39,14 +39,14 @@ export const Auditors: React.FC = () => {
                     id="kt_tab_pane_1"
                     role="tabpanel"
                 >
-                    <Partner/>
+                    <PartActiv />
                 </div>
                 <div
                     className={`tab-pane fade ${activeTab === 'kt_tab_pane_2' ? 'active show' : ''}`}
                     id="kt_tab_pane_2"
                     role="tabpanel"
                 >
-                    <NewPartner />
+                    <NewPart />
                 </div>
             </div>
         </div>

@@ -5,42 +5,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faSave, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-const Pagination = () => (
-    <ul className="pagination">
-        <li className="page-item previous disabled">
-            <a href="#" className="page-link">
-                <i className="previous"></i>
-            </a>
-        </li>
-        <li className="page-item"><a href="#" className="page-link">1</a></li>
-        <li className="page-item active"><a href="#" className="page-link">2</a></li>
-        <li className="page-item next">
-            <a href="#" className="page-link">
-                <i className="next"></i>
-            </a>
-        </li>
-    </ul>
-);
+function Pagination() {
+    return (
+        <ul className="pagination">
+            <li className="page-item previous disabled">
+                <a href="#" className="page-link">
+                    <i className="previous"></i>
+                </a>
+            </li>
+            <li className="page-item"><a href="#" className="page-link">1</a></li>
+            <li className="page-item active"><a href="#" className="page-link">2</a></li>
+            <li className="page-item"><a href="#" className="page-link">3</a></li>
+            <li className="page-item"><a href="#" className="page-link">4</a></li>
+            <li className="page-item"><a href="#" className="page-link">5</a></li>
+            <li className="page-item"><a href="#" className="page-link">6</a></li>
+            <li className="page-item next">
+                <a href="#" className="page-link">
+                    <i className="next"></i>
+                </a>
+            </li>
+        </ul>
+    );
+}
 
-const initialData = [
+const data = [
     {
         id: 1,
         numero: '1',
         pais: 'México',
-        paisSistema: 'México',
-        sgDigital: 'SG123',
-        nombres: 'Juan Pérez',
+        nombre: 'Juan Pérez',
         celular: '1234567890',
+        tipoSocio: 'Abogado',
+        fechaIngreso: '2023-01-01',
+        fechaSalida: '2023-12-31',
         utilidad: '0.5%',
         ingresoUtilidad: '500',
         nombreBco: 'Banco XYZ',
         numeroCuenta: '123456789',
         estado: 'Activo',
-        material: 'material_juan_perez.pdf',
+        idiomas: 'Español, Inglés',
     },
+    // Otros datos...
 ];
 
-const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: React.Dispatch<React.SetStateAction<typeof initialData>> }) => {
+function ActivePartnersTable() {
     const [searchTerm, setSearchTerm] = useState('');
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [editValue, setEditValue] = useState('');
@@ -51,13 +59,12 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
     };
 
     const handleSaveClick = (index: number) => {
-        const updatedData = [...data];
-        updatedData[index].utilidad = editValue;
-        setData(updatedData);
+        data[index].utilidad = editValue;
         setEditIndex(null);
     };
 
     const filteredData = data.filter(item =>
+        item.estado === 'Activo' &&
         Object.values(item).some(val =>
             String(val).toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -77,16 +84,17 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
                     <tr>
                         <th>N°</th>
                         <th>País</th>
-                        <th>País Sistema</th>
-                        <th>SG Digital</th>
-                        <th>Nombres</th>
+                        <th>Nombre</th>
                         <th>Celular</th>
+                        <th>Tipo de Socio</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Salida</th>
                         <th>Utilidad</th>
-                        <th>Ingreso Utilidad ($)</th>
-                        <th>Nombre del Bco</th>
-                        <th>N° de Cuenta</th>
+                        <th>Ingreso Utilidad</th>
+                        <th>Nombre Bco</th>
+                        <th>Número de cuenta</th>
                         <th>Estado</th>
-                        <th>Material</th>
+                        <th>Idiomas</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -96,10 +104,11 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
                             <tr key={item.id}>
                                 <td>{item.numero}</td>
                                 <td>{item.pais}</td>
-                                <td>{item.paisSistema}</td>
-                                <td>{item.sgDigital}</td>
-                                <td>{item.nombres}</td>
+                                <td>{item.nombre}</td>
                                 <td>{item.celular}</td>
+                                <td>{item.tipoSocio}</td>
+                                <td>{item.fechaIngreso}</td>
+                                <td>{item.fechaSalida}</td>
                                 <td>
                                     {editIndex === index ? (
                                         <input
@@ -115,12 +124,7 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
                                 <td>{item.nombreBco}</td>
                                 <td>{item.numeroCuenta}</td>
                                 <td>{item.estado}</td>
-                                <td>
-                                    <a href={item.material} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
-                                        <i className="cv-icon" style={{ marginRight: '8px' }}></i>
-                                        <span>Ver archivo</span>
-                                    </a>
-                                </td>
+                                <td>{item.idiomas}</td>
                                 <td>
                                     {editIndex === index ? (
                                         <button className="btn btn-success btn-sm" onClick={() => handleSaveClick(index)}>
@@ -139,37 +143,35 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
             </table>
         </div>
     );
-};
+}
 
-const exportToExcel = (data: typeof initialData) => {
+function exportToExcel() {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Auditores');
+    XLSX.utils.book_append_sheet(wb, ws, 'Historial de Socios');
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([wbout], { type: 'application/octet-stream' });
-    saveAs(blob, 'auditores.xlsx');
-};
+    saveAs(blob, 'historial_de_socios.xlsx');
+}
 
-export const Partner = () => {
-    const [auditorsData, setAuditorsData] = useState(initialData);
-
+export function PartActiv() {
     return (
         <div className="card">
             <div className="card-body">
                 <div className="card-content">
                     <p>
-                        La tabla de auditores permite a los usuarios almacenar y gestionar la información de los auditores de manera segura y eficiente. Los datos registrados incluyen el número, país, nombres, celular, SG Digital, país del sistema, utilidad, ingreso por utilidad, nombre del banco, número de cuenta, estado y material.
+                        El historial de socios permite a los usuarios almacenar y gestionar la información de los socios de manera segura y eficiente. Los datos registrados incluyen el número, país, nombre, celular, tipo de socio, fecha de ingreso, fecha de salida, utilidad, ingreso por utilidad, nombre del banco, número de cuenta y estado.
                     </p>
                 </div>
-                <AuditorTable data={auditorsData} setData={setAuditorsData} />
+                <ActivePartnersTable />
                 <div className="d-flex justify-content-end mt-16">
                     <div className="flex-1"></div>
                     <Pagination />
                     <div className="card-footer">
-                        <button className="btn btn-primary" onClick={() => exportToExcel(auditorsData)}>Exportar</button>
+                        <button className="btn btn-primary" onClick={exportToExcel}>Exportar</button>
                     </div>
                 </div>
             </div>
         </div>
     );
-};
+}

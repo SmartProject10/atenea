@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Partner } from './partner';
-import { NewPartner } from './newpartner';
+import { PartnerDev } from './partnerdev';
+import { NewPartDev } from './newpartdev';
 
-export const Auditors: React.FC = () => {
+export const Developers: React.FC = () => {
     const [activeTab, setActiveTab] = useState('kt_tab_pane_1');
 
     const handleTabClick = (e: React.MouseEvent, tabId: string) => {
@@ -11,22 +11,22 @@ export const Auditors: React.FC = () => {
     };
 
     return (
-        <div className="socios-dash w-100">
+        <div className="developers-dash w-100">
             <ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mt-10 mb-5 fs-5">
                 <li className="nav-item">
                     <a
                         className={`nav-link ${activeTab === 'kt_tab_pane_1' ? 'active' : ''} btn-active-light-secondary`}
                         onClick={(e) => handleTabClick(e, 'kt_tab_pane_1')}
-                        href="./partner"
+                        href="./partnerdev"
                     >
-                        Auditores activos
+                        Desarrolladores activos
                     </a>
                 </li>
                 <li className="nav-item">
                     <a
                         className={`nav-link ${activeTab === 'kt_tab_pane_2' ? 'active' : ''} btn-active-light-secondary`}
                         onClick={(e) => handleTabClick(e, 'kt_tab_pane_2')}
-                        href="./newpartner"
+                        href="./newpartdev"
                     >
                         Nuevos postulantes
                     </a>
@@ -39,14 +39,14 @@ export const Auditors: React.FC = () => {
                     id="kt_tab_pane_1"
                     role="tabpanel"
                 >
-                    <Partner/>
+                    <PartnerDev />
                 </div>
                 <div
                     className={`tab-pane fade ${activeTab === 'kt_tab_pane_2' ? 'active show' : ''}`}
                     id="kt_tab_pane_2"
                     role="tabpanel"
                 >
-                    <NewPartner />
+                    <NewPartDev />
                 </div>
             </div>
         </div>

@@ -25,9 +25,6 @@ export function Home(): JSX.Element {
 					<p className="text-muted fw-bold fs-7">Bienvenido, Socio Administrador</p>
 				</div>
 
-				<div>
-					<button className="btn btn-secondary" onClick={() => navigate('/ficha-usuario')}>Ver mi perfil</button>
-				</div>
 			</div>
 
 			<div id="kt_carousel_1_carousel" className="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
@@ -56,7 +53,6 @@ export function Home(): JSX.Element {
 			</div>
 
 			<div className="row mt-8">
-
 				<div className="col-lg-4 col-md-6 col-xs-12">
 					<StatisticsWidget1
 						className="card-xl-stretch mb-xl-8"
@@ -68,7 +64,7 @@ export function Home(): JSX.Element {
 				</div>
 
 				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="card">
+					<div className="card-xl-stretch mb-xl-8">
 						<div className="card-body">
 							<div className="card-title fw-bold fs-1">Horas Trabajadas de socios</div>
 							
@@ -90,7 +86,7 @@ export function Home(): JSX.Element {
 				</div>
 
 				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="card">
+					<div className="card-xl-stretch mb-xl-8">
 						<div className="card-body">
 							<div className="card-title fw-bold fs-1">Ganancias</div>
 							

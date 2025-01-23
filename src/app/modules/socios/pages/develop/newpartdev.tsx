@@ -59,16 +59,16 @@ const initialData = [
         id: 1,
         numero: '1',
         pais: 'México',
-        nombres: 'Juan Pérez',
+        nombre: 'Juan Pérez',
         celular: '1234567890',
-        sgDigital: 'SG123',
-        paisSistema: 'México',
-        utilidad: '0.5%',
-        ingresoUtilidad: '500',
-        nombreBco: 'Banco XYZ',
-        numeroCuenta: '123456789',
-        estado: 'Activo',
-        material: 'material_juan_perez.pdf',
+        expBack: '5',
+        expFront: '3',
+        expMobile: '2',
+        expOtra: '1',
+        expTotal: '11',
+        cv: 'cv_juan_perez.pdf',
+        aprobar: false,
+        estado: 'Pendiente',
     },
 ];
 
@@ -77,19 +77,22 @@ const initialNewApplicantsData = [
         id: 1,
         numero: '1',
         pais: 'México',
-        namesystem: 'ISO 9001',
         nombre: 'Ana Gómez',
         celular: '0987654321',
         fechaPostulacion: '2023-10-01',
         especialidad: 'Consultoría',
+        expBack: '4',
+        expFront: '2',
+        expMobile: '1',
+        expOtra: '3',
+        expTotal: '10',
         cv: 'cv_ana_gomez.pdf',
         aprobar: false,
         estado: 'Pendiente',
-        material: 'material_ana_gomez.pdf',
     },
 ];
 
-function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplicantsData: typeof initialNewApplicantsData, setAuditorsData: React.Dispatch<React.SetStateAction<typeof initialData>> }) {
+function NewApplicantsTable({ newApplicantsData, setDevelopersData }: { newApplicantsData: typeof initialNewApplicantsData, setDevelopersData: React.Dispatch<React.SetStateAction<typeof initialData>> }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterApproved, setFilterApproved] = useState<'all' | 'approved' | 'notApproved'>('all');
 
@@ -97,22 +100,22 @@ function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplica
         const updatedApplicants = [...newApplicantsData];
         updatedApplicants[index].aprobar = !updatedApplicants[index].aprobar;
         if (updatedApplicants[index].aprobar) {
-            const newAuditor = {
+            const newDeveloper = {
                 id: updatedApplicants[index].id,
                 numero: updatedApplicants[index].numero,
                 pais: updatedApplicants[index].pais,
-                nombres: updatedApplicants[index].nombre,
+                nombre: updatedApplicants[index].nombre,
                 celular: updatedApplicants[index].celular,
-                sgDigital: '',
-                paisSistema: updatedApplicants[index].pais,
-                utilidad: '0%',
-                ingresoUtilidad: '0',
-                nombreBco: '',
-                numeroCuenta: '',
+                expBack: updatedApplicants[index].expBack,
+                expFront: updatedApplicants[index].expFront,
+                expMobile: updatedApplicants[index].expMobile,
+                expOtra: updatedApplicants[index].expOtra,
+                expTotal: updatedApplicants[index].expTotal,
+                cv: updatedApplicants[index].cv,
+                aprobar: updatedApplicants[index].aprobar,
                 estado: 'Activo',
-                material: updatedApplicants[index].material,
             };
-            setAuditorsData(prevData => [...prevData, newAuditor]);
+            setDevelopersData(prevData => [...prevData, newDeveloper]);
         }
     };
 
@@ -153,13 +156,16 @@ function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplica
                     <tr>
                         <th>N°</th>
                         <th>País</th>
-                        <th>Nombre del Sistema</th>
                         <th>Nombre</th>
                         <th>Celular</th>
                         <th>Fecha de postulación</th>
                         <th>Especialidad</th>
+                        <th>Años de exp back</th>
+                        <th>Años de exp front</th>
+                        <th>Años de exp mobile</th>
+                        <th>Años de exp en otra especialidad</th>
+                        <th>Años de exp totales</th>
                         <th>CV</th>
-                        <th>Material</th>
                         <th>Aprobar</th>
                         <th>Estado</th>
                     </tr>
@@ -171,21 +177,19 @@ function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplica
                                 <tr key={item.id}>
                                     <td>{item.numero}</td>
                                     <td>{item.pais}</td>
-                                    <td>{item.namesystem}</td>
                                     <td>{item.nombre}</td>
                                     <td>{item.celular}</td>
                                     <td>{item.fechaPostulacion}</td>
                                     <td>{item.especialidad}</td>
+                                    <td>{item.expBack}</td>
+                                    <td>{item.expFront}</td>
+                                    <td>{item.expMobile}</td>
+                                    <td>{item.expOtra}</td>
+                                    <td>{item.expTotal}</td>
                                     <td>
                                         <a href={item.cv} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
                                             <i className="cv-icon" style={{ marginRight: '8px' }}></i>
                                             <span>Descargar CV</span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href={item.material} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
-                                            <i className="cv-icon" style={{ marginRight: '8px' }}></i>
-                                            <span>Ver archivo</span>
                                         </a>
                                     </td>
                                     <td>
@@ -228,14 +232,14 @@ function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplica
 function exportToExcel(data: typeof initialData) {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Auditores');
+    XLSX.utils.book_append_sheet(wb, ws, 'Desarrolladores');
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([wbout], { type: 'application/octet-stream' });
-    saveAs(blob, 'auditores.xlsx');
+    saveAs(blob, 'desarrolladores.xlsx');
 }
 
-export function NewPartner() {
-    const [auditorsData, setAuditorsData] = useState(initialData);
+export function NewPartDev() {
+    const [developersData, setDevelopersData] = useState(initialData);
     const [newApplicantsData, setNewApplicantsData] = useState(initialNewApplicantsData);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 6; // Or calculate based on data length
@@ -247,26 +251,20 @@ export function NewPartner() {
     return (
         <div className="card">
             <div className="card-body">
-                <div className="card-content">
-                    <p>
-                        La tabla de auditores permite a los usuarios almacenar y gestionar la información de los auditores de manera segura y eficiente. Los datos registrados incluyen el número, país, nombres, celular, SG Digital, país del sistema, utilidad, ingreso por utilidad, nombre del banco, número de cuenta, estado y material.
-                    </p>
-                </div>
-                <NewApplicantsTable 
-                    newApplicantsData={newApplicantsData} 
-                    setAuditorsData={setAuditorsData} 
-                />
+            <p>En esta sección podrás ver los nuevos postulantes en desarrolladores de todo tipo</p>
+                <NewApplicantsTable newApplicantsData={newApplicantsData} setDevelopersData={setDevelopersData} />
                 <div className="d-flex justify-content-end mt-16">
-                    <div className="flex-1"></div>
+                    <div className="flex-1">
                     <Pagination 
                         currentPage={currentPage}
                         totalPages={totalPages}
                         onPageChange={handlePageChange}
                     />
+                    </div>
                     <div className="card-footer">
                         <button 
                             className="btn btn-primary" 
-                            onClick={() => exportToExcel(auditorsData)}
+                            onClick={() => exportToExcel(developersData)}
                         >
                             Exportar
                         </button>
@@ -277,4 +275,4 @@ export function NewPartner() {
     );
 }
 
-export default NewPartner;
+export default NewPartDev;

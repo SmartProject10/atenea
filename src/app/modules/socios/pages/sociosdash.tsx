@@ -1,6 +1,6 @@
-import { Developers } from './developers'
+import { Developers } from './develop/developers'
 import { Auditors } from './auditor/auditors'
-import { Partners } from './partners'
+import { Partners } from './others/partners'
 
 
 export function Socios() {

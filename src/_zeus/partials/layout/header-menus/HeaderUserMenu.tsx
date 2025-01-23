@@ -42,7 +42,7 @@ const HeaderUserMenu: FC = () => {
 
 				<>
 					<div className='menu-item px-5'>
-						<Link to={'/home'} className='menu-link px-5'>
+						<Link to={'/ficha-usuario'} className='menu-link px-5'>
 							Mi Perfil
 						</Link>
 					</div>
