@@ -236,7 +236,7 @@ function exportToExcel(data: typeof initialData) {
 
 export function NewPartner() {
     const [auditorsData, setAuditorsData] = useState(initialData);
-    const [newApplicantsData, setNewApplicantsData] = useState(initialNewApplicantsData);
+    const [newApplicantsData] = useState(initialNewApplicantsData);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 6; // Or calculate based on data length
 

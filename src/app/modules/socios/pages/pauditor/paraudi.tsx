@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faSave, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const Pagination = () => (
     <ul className="pagination">
         <li className="page-item previous disabled">
             <a href="#" className="page-link">
-                <i className="previous"></i>
+                <span className="previous"></span>
             </a>
         </li>
         <li className="page-item"><a href="#" className="page-link">1</a></li>
         <li className="page-item active"><a href="#" className="page-link">2</a></li>
         <li className="page-item next">
             <a href="#" className="page-link">
-                <i className="next"></i>
+                <span className="next"></span>
             </a>
         </li>
     </ul>

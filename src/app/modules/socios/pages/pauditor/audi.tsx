@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Partner } from './partner';
-import { NewPartner } from './newpartner';
+import { Partner } from './paraudi';
+import { NewPartner } from './newaudi';
 
 export const Auditors: React.FC = () => {
     const [activeTab, setActiveTab] = useState('kt_tab_pane_1');
@@ -17,7 +17,7 @@ export const Auditors: React.FC = () => {
                     <a
                         className={`nav-link ${activeTab === 'kt_tab_pane_1' ? 'active' : ''} btn-active-light-secondary`}
                         onClick={(e) => handleTabClick(e, 'kt_tab_pane_1')}
-                        href="./partner"
+                        href="./paraudi"
                     >
                         Auditores activos
                     </a>
@@ -26,7 +26,7 @@ export const Auditors: React.FC = () => {
                     <a
                         className={`nav-link ${activeTab === 'kt_tab_pane_2' ? 'active' : ''} btn-active-light-secondary`}
                         onClick={(e) => handleTabClick(e, 'kt_tab_pane_2')}
-                        href="./newpartner"
+                        href="./newaudi"
                     >
                         Nuevos postulantes
                     </a>
