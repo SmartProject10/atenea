@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Modal, Button, Form, InputGroup } from 'react-bootstrap';
+import { Modal, Button, Form, InputGroup, Col } from 'react-bootstrap';
+import { Tag } from 'antd';
 import { FaSearch } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
@@ -11,6 +12,7 @@ interface AddTaskModalProps {
 
 function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
     const [validated, setValidated] = useState(false);
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         const form = event.currentTarget;
@@ -70,17 +72,41 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br />
-                    <Form.Group controlId="formTechnologies">
-                        <Form.Label>Tecnologías</Form.Label>
-                        <Form.Control as="select" multiple required>
-                            <option value="Mobile">Mobile</option>
-                            <option value="IA">IA</option>
-                        </Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                            Por favor seleccione al menos una tecnología.
-                        </Form.Control.Feedback>
+                    <Form.Group controlId="formProgrammingType">
+                        <Form.Label>Tipo de Programación</Form.Label>
+                        <div>
+                            {['Back', 'Front', 'Mobile', 'IA', 'Data'].map(type => {
+                                const isSelected = selectedTypes.includes(type);
+                                
+                                return !isSelected && (
+                                    <Button
+                                        key={type}
+                                        onClick={() => {
+                                            if (!selectedTypes.includes(type)) {
+                                                setSelectedTypes([...selectedTypes, type]);
+                                            }
+                                        }}
+                                        style={{ marginRight: 8, marginBottom: 8 }}
+                                    >
+                                        {type}
+                                    </Button>
+                                );
+                            })}
+                        </div>
+                        <div style={{ marginTop: 8 }}>
+                            {selectedTypes.map((type: string) => (
+                                <Tag 
+                                    key={type} 
+                                    closable 
+                                    onClose={() => {
+                                        setSelectedTypes(selectedTypes.filter((t: string) => t !== type));
+                                    }}
+                                >
+                                    {type}
+                                </Tag>
+                            ))}
+                        </div>
                     </Form.Group>
-                    <br />
                     <Form.Group controlId="formAssignmentDate">
                         <Form.Label>Fecha de asignación</Form.Label>
                         <Form.Control type="date" defaultValue={new Date().toISOString().split('T')[0]} readOnly required />
