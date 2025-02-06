@@ -23,12 +23,34 @@ export function SidebarCompras(): JSX.Element {
 				fontIcon="bi-app-indicator"
 			/>
 
-			<SidebarMenuItem
-                to="/tareas"
-                icon="check-circle"
-                title={intl.formatMessage({ id: "MENU.TAREAS" })}
-                fontIcon="bi-app-indicator"
-            />
+			<SidebarMenuItemWithSub
+				to="/tareas"
+				icon="check-circle"
+				title={intl.formatMessage({ id: "MENU.TAREAS" })}
+				fontIcon="bi-app-indicator"
+			>
+				<SidebarMenuItem
+					to="/tareas/asignar"
+					icon="calendar"
+					title="Asignar"
+					fontIcon="bi-app-indicator"
+				/>
+
+				<SidebarMenuItem
+					to="/tareas/asig"
+					icon="notification-bing"
+					title="Sistemas en Proceso"
+					fontIcon="bi-app-indicator"
+				/>
+				
+				<SidebarMenuItem
+					to="/tareas/lista"
+					icon="profile-user"
+					title="Líderes"
+					fontIcon="bi-app-indicator"
+				/>
+			</SidebarMenuItemWithSub>
+
 			<SidebarMenuItem
                 to="/socios"
                 icon="people"

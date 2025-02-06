@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { Modal, Button, Form, InputGroup, Col } from 'react-bootstrap';
-import { Tag } from 'antd';
-import { FaSearch } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Modal, Button, Form, Badge } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
@@ -95,15 +93,17 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                         </div>
                         <div style={{ marginTop: 8 }}>
                             {selectedTypes.map((type: string) => (
-                                <Tag 
+                                <Badge 
                                     key={type} 
-                                    closable 
-                                    onClose={() => {
+                                    pill 
+                                    bg="primary" 
+                                    style={{ cursor: 'pointer' }} 
+                                    onClick={() => {
                                         setSelectedTypes(selectedTypes.filter((t: string) => t !== type));
                                     }}
                                 >
-                                    {type}
-                                </Tag>
+                                    {type} &times;
+                                </Badge>
                             ))}
                         </div>
                     </Form.Group>
@@ -147,7 +147,7 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
     );
 }
 
-export function Tareas() {
+export function TasksPage() {
     const [showModal, setShowModal] = useState(false);
 
     const tasksData = [
@@ -294,81 +294,10 @@ export function Tareas() {
                         </tbody>
                     </table>
                 </div>
-                <div className="table-responsive my-16">
-                    <h5>Sistemas en proceso</h5>
-                    <div className="filters mb-3">
-                        <div className="row">
-                            <div className="col">
-                                <input type="text" placeholder="Buscar..." className="form-control form-control-sm" />
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">País</option>
-                                    <option value="Peru">Peru</option>
-                                    <option value="Chile">Chile</option>
-                                    <option value="Argentina">Argentina</option>
-                                </select>
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">Tipo</option>
-                                    <option value="comprado">Comprado</option>
-                                    <option value="alquiler">Alquiler</option>
-                                </select>
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">Estado</option>
-                                    <option value="cancelado">Cancelado</option>
-                                    <option value="1 comisión">1 Comisión</option>
-                                    <option value="pendiente">Pendiente</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>N°</th>
-                                <th>País</th>
-                                <th>Nombre del sistema</th>
-                                <th>Usuario</th>
-                                <th>Estado</th>
-                                <th>Porcentaje auditor</th>
-                                <th>Porcentaje Programador</th>
-                                <th>Front (%)</th>
-                                <th>Back (%)</th>
-                                <th>Mobile (%)</th>
-                                <th>Data (%)</th>
-                                <th>IA (%)</th>
-                                <th>Fecha final proyecto</th>
-                                <th>Estado Proyecto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {systemsData.map((system, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{system.country}</td>
-                                    <td>{system.systemName}</td>
-                                    <td>{system.user}</td>
-                                    <td>{system.status}</td>
-                                    <td>{system.auditorPercentage}%</td>
-                                    <td>{system.programmerPercentage}%</td>
-                                    <td>{system.frontTasks}%</td>
-                                    <td>{system.backTasks}%</td>
-                                    <td>{system.mobileTasks}%</td>
-                                    <td>{system.rvTasks}%</td>
-                                    <td>{system.iaTasks}%</td>
-                                    <td>{system.projectEndDate}</td>
-                                    <td>{system.projectStatus}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
             </div>
             <AddTaskModal show={showModal} handleClose={handleCloseModal} />
         </div>
     );
 }
+
+export default TasksPage;
