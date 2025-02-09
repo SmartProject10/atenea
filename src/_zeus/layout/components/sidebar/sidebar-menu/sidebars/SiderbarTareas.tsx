@@ -29,21 +29,21 @@ export const SidebarTareas = () => {
 				fontIcon="bi-app-indicator"
 			>
 				<SidebarMenuItem
-					to="/tareas/asignar"
+					to="/tareas/taks"
 					icon="calendar"
 					title="Asignar"
 					fontIcon="bi-app-indicator"
 				/>
 
 				<SidebarMenuItem
-					to="/tareas/asig"
+					to="/tareas/process"
 					icon="notification-bing"
 					title="Sistemas en Proceso"
 					fontIcon="bi-app-indicator"
 				/>
 				
 				<SidebarMenuItem
-					to="/tareas/lista"
+					to="/tareas/boss"
 					icon="profile-user"
 					title="Líderes"
 					fontIcon="bi-app-indicator"

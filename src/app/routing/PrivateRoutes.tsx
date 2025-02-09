@@ -1,8 +1,8 @@
 import { lazy } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
-import { TareasRoutes } from '../modules/tareas/tareas.routes.tsx'
+import TareasRoutes from '../modules/tareas/tareas.routes.tsx'
 import { SociosRoutes } from '../modules/socios/socios.routes.tsx'
 import { ComprasRoutes } from '../modules/compras/compras.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
@@ -30,9 +30,10 @@ export const PrivateRoutes = () => {
 				<Route path="dashboard" element={<DashboardWrapper />} />
 				<Route path="menu-test" element={<MenuTestPage />} />
 				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
-				<Route path="tareas/*" element={<TareasRoutes />} />
+				<Route path="tareas/*" element={<Outlet />} />
 				<Route path="socios/*" element={<SociosRoutes />} />
 				<Route path="compras/*" element={<ComprasRoutes />} />
+				<Route path="tareas/*" element={<TareasRoutes />} />
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
