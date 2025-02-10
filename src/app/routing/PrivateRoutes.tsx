@@ -8,6 +8,7 @@ import { ComprasRoutes } from '../modules/compras/compras.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { MenuTestPage } from '../pages/MenuTestPage'
+import { ProfileView } from '../modules/profileview';
 
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
@@ -42,6 +43,8 @@ export const PrivateRoutes = () => {
                     />
                 ))}
             	</Route>
+				<Route path="profile/:id" element={<ProfileView />} />
+
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />

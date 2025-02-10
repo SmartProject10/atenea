@@ -56,6 +56,7 @@ function BossPage() {
                         <th>Rango</th>
                         <th>Estado</th>
                         <th>Horas totales trabajadas</th>
+                        <th>Ver Perfil</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,11 @@ function BossPage() {
                             <td>{programmer.rank}</td>
                             <td>{programmer.status}</td>
                             <td>{programmer.totalHours}</td>
+                            <td>
+                                <Link to={`/profile/${programmer.id}`}>
+                                    <Button variant="info">Ver Perfil</Button>
+                                </Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -180,12 +186,6 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         <Form.Label>Horas totales trabajadas</Form.Label>
                         <Form.Control type="number" value={totalHours ?? ''} onChange={(e) => setTotalHours(Number(e.target.value))} disabled />
                     </Form.Group>
-                    <br />
-                    {id !== null && (
-                        <Link to={`/profile/${id}`} className="btn btn-info">
-                            Ver Perfil
-                        </Link>
-                    )}
                 </Form>
             </Modal.Body>
             <Modal.Footer>
