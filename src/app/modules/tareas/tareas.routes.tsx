@@ -1,19 +1,36 @@
-import { lazy } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { RouteObject } from 'react-router-dom';
+import TareasPendientesPage, { TasksPage } from './pages/taks/index';
+import TareasListaPage, { ProcessPage } from './pages/process/index';
+import TareasAsignar from './pages/boss/index';
+import BossPage from './pages/boss/index';
 
-const TasksPage = lazy(() => import('./pages/taks'));
-const ProcessPage = lazy(() => import('./pages/process'));
-const BossPage = lazy(() => import('./pages/boss'));
 
-export const TareasRoutes = () => {
-    return (
-        <Routes>
-            <Route path="/" element={<Navigate to="/tareas/pages" />} />
-            <Route path="taks" element={<TasksPage />} />
-            <Route path="process" element={<ProcessPage />} />
-            <Route path="boss" element={<BossPage />} />
-        </Routes>
-    );
-};
+const TareasRoutes: RouteObject[] = [
+    {
+        path: 'taks',
+        element: (
+            <Suspense fallback={null}>
+                <TasksPage/>
+            </Suspense>
+        ),
+    },
+    {
+        path: 'process',
+        element: (
+            <Suspense fallback={null}>
+                <ProcessPage />
+            </Suspense>
+        ),
+    },
+    {
+        path: 'boss',
+        element: (
+            <Suspense fallback={null}>
+                <BossPage />
+            </Suspense>
+        ),
+    },
+];
 
 export default TareasRoutes;

@@ -3,14 +3,25 @@ import { Content } from '../../../_zeus/layout/components/content'
 import { ToolbarWrapper } from '../../../_zeus/layout/components/toolbar'
 import { PageTitle } from '../../../_zeus/layout/core'
 import { Bar, Line } from 'react-chartjs-2'
+import { useNavigate } from 'react-router-dom'
 
 const DashboardWrapper: FC = () => {
+  const navigate = useNavigate()
+
   const monthlyIncomeData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
     datasets: [
       {
-        label: 'Monthly Income',
-        backgroundColor: 'rgba(75,192,192,1)',
+        label: 'Ingresos Mensuales',
+        backgroundColor: [
+          'rgba(75,192,192,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+        ],
         borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
@@ -21,11 +32,19 @@ const DashboardWrapper: FC = () => {
   }
 
   const clientsData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
     datasets: [
       {
-        label: 'Clients',
-        backgroundColor: 'rgba(153,102,255,1)',
+        label: 'Clientes',
+        backgroundColor: [
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(255,206,86,1)',
+          'rgba(153,102,255,1)',
+        ],
         borderColor: 'rgba(153,102,255,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(153,102,255,0.4)',
@@ -35,12 +54,43 @@ const DashboardWrapper: FC = () => {
     ],
   }
 
-  const programmedHoursData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  const usersData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
     datasets: [
       {
-        label: 'Programmed Hours',
-        backgroundColor: 'rgba(255,159,64,1)',
+        label: 'Usuarios',
+        backgroundColor: [
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(255,206,86,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+        ],
+        borderColor: 'rgba(54,162,235,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(54,162,235,0.4)',
+        hoverBorderColor: 'rgba(54,162,235,1)',
+        data: [200, 300, 400, 500, 600, 700, 800],
+      },
+    ],
+  }
+  
+  const programmedHoursData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+    datasets: [
+      {
+        label: 'Horas Programadas',
+        backgroundColor: [
+          'rgba(255,159,64,1)',
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,206,86,1)',
+          'rgba(255,159,64,1)',
+        ],
         borderColor: 'rgba(255,159,64,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255,159,64,0.4)',
@@ -50,27 +100,18 @@ const DashboardWrapper: FC = () => {
     ],
   }
 
-  const usersData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Users',
-        backgroundColor: 'rgba(54,162,235,1)',
-        borderColor: 'rgba(54,162,235,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(54,162,235,0.4)',
-        hoverBorderColor: 'rgba(54,162,235,1)',
-        data: [200, 300, 400, 500, 600, 700, 800],
-      },
-    ],
-  }
-
   const rankingCountriesData = {
-    labels: ['Country 1', 'Country 2', 'Country 3', 'Country 4', 'Country 5'],
+    labels: ['Perú', 'Colombia', 'Argentina', 'Ecuador', 'Alemania'],
     datasets: [
       {
         label: 'Ranking',
-        backgroundColor: 'rgba(255,99,132,1)',
+        backgroundColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(75,192,192,1)',
+          'rgba(153,102,255,1)',
+        ],
         borderColor: 'rgba(255,99,132,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255,99,132,0.4)',
@@ -81,16 +122,22 @@ const DashboardWrapper: FC = () => {
   }
 
   const rankingProgrammersData = {
-    labels: ['Programmer 1', 'Programmer 2', 'Programmer 3', 'Programmer 4', 'Programmer 5'],
+    labels: ['Cristian', 'Max', 'Airton', 'Maria', 'Patricia'],
     datasets: [
       {
-        label: 'Ranking',
-        backgroundColor: 'rgba(75,192,192,1)',
+        label: 'Horas trabajadas',
+        backgroundColor: [
+          'rgba(75,192,192,1)',
+          'rgba(54,162,235,1)',
+          'rgba(255,206,86,1)',
+          'rgba(153,102,255,1)',
+          'rgba(255,159,64,1)',
+        ],
         borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
         hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [10, 20, 30, 40, 50],
+        data: [100, 90, 55, 20, 10],
       },
     ],
   }
@@ -99,34 +146,44 @@ const DashboardWrapper: FC = () => {
     <>
       <PageTitle breadcrumbs={[]}>{'Dashboard'}</PageTitle>
       <Content>
-        <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={monthlyIncomeData} />
-            <p>Total Utility: $100,000</p>
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingCountriesData} />
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={clientsData} />
-            <p>Total Clients: 100</p>
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingCountriesData} />
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={programmedHoursData} />
-            <p>Total Programmers: 50</p>
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingProgrammersData} />
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Line data={usersData} />
-            <p>Total Users: 800</p>
-          </div>
-          <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
-            <Bar data={rankingCountriesData} />
+        <div className="dashboard-wrapper">
+          <div className="row">
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Ingresos Mensuales</h3>
+              <Line data={monthlyIncomeData} />
+              <p>Utilidad Total: $100,000</p>
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Ranking de Ingresos por País</h3>
+              <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Clientes</h3>
+              <Line data={clientsData} />
+              <p>Total de Clientes: 100</p>
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Ranking de Clientes</h3>
+              <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Usuarios</h3>
+              <Line data={usersData} />
+              <p>Total de Usuarios: 800</p>
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Ranking de Usuarios</h3>
+              <Bar data={rankingCountriesData} options={{ indexAxis: 'y' }} />
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Horas Trabajadas</h3>
+              <Line data={programmedHoursData} />
+              <p>Total de Programadores: 50</p>
+            </div>
+            <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+              <h3>Programadores con más horas trabajadas</h3>
+              <Bar data={rankingProgrammersData} options={{ indexAxis: 'y' }} />
+            </div>  
           </div>
         </div>
       </Content>

@@ -33,7 +33,15 @@ export const PrivateRoutes = () => {
 				<Route path="tareas/*" element={<Outlet />} />
 				<Route path="socios/*" element={<SociosRoutes />} />
 				<Route path="compras/*" element={<ComprasRoutes />} />
-				<Route path="tareas/*" element={<TareasRoutes />} />
+				<Route path='/tareas/*' element={<Outlet />}>
+                {TareasRoutes.map((route, index) => (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        element={route.element}
+                    />
+                ))}
+            	</Route>
 
 				{/* ISO SOFTWARE MODULES */}
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />

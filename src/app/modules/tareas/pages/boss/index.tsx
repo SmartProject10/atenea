@@ -5,6 +5,7 @@ import { FaSearch } from 'react-icons/fa';
 interface AddTaskModalProps {
     show: boolean;
     handleClose: () => void;
+    setSelectedProgrammer: (programmer: Programmer) => void;
 }
 
 interface Programmer {
@@ -73,48 +74,33 @@ function BossPage() {
     );
 }
 
-interface AddTaskModalProps {
-    show: boolean;
-    handleClose: () => void;
-    setSelectedProgrammer: (programmer: Programmer) => void;
-}
-
 function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModalProps) {
     const [name, setName] = useState('');
     const [country, setCountry] = useState('');
     const [system, setSystem] = useState('');
-    const [experience, setExperience] = useState(0);
-    const [rank, setRank] = useState('plata');
-    const [status, setStatus] = useState('activo');
-    const [totalHours, setTotalHours] = useState(0);
+    const [experience, setExperience] = useState<number | null>(null);
+    const [rank, setRank] = useState('');
+    const [status, setStatus] = useState('');
+    const [totalHours, setTotalHours] = useState<number | null>(null);
 
     const handleSearchProgrammer = () => {
         // Simulate searching and selecting a programmer
-        const programmer = {
-            name: 'John Doe',
-            experience: 5,
-            rank: 'oro',
-            status: 'activo',
-            totalHours: 2000,
-        };
-        setName(programmer.name);
-        setExperience(programmer.experience);
-        setRank(programmer.rank);
-        setStatus(programmer.status);
-        setTotalHours(programmer.totalHours);
+        // This function should be implemented to search for a programmer from a real data source
     };
 
     const handleSave = () => {
-        setSelectedProgrammer({
-            name,
-            country,
-            system,
-            experience,
-            rank,
-            status,
-            totalHours,
-        });
-        handleClose();
+        if (experience !== null && totalHours !== null) {
+            setSelectedProgrammer({
+                name,
+                country,
+                system,
+                experience,
+                rank,
+                status,
+                totalHours,
+            });
+            handleClose();
+        }
     };
 
     return (
@@ -124,6 +110,7 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <h5>País y sistema a asignar como líder</h5>
                     <Form.Group controlId="formCountry">
                         <Form.Label>País</Form.Label>
                         <Form.Control as="select" value={country} onChange={(e) => setCountry(e.target.value)}>
@@ -133,6 +120,7 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                             <option value="Mexico">Mexico</option>
                         </Form.Control>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formSystem">
                         <Form.Label>Sistema</Form.Label>
                         <Form.Control as="select" value={system} onChange={(e) => setSystem(e.target.value)}>
@@ -142,10 +130,17 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                             <option value="Sistema C">Sistema C</option>
                         </Form.Control>
                     </Form.Group>
+                    <br />
+                    <h5>Programador a asignar</h5>
                     <Form.Group controlId="formProgrammerSearch">
                         <Form.Label>Buscar Programador</Form.Label>
                         <InputGroup>
-                            <Form.Control type="text" placeholder="Ingrese el nombre del programador" value={name} readOnly />
+                            <Form.Control
+                                type="text"
+                                placeholder="Ingrese el nombre del programador"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
                             <InputGroup.Text>
                                 <Button variant="outline-secondary" onClick={handleSearchProgrammer}>
                                     <FaSearch />
@@ -153,28 +148,33 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                             </InputGroup.Text>
                         </InputGroup>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formExperience">
                         <Form.Label>Años de experiencia</Form.Label>
-                        <Form.Control type="number" value={experience} readOnly />
+                        <Form.Control type="number" value={experience ?? ''} onChange={(e) => setExperience(Number(e.target.value))} disabled />
                     </Form.Group>
                     <Form.Group controlId="formRank">
                         <Form.Label>Rango</Form.Label>
-                        <Form.Control as="select" value={rank} onChange={(e) => setRank(e.target.value)}>
+                        <Form.Control as="select" value={rank} onChange={(e) => setRank(e.target.value)} disabled={!experience}>
+                            <option value="">Seleccione el rango</option>
                             <option value="plata">Plata</option>
                             <option value="oro">Oro</option>
                             <option value="diamante">Diamante</option>
                         </Form.Control>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formStatus">
                         <Form.Label>Estado</Form.Label>
-                        <Form.Control as="select" value={status} onChange={(e) => setStatus(e.target.value)}>
+                        <Form.Control as="select" value={status} onChange={(e) => setStatus(e.target.value)} disabled={!experience}>
+                            <option value="">Seleccione el estado</option>
                             <option value="activo">Activo</option>
                             <option value="inactivo">Inactivo</option>
                         </Form.Control>
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="formTotalHours">
                         <Form.Label>Horas totales trabajadas</Form.Label>
-                        <Form.Control type="number" value={totalHours} readOnly />
+                        <Form.Control type="number" value={totalHours ?? ''} onChange={(e) => setTotalHours(Number(e.target.value))} disabled />
                     </Form.Group>
                 </Form>
             </Modal.Body>
