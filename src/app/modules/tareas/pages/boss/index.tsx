@@ -90,7 +90,6 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
     const [totalHours, setTotalHours] = useState<number | null>(null);
 
     const handleSearchProgrammer = () => {
-        // Simulate searching and selecting a programmer
         // This function should be implemented to search for a programmer from a real data source
     };
 
