@@ -65,17 +65,9 @@ export function ProcessPage() {
                             </div>
                             <div className="col">
                                 <select className="form-control form-control-sm">
-                                    <option value="">Tipo</option>
-                                    <option value="comprado">Comprado</option>
-                                    <option value="alquiler">Alquiler</option>
-                                </select>
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
                                     <option value="">Estado</option>
-                                    <option value="cancelado">Cancelado</option>
-                                    <option value="1 comisión">1 Comisión</option>
-                                    <option value="pendiente">Pendiente</option>
+                                    <option value="terminado">Terminado</option>
+                                    <option value="proceso">En Proceso</option>
                                 </select>
                             </div>
                         </div>
@@ -86,7 +78,7 @@ export function ProcessPage() {
                                 <th>N°</th>
                                 <th>País</th>
                                 <th>Nombre del sistema</th>
-                                <th>Usuario</th>
+                                <th>Líder</th>
                                 <th>Estado</th>
                                 <th>Porcentaje auditor</th>
                                 <th>Porcentaje Programador</th>

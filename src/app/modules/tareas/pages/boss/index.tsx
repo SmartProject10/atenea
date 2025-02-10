@@ -14,7 +14,6 @@ interface Programmer {
     name: string;
     country: string;
     system: string;
-    experience: number;
     rank: string;
     status: string;
     totalHours: number;
@@ -52,7 +51,6 @@ function BossPage() {
                         <th>Nombre</th>
                         <th>País</th>
                         <th>Sistema</th>
-                        <th>Años de experiencia</th>
                         <th>Rango</th>
                         <th>Estado</th>
                         <th>Horas totales trabajadas</th>
@@ -65,7 +63,6 @@ function BossPage() {
                             <td>{programmer.name}</td>
                             <td>{programmer.country}</td>
                             <td>{programmer.system}</td>
-                            <td>{programmer.experience}</td>
                             <td>{programmer.rank}</td>
                             <td>{programmer.status}</td>
                             <td>{programmer.totalHours}</td>
@@ -104,7 +101,6 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                 name,
                 country,
                 system,
-                experience,
                 rank,
                 status,
                 totalHours,
@@ -159,10 +155,6 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         </InputGroup>
                     </Form.Group>
                     <br />
-                    <Form.Group controlId="formExperience">
-                        <Form.Label>Años de experiencia</Form.Label>
-                        <Form.Control type="number" value={experience ?? ''} onChange={(e) => setExperience(Number(e.target.value))} disabled />
-                    </Form.Group>
                     <Form.Group controlId="formRank">
                         <Form.Label>Rango</Form.Label>
                         <Form.Control as="select" value={rank} onChange={(e) => setRank(e.target.value)} disabled={!experience}>
