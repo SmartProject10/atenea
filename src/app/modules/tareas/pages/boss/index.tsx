@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal, Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 interface AddTaskModalProps {
     show: boolean;
@@ -9,6 +10,7 @@ interface AddTaskModalProps {
 }
 
 interface Programmer {
+    id: number;
     name: string;
     country: string;
     system: string;
@@ -75,6 +77,7 @@ function BossPage() {
 }
 
 function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModalProps) {
+    const [id, setId] = useState<number | null>(null);
     const [name, setName] = useState('');
     const [country, setCountry] = useState('');
     const [system, setSystem] = useState('');
@@ -89,8 +92,9 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
     };
 
     const handleSave = () => {
-        if (experience !== null && totalHours !== null) {
+        if (id !== null && experience !== null && totalHours !== null) {
             setSelectedProgrammer({
+                id,
                 name,
                 country,
                 system,
@@ -176,6 +180,12 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         <Form.Label>Horas totales trabajadas</Form.Label>
                         <Form.Control type="number" value={totalHours ?? ''} onChange={(e) => setTotalHours(Number(e.target.value))} disabled />
                     </Form.Group>
+                    <br />
+                    {id !== null && (
+                        <Link to={`/profile/${id}`} className="btn btn-info">
+                            Ver Perfil
+                        </Link>
+                    )}
                 </Form>
             </Modal.Body>
             <Modal.Footer>
