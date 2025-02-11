@@ -8,7 +8,7 @@ import { ComprasRoutes } from '../modules/compras/compras.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { MenuTestPage } from '../pages/MenuTestPage'
-import { ProfileView } from '../modules/profileview';
+import { ProfileView } from '../modules/ProfileView';
 
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))

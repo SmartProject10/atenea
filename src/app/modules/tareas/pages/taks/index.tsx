@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
-import { Table, Tag, DatePicker, Button, Select, Modal, Upload, Input } from 'antd';
-import { UploadOutlined, SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Tag, DatePicker, Button, Input, notification, Modal } from 'antd';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import AddTaskModal from './modal';
+import TaskModal from './taskmodal';
 
-const { Option } = Select;
+interface Task {
+    id: number;
+    country: string;
+    namesystem: string;
+    taskName: string;
+    taskDescription: string;
+    dependency: string;
+    requiredTechnologies: string[];
+    assignmentDate: string;
+    dueDate: string;
+    lastDate: string;
+    state: string;
+    assignedTo: string;
+    comments: string;
+    materials: string[];
+}
 
 export function TasksPage() {
-    const [showModal, setShowModal] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [currentRecord, setCurrentRecord] = useState<any>(null);
-
-    const tasksData = [
+    const [tasks, setTasks] = useState<Task[]>([
         {
             id: 1,
             country: 'Perú',
@@ -21,53 +33,71 @@ export function TasksPage() {
             taskName: 'Implementar API',
             taskDescription: 'Desarrollar la API para el sistema',
             dependency: 'Alta',
-            requiredTechnologies: 'Backend',
+            requiredTechnologies: ['Backend'],
             assignmentDate: '2023-01-01',
             dueDate: '2023-01-15',
             lastDate: '2023-01-10',
             state: 'En proceso',
             assignedTo: 'Juan Pérez',
             comments: 'Intermedia',
-            materials: 'api-docs.pdf'
+            materials: ['api-docs.pdf']
         }
-    ];
-
-    const handleNewTask = () => {
-        setShowModal(true);
+    ]);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editingTask, setEditingTask] = useState<Task | null>(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const handleAddTask = (newTask: Task) => {
+        setTasks([...tasks, { ...newTask, id: tasks.length + 1 }]);
+        setShowAddModal(false);
     };
 
-    const handleCloseModal = () => {
-        setShowModal(false);
+    const handleEditTask = (updatedTask: Task) => {
+        setTasks(tasks.map(task => 
+            task.id === updatedTask.id ? updatedTask : task
+        ));
+        setShowEditModal(false);
+        setEditingTask(null);
     };
 
-    const exportToExcel = (data: any[], fileName: string) => {
-        const ws = XLSX.utils.json_to_sheet(data);
+    const handleDeleteTask = (id: number) => {
+        Modal.confirm({
+            title: '¿Está seguro de eliminar esta tarea?',
+            content: 'Esta acción no se puede deshacer',
+            okText: 'Sí',
+            cancelText: 'No',
+            onOk: () => {
+                setTasks(tasks.filter(task => task.id !== id));
+                notification.success({
+                    message: 'Tarea eliminada',
+                    description: 'La tarea ha sido eliminada exitosamente'
+                });
+            }
+        });
+    };
+
+    const exportToExcel = () => {
+        const ws = XLSX.utils.json_to_sheet(tasks);
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.utils.book_append_sheet(wb, ws, 'Tareas');
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
-        saveAs(blob, fileName);
+        saveAs(blob, 'tareas.xlsx');
     };
 
-    const showModalUpload = (record: any) => {
-        setCurrentRecord(record);
-        setIsModalVisible(true);
+    const showModalUpload = (record: Task) => {
+        setEditingTask(record);
+        setEditingTask(record);
+        setShowEditModal(true);
     };
 
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    const onEdit = (record: any) => {
-        // Implement edit functionality here
+    const onEdit = (task: Task) => {
+        setEditingTask(task);
+        setShowEditModal(true);
     };
 
     const onDelete = (id: number) => {
-        // Implement delete functionality here
+        handleDeleteTask(id);
     };
 
     const columns = [
@@ -112,7 +142,7 @@ export function TasksPage() {
                         size="small"
                         style={{ width: 90, marginRight: 8 }}
                     >
-                        Buscar
+            ),
                     </Button>
                     <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
                         Resetear
@@ -136,6 +166,7 @@ export function TasksPage() {
             title: 'Tecnologías requeridas',
             dataIndex: 'requiredTechnologies',
             key: 'requiredTechnologies',
+            render: (technologies: string[]) => technologies.join(', '),
         },
         {
             title: 'Fecha de asignación',
@@ -225,11 +256,12 @@ export function TasksPage() {
             title: 'Materiales',
             dataIndex: 'materials',
             key: 'materials',
+            render: (materials: any[]) => materials.join(', '),
         },
         {
             title: 'Acciones',
             key: 'actions',
-            render: (_: any, record: any) => (
+            render: (_: any, record: Task) => (
                 <span>
                     <Button icon={<EditOutlined />} onClick={() => onEdit(record)} />
                     <Button icon={<DeleteOutlined />} onClick={() => onDelete(record.id)} />
@@ -239,23 +271,65 @@ export function TasksPage() {
     ];
 
     return (
-        <div>
-            <div className="card-header align-items-center">
-                <h5 className="card-title flex-1 align-items-center">Asignación de Tareas</h5>
-                <br />
-                <div>
-                    <button className="btn btn-primary btn-sm me-2" onClick={handleNewTask}>
+        <div className="card">
+            <div className="card-header border-0 pt-6">
+                <div className="card-title">
+                    <div className="d-flex align-items-center position-relative my-1">
+                        <h3 className="card-label">Asignación de Tareas</h3>
+                    </div>
+                </div>
+                <div className="card-toolbar">
+                    <Button 
+                        type="primary" 
+                        onClick={() => setShowAddModal(true)}
+                        className="me-2"
+                    >
                         Agregar Tarea
-                    </button>
-                    <button className="btn btn-success btn-sm" onClick={() => exportToExcel(tasksData, 'tareas.xlsx')}>
-                        Exportar
-                    </button>
+                    </Button>
+                    <Button 
+                        onClick={exportToExcel}
+                    >
+                        Exportar Excel
+                    </Button>
                 </div>
             </div>
-            <div style={{ overflowX: 'auto' }}>
-                <Table dataSource={tasksData} columns={columns} rowKey="id" />
+            <div className="card-body py-4">
+                <Table 
+                    dataSource={tasks} 
+                    columns={columns} 
+                    rowKey="id"
+                    scroll={{ x: true }} 
+                />
             </div>
-            <AddTaskModal show={showModal} handleClose={handleCloseModal} />
+
+            {editingTask && (
+                <TaskModal
+                    show={showEditModal}
+                    handleClose={() => {
+                        setShowEditModal(false);
+                        setEditingTask(null);
+                    }}
+                    onSubmit={handleEditTask}
+                    onSelectChange={(value: string | string[], field: string) => {
+                        setEditingTask(prev => prev ? { ...prev, [field]: value } : null);
+                    }}
+                    isVisible={showEditModal}
+                    editingTask={editingTask}
+                    task={editingTask}
+                    onOk={() => handleEditTask(editingTask)}
+                    onCancel={() => {
+                        setShowEditModal(false);
+                        setEditingTask(null);
+                    }}
+                    onChange={(e) => {
+                        const { name, value } = e.target;
+                        setEditingTask(prev => prev ? { ...prev, [name]: value } : null);
+                    }}
+                    onDateChange={(date: any, dateString: string, field: string) => {
+                        setEditingTask(prev => prev ? { ...prev, [field]: dateString } : null);
+                    }}
+                />
+            )}
         </div>
     );
 }
