@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Select, DatePicker, Upload, Button, Row, Col, Table } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Dayjs } from 'dayjs';
@@ -38,6 +38,14 @@ const TaskModal: React.FC<TaskModalProps> = ({
     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
     const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
     const [selectedTask, setSelectedTask] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (isVisible && !editingTask) {
+            setSelectedCountry(null);
+            setSelectedSystem(null);
+            setSelectedTask(null);
+        }
+    }, [isVisible, editingTask]);
 
     const handleCountryChange = (value: string) => {
         setSelectedCountry(value);

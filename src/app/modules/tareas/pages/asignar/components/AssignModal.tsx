@@ -156,9 +156,9 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                     </Col>
                     <Col span={12}>
                         <Form.Item
-                            label="Prioridad"
+                            label="Dependencia"
                             name="priority"
-                            rules={[{ required: true, message: 'Por favor seleccione la prioridad' }]}
+                            rules={[{ required: true, message: 'Por favor seleccione la dependencia' }]}
                         >
                             <Select placeholder="Seleccione la prioridad">
                                 <Option value="alta">Alta</Option>

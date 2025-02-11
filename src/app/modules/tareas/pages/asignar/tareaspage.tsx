@@ -19,6 +19,7 @@ const TareasAsignar: React.FC = () => {
             title: 'asdads',
             country: 'USA',
             system: 'Sistema A',
+            estimatedHours: 10,
             description: 'Descripción de la tarea 1',
             status: 'incompleta',
             sendDate: '2025-01-01',
@@ -39,6 +40,7 @@ const TareasAsignar: React.FC = () => {
             title: 'Tarea 2',
             country: 'Mexico',
             system: 'Sistema B',
+            estimatedHours: 20,
             description: 'Descripción de la tarea 2',
             status: 'completa',
             sendDate: '2025-01-02',
@@ -59,6 +61,7 @@ const TareasAsignar: React.FC = () => {
             title: 'Tarea 3',
             country: 'Canada',
             system: 'Sistema A',
+            estimatedHours: 15,
             description: 'Descripción de la tarea 3',
             status: 'en proceso',
             sendDate: '2025-01-03',
@@ -81,6 +84,7 @@ const TareasAsignar: React.FC = () => {
         title: '',
         country: '',
         system: '',
+        estimatedHours: 0,
         description: '',
         status: 'incompleta',
         sendDate: '',
@@ -143,12 +147,13 @@ const TareasAsignar: React.FC = () => {
 
     const exportToCSV = () => {
         const csvContent = [
-            ['ID', 'Título', 'País', 'Sistema', 'Descripción', 'Estado', 'Fecha de Envío', 'Fecha de Vencimiento', 'Última Fecha', 'Prioridad', 'Tipo de Programación', 'Supervisor', 'Comentarios', 'Progreso', 'Dificultad', 'Asignado a', 'Enlace', 'País', 'Sistema'],
+            ['ID', 'Título', 'País', 'Sistema', 'Horas Estimadas', 'Descripción', 'Estado', 'Fecha de Envío', 'Fecha de Vencimiento', 'Última Fecha', 'Prioridad', 'Tipo de Programación', 'Supervisor', 'Comentarios', 'Progreso', 'Dificultad', 'Asignado a', 'Enlace'],
             ...tasks.map(task => [
                 task.id,
                 task.title,
                 task.country,
                 task.system,
+                task.estimatedHours,
                 task.description,
                 task.status,
                 task.sendDate,
@@ -176,27 +181,6 @@ const TareasAsignar: React.FC = () => {
     return (
         <div className="tareas-page">
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <div>
-                    <Select
-                        placeholder="Filtrar por país"
-                        style={{ width: 200, marginRight: '8px' }}
-                        onChange={value => setCountryFilter(value)}
-                        allowClear
-                    >
-                        <Option value="USA">USA</Option>
-                        <Option value="Mexico">Mexico</Option>
-                        <Option value="Canada">Canada</Option>
-                    </Select>
-                    <Select
-                        placeholder="Filtrar por sistema"
-                        style={{ width: 200 }}
-                        onChange={value => setSystemFilter(value)}
-                        allowClear
-                    >
-                        <Option value="Sistema A">Sistema A</Option>
-                        <Option value="Sistema B">Sistema B</Option>
-                    </Select>
-                </div>
                 <div>
                     <Button type="primary" onClick={() => setIsAssignModalVisible(true)} style={{ marginRight: '8px' }}>
                         Asignar Tarea

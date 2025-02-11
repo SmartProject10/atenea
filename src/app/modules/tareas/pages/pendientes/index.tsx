@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Tag, DatePicker, Button, Select, Modal, Upload } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Table, Tag, DatePicker, Button, Select, Modal, Upload, Input } from 'antd';
+import type { ColumnType } from 'antd/es/table';
+import type { FilterDropdownProps } from 'antd/es/table/interface';
+import { UploadOutlined, SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -12,10 +14,16 @@ const TareasListaPage: React.FC = () => {
             pais: 'USA',
             sistema: '27001',
             nombreTarea: 'Actualizar Sistema',
-            fechaEnvio: '2023-10-01',
-            estado: 'Pendiente',
+            descripcion: 'Actualizar el sistema a la nueva versión',
+            dependencia: 'Alta',
             tecnologias: 'mobile, ia',
+            fechaAsignacion: '2023-09-01',
+            fechaVencimiento: '2023-10-01',
+            ultimaFecha: '2023-09-30',
+            estado: 'Pendiente',
+            asignadoA: 'Juan Perez',
             comentarios: 'El auditor solicita actualizar el sistema',
+            materiales: 'Manual de usuario, Documentación técnica',
         },
         // Agrega más datos aquí
     ];
@@ -24,6 +32,7 @@ const TareasListaPage: React.FC = () => {
     const [selectedPais, setSelectedPais] = useState<string | undefined>(undefined);
     const [selectedSistema, setSelectedSistema] = useState<string | undefined>(undefined);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [currentRecord, setCurrentRecord] = useState<any>(null);
 
     const handleFilterChange = () => {
         let filtered = data;
@@ -36,7 +45,8 @@ const TareasListaPage: React.FC = () => {
         setFilteredData(filtered);
     };
 
-    const showModal = () => {
+    const showModal = (record: any) => {
+        setCurrentRecord(record);
         setIsModalVisible(true);
     };
 
@@ -48,7 +58,7 @@ const TareasListaPage: React.FC = () => {
         setIsModalVisible(false);
     };
 
-    const columns = [
+    const columns: Array<ColumnType<{ numero: number; pais: string; sistema: string; nombreTarea: string; descripcion: string; dependencia: string; tecnologias: string; fechaAsignacion: string; fechaVencimiento: string; ultimaFecha: string; estado: string; asignadoA: string; comentarios: string; materiales: string; }>> = [
         {
             title: 'N°',
             dataIndex: 'numero',
@@ -58,23 +68,115 @@ const TareasListaPage: React.FC = () => {
             title: 'País',
             dataIndex: 'pais',
             key: 'pais',
+            filters: [
+                { text: 'USA', value: 'USA' },
+                { text: 'Mexico', value: 'Mexico' },
+                // Agrega más opciones de país aquí
+            ],
+            onFilter: (value, record) => record.pais === value,
         },
         {
-            title: 'Sistema',
+            title: 'Nombre del sistema',
             dataIndex: 'sistema',
             key: 'sistema',
+            filters: [
+                { text: '27001', value: '27001' },
+                { text: '9001', value: '9001' },
+                // Agrega más opciones de sistema aquí
+            ],
+            onFilter: (value, record) => record.sistema === value,
         },
         {
-            title: 'Nombre de la Tarea',
+            title: 'Nombre de la tarea',
             dataIndex: 'nombreTarea',
             key: 'nombreTarea',
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
+                <div style={{ padding: 8 }}>
+                    <Input
+                        placeholder="Buscar tarea"
+                        value={selectedKeys[0]}
+                        onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{ marginBottom: 8, display: 'block' }}
+                    />
+                    <Button
+                        type="primary"
+                        onClick={() => confirm()}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        style={{ width: 90, marginRight: 8 }}
+                    >
+                        Buscar
+                    </Button>
+                    <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                        Resetear
+                    </Button>
+                </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+            onFilter: (value, record) => record.nombreTarea.toLowerCase().includes(String(value).toLowerCase()),
         },
         {
-            title: 'Fecha de Envío',
-            dataIndex: 'fechaEnvio',
-            key: 'fechaEnvio',
-            sorter: (a: any, b: any) => moment(a.fechaEnvio).unix() - moment(b.fechaEnvio).unix(),
-            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
+            title: 'Descripción',
+            dataIndex: 'descripcion',
+            key: 'descripcion',
+        },
+        {
+            title: 'Dependencia',
+            dataIndex: 'dependencia',
+            key: 'dependencia',
+        },
+        {
+            title: 'Tecnologías requeridas',
+            dataIndex: 'tecnologias',
+            key: 'tecnologias',
+        },
+        {
+            title: 'Fecha de asignación',
+            dataIndex: 'fechaAsignacion',
+            key: 'fechaAsignacion',
+            sorter: (a: any, b: any) => moment(a.fechaAsignacion).unix() - moment(b.fechaAsignacion).unix(),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
+                <div style={{ padding: 8 }}>
+                    <DatePicker
+                        onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
+                        style={{ marginBottom: 8, display: 'block' }}
+                    />
+                    <Button type="primary" onClick={() => confirm()} size="small" style={{ width: 90, marginRight: 8 }}>
+                        Buscar
+                    </Button>
+                    <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                        Resetear
+                    </Button>
+                </div>
+            ),
+        },
+        {
+            title: 'Fecha de vencimiento',
+            dataIndex: 'fechaVencimiento',
+            key: 'fechaVencimiento',
+            sorter: (a: any, b: any) => moment(a.fechaVencimiento).unix() - moment(b.fechaVencimiento).unix(),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
+                <div style={{ padding: 8 }}>
+                    <DatePicker
+                        onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
+                        style={{ marginBottom: 8, display: 'block' }}
+                    />
+                    <Button type="primary" onClick={() => confirm({ closeDropdown: true })} size="small" style={{ width: 90, marginRight: 8 }}>
+                        Buscar
+                    </Button>
+                    <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                        Resetear
+                    </Button>
+                </div>
+            ),
+        },
+        {
+            title: 'Última fecha',
+            dataIndex: 'ultimaFecha',
+            key: 'ultimaFecha',
+            sorter: (a: any, b: any) => moment(a.ultimaFecha).unix() - moment(b.ultimaFecha).unix(),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
                 <div style={{ padding: 8 }}>
                     <DatePicker
                         onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
@@ -93,15 +195,20 @@ const TareasListaPage: React.FC = () => {
             title: 'Estado',
             dataIndex: 'estado',
             key: 'estado',
+            filters: [
+                { text: 'Pendiente', value: 'Pendiente' },
+                { text: 'Completado', value: 'Completado' },
+            ],
+            onFilter: (value, record) => record.estado.includes(String(value)),
             render: (estado: string) => {
                 let color = estado === 'Pendiente' ? 'red' : 'green';
                 return <Tag color={color}>{estado.toUpperCase()}</Tag>;
             },
         },
         {
-            title: 'Tecnologías requeridas',
-            dataIndex: 'tecnologias',
-            key: 'tecnologias',
+            title: 'Asignado a',
+            dataIndex: 'asignadoA',
+            key: 'asignadoA',
         },
         {
             title: 'Comentarios',
@@ -112,44 +219,26 @@ const TareasListaPage: React.FC = () => {
             title: 'Materiales',
             dataIndex: 'materiales',
             key: 'materiales',
+        },
+        {
+            title: 'Acciones',
+            key: 'acciones',
+            render: (text, record) => (
+                <Button type="primary" onClick={() => showModal(record)}>
+                    Subir Evidencias
+                </Button>
+            ),
         }
     ];
 
     return (
         <div>
-            <h1>Tareas pendientes para asignar</h1>
+            <h1>Tareas del líder para asignar</h1>
             <br />
-            <div style={{ marginBottom: 16 }}>
-                <Button type="primary" onClick={showModal} style={{ marginRight: 8 }}>
-                    SUBIR EVIDENCIAS
-                </Button>
-                <Select
-                    placeholder="Selecciona un país"
-                    style={{ width: 200, marginRight: 8 }}
-                    onChange={value => {
-                        setSelectedPais(value);
-                        handleFilterChange();
-                    }}
-                >
-                    <Option value="USA">USA</Option>
-                    <Option value="Mexico">Mexico</Option>
-                    {/* Agrega más opciones de país aquí */}
-                </Select>
-                <Select
-                    placeholder="Selecciona un sistema"
-                    style={{ width: 200 }}
-                    onChange={value => {
-                        setSelectedSistema(value);
-                        handleFilterChange();
-                    }}
-                >
-                    <Option value="27001">27001</Option>
-                    <Option value="9001">9001</Option>
-                    {/* Agrega más opciones de sistema aquí */}
-                </Select>
+            <div style={{ overflowX: 'auto' }}>
+                <Table dataSource={filteredData} columns={columns} rowKey="numero" />
             </div>
-            <Table dataSource={filteredData} columns={columns} rowKey="numero" />
-            <Modal title="Subir Evidencias" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Subir Evidencias" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <Upload accept=".pdf" beforeUpload={() => false}>
                     <Button icon={<UploadOutlined />}>Seleccionar Archivo PDF</Button>
                 </Upload>
