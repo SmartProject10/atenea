@@ -1,8 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
-import TareasPendientesPage, { TasksPage } from './pages/taks/index';
-import TareasListaPage, { ProcessPage } from './pages/process/index';
-import TareasAsignar from './pages/boss/index';
+import { TasksPage } from './pages/taks/index';
+import { ProcessPage } from './pages/process/index';
 import BossPage from './pages/boss/index';
 
 

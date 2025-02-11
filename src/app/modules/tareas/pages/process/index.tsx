@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Table, Tag, Input, Select, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import type { ColumnType } from 'antd/es/table';
+import type { FilterDropdownProps } from 'antd/es/table/interface';
 
 interface SystemData {
     country: string;
@@ -18,7 +21,6 @@ interface SystemData {
 }
 
 const systemsData: SystemData[] = [
-    // Aquí puedes agregar tus datos de ejemplo
     {
         country: 'Peru',
         systemName: 'Sistema de ventas',
@@ -37,83 +39,126 @@ const systemsData: SystemData[] = [
 ];
 
 export function ProcessPage() {
-    const [showModal, setShowModal] = useState(false);
+    const [filteredData, setFilteredData] = useState(systemsData);
+    const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined);
+    const [selectedStatus, setSelectedStatus] = useState<string | undefined>(undefined);
 
-    const handleCloseModal = () => setShowModal(false);
+    const handleFilterChange = () => {
+        let filtered = systemsData;
+        if (selectedCountry) {
+            filtered = filtered.filter(item => item.country === selectedCountry);
+        }
+        if (selectedStatus) {
+            filtered = filtered.filter(item => item.status === selectedStatus);
+        }
+        setFilteredData(filtered);
+    };
+
+    const columns: Array<ColumnType<SystemData>> = [
+        {
+            title: 'N°',
+            dataIndex: 'index',
+            key: 'index',
+            render: (_text, _record, index) => index + 1,
+        },
+        {
+            title: 'País',
+            dataIndex: 'country',
+            key: 'country',
+            filters: [
+                { text: 'Peru', value: 'Peru' },
+                { text: 'Chile', value: 'Chile' },
+                { text: 'Argentina', value: 'Argentina' },
+            ],
+            onFilter: (value, record) => record.country === value,
+        },
+        {
+            title: 'Nombre del sistema',
+            dataIndex: 'systemName',
+            key: 'systemName',
+        },
+        {
+            title: 'Líder',
+            dataIndex: 'user',
+            key: 'user',
+        },
+        {
+            title: 'Estado',
+            dataIndex: 'status',
+            key: 'status',
+            filters: [
+                { text: 'Terminado', value: 'terminado' },
+                { text: 'En Proceso', value: 'proceso' },
+            ],
+            onFilter: (value, record) => record.status.includes(String(value)),
+            render: (status: string) => {
+                let color = status === 'En proceso' ? 'blue' : 'green';
+                return <Tag color={color}>{status.toUpperCase()}</Tag>;
+            },
+        },
+        {
+            title: 'Porcentaje auditor',
+            dataIndex: 'auditorPercentage',
+            key: 'auditorPercentage',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'Porcentaje Programador',
+            dataIndex: 'programmerPercentage',
+            key: 'programmerPercentage',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'Front (%)',
+            dataIndex: 'frontTasks',
+            key: 'frontTasks',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'Back (%)',
+            dataIndex: 'backTasks',
+            key: 'backTasks',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'Mobile (%)',
+            dataIndex: 'mobileTasks',
+            key: 'mobileTasks',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'Data (%)',
+            dataIndex: 'rvTasks',
+            key: 'rvTasks',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'IA (%)',
+            dataIndex: 'iaTasks',
+            key: 'iaTasks',
+            render: (text: number) => `${text}%`,
+        },
+        {
+            title: 'Fecha final proyecto',
+            dataIndex: 'projectEndDate',
+            key: 'projectEndDate',
+        },
+        {
+            title: 'Estado Proyecto',
+            dataIndex: 'projectStatus',
+            key: 'projectStatus',
+        },
+    ];
 
     return (
-        <div className="card">
-            <div className="card-body">
-                <div className="table-responsive my-16">
-                    <h5>Sistemas en proceso</h5>
-                    <div className="filters mb-3">
-                        <div className="row">
-                            <div className="col">
-                                <input 
-                                    type="text" 
-                                    placeholder="Buscar..." 
-                                    className="form-control form-control-sm" 
-                                />
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">País</option>
-                                    <option value="Peru">Peru</option>
-                                    <option value="Chile">Chile</option>
-                                    <option value="Argentina">Argentina</option>
-                                </select>
-                            </div>
-                            <div className="col">
-                                <select className="form-control form-control-sm">
-                                    <option value="">Estado</option>
-                                    <option value="terminado">Terminado</option>
-                                    <option value="proceso">En Proceso</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>N°</th>
-                                <th>País</th>
-                                <th>Nombre del sistema</th>
-                                <th>Líder</th>
-                                <th>Estado</th>
-                                <th>Porcentaje auditor</th>
-                                <th>Porcentaje Programador</th>
-                                <th>Front (%)</th>
-                                <th>Back (%)</th>
-                                <th>Mobile (%)</th>
-                                <th>Data (%)</th>
-                                <th>IA (%)</th>
-                                <th>Fecha final proyecto</th>
-                                <th>Estado Proyecto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {systemsData.map((system, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{system.country}</td>
-                                    <td>{system.systemName}</td>
-                                    <td>{system.user}</td>
-                                    <td>{system.status}</td>
-                                    <td>{system.auditorPercentage}%</td>
-                                    <td>{system.programmerPercentage}%</td>
-                                    <td>{system.frontTasks}%</td>
-                                    <td>{system.backTasks}%</td>
-                                    <td>{system.mobileTasks}%</td>
-                                    <td>{system.rvTasks}%</td>
-                                    <td>{system.iaTasks}%</td>
-                                    <td>{system.projectEndDate}</td>
-                                    <td>{system.projectStatus}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div>
+            <h1>Sistemas en proceso</h1>
+            <Table
+                dataSource={filteredData}
+                columns={columns}
+                rowKey="systemName"
+                scroll={{ x: 'max-content' }}
+            />
         </div>
     );
 }
