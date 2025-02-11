@@ -142,7 +142,7 @@ export function TasksPage() {
                         size="small"
                         style={{ width: 90, marginRight: 8 }}
                     >
-            ),
+                        Buscar
                     </Button>
                     <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
                         Resetear
@@ -330,6 +330,11 @@ export function TasksPage() {
                     }}
                 />
             )}
+
+            <AddTaskModal
+                show={showAddModal}
+                handleClose={() => setShowAddModal(false)}
+            />
         </div>
     );
 }
