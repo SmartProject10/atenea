@@ -194,13 +194,13 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                     </Col>
                     <Col span={12}>
                         <Form.Item
-                            label="Supervisor"
+                            label="Supervisor (Sublíder)"
                             name="supervisor"
                             rules={[{ required: true, message: 'Por favor busque un supervisor' }]}
                         >
                             <Select
                                 showSearch
-                                placeholder="Buscar supervisor"
+                                placeholder="Buscar sublíder"
                                 optionFilterProp="children"
                                 filterOption={(input, option) =>
                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Tag, DatePicker, Button, Select } from 'antd';
+import { Table, Tag, DatePicker, Button, Select, Modal, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -22,7 +23,7 @@ const TareasListaPage: React.FC = () => {
     const [filteredData, setFilteredData] = useState(data);
     const [selectedPais, setSelectedPais] = useState<string | undefined>(undefined);
     const [selectedSistema, setSelectedSistema] = useState<string | undefined>(undefined);
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleFilterChange = () => {
         let filtered = data;
@@ -33,6 +34,18 @@ const TareasListaPage: React.FC = () => {
             filtered = filtered.filter(item => item.sistema === selectedSistema);
         }
         setFilteredData(filtered);
+    };
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
     };
 
     const columns = [
@@ -105,7 +118,11 @@ const TareasListaPage: React.FC = () => {
     return (
         <div>
             <h1>Tareas pendientes para asignar</h1>
+            <br />
             <div style={{ marginBottom: 16 }}>
+                <Button type="primary" onClick={showModal} style={{ marginRight: 8 }}>
+                    SUBIR EVIDENCIAS
+                </Button>
                 <Select
                     placeholder="Selecciona un país"
                     style={{ width: 200, marginRight: 8 }}
@@ -132,6 +149,11 @@ const TareasListaPage: React.FC = () => {
                 </Select>
             </div>
             <Table dataSource={filteredData} columns={columns} rowKey="numero" />
+            <Modal title="Subir Evidencias" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <Upload accept=".pdf" beforeUpload={() => false}>
+                    <Button icon={<UploadOutlined />}>Seleccionar Archivo PDF</Button>
+                </Upload>
+            </Modal>
         </div>
     );
 };

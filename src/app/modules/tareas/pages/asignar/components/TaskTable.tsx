@@ -192,7 +192,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
         onFilter: (value, record) => record.programmingType === value,
     },
     {
-        title: 'Supervisor',
+        title: 'Sublider asignado',
         dataIndex: 'supervisor',
         key: 'supervisor',
     },
