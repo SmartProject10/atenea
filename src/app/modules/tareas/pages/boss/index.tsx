@@ -157,7 +157,7 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                     <Form.Group controlId="formRank">
                         <Form.Label>Rango</Form.Label>
                         <Form.Control as="select" value={rank} onChange={(e) => setRank(e.target.value)} disabled={!experience}>
-                            <option value="">Seleccione el rango</option>
+                            <option value="">Aquí carga el rango</option>
                             <option value="plata">Plata</option>
                             <option value="oro">Oro</option>
                             <option value="diamante">Diamante</option>
@@ -167,7 +167,7 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                     <Form.Group controlId="formStatus">
                         <Form.Label>Estado</Form.Label>
                         <Form.Control as="select" value={status} onChange={(e) => setStatus(e.target.value)} disabled={!experience}>
-                            <option value="">Seleccione el estado</option>
+                            <option value="">Aquí se ve el estado</option>
                             <option value="activo">Activo</option>
                             <option value="inactivo">Inactivo</option>
                         </Form.Control>
