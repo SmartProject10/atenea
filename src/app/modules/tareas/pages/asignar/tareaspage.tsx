@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, notification, Select } from 'antd';
+import { Button, notification } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { saveAs } from 'file-saver';
 import './tareaspage.scss';
@@ -8,77 +8,10 @@ import TaskModal from './components/TaskModal';
 import AssignModal from './components/AssignModal';
 import { Task } from './components/TaskTable';
 
-const { Option } = Select;
-
 const TareasAsignar: React.FC = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isAssignModalVisible, setIsAssignModalVisible] = useState(false);
-    const [tasks, setTasks] = useState<Task[]>([
-        {
-            id: 1,
-            title: 'asdads',
-            country: 'USA',
-            system: 'Sistema A',
-            estimatedHours: 10,
-            description: 'Descripción de la tarea 1',
-            status: 'incompleta',
-            sendDate: '2025-01-01',
-            dueDate: '2025-01-10',
-            lastDate: '2025-01-05',
-            priority: 'alta',
-            programmingType: 'front',
-            supervisor: 'Supervisor 1',
-            documents: [],
-            comments: 'corregir el endpoint',
-            progress: 50,
-            difficulty: 'facil',
-            assignedTo: 'Developer 1',
-            link: '',
-        },
-        {
-            id: 2,
-            title: 'Tarea 2',
-            country: 'Mexico',
-            system: 'Sistema B',
-            estimatedHours: 20,
-            description: 'Descripción de la tarea 2',
-            status: 'completa',
-            sendDate: '2025-01-02',
-            dueDate: '2025-01-12',
-            lastDate: '2025-01-07',
-            priority: 'media',
-            programmingType: 'front',
-            supervisor: 'Supervisor 2',
-            documents: [],
-            comments: 'crear los componentes',
-            progress: 75,
-            difficulty: 'media',
-            assignedTo: 'Developer 1',
-            link: '',
-        },
-        {
-            id: 3,
-            title: 'Tarea 3',
-            country: 'Canada',
-            system: 'Sistema A',
-            estimatedHours: 15,
-            description: 'Descripción de la tarea 3',
-            status: 'en proceso',
-            sendDate: '2025-01-03',
-            dueDate: '2025-01-13',
-            lastDate: '2025-01-08',
-            priority: 'baja',
-            programmingType: 'back',
-            supervisor: 'Supervisor 3',
-            documents: [],
-            comments: 'modificar el diseño',
-            progress: 100,
-            difficulty: 'dificil',
-            assignedTo: 'Developer 2',
-            link: '',
-        }
-    ]);
-
+    const [tasks, setTasks] = useState<Task[]>([]);
     const [newTask, setNewTask] = useState<Task>({
         id: tasks.length + 1,
         title: '',

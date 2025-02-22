@@ -11,8 +11,8 @@ export function FichaUsuario() {
 		<div className="ficha-usuario w-100">
 			<div className="d-flex flex-column align-items-center w-100 position-relative">
 				<img
-					src="https://placeholder.co/200.png"
-					alt=""
+					src=""
+					alt="Profile"
 					className="rounded-circle border border-info border-4"
 				/>
 				<button
@@ -23,8 +23,8 @@ export function FichaUsuario() {
 					<i className="bi bi-camera"></i>
 				</button>
 
-				<p className="fw-bold fs-1 mt-5 mb-2">Abel Castillo</p>
-				<p className="fw-bold fs-4 text-muted">Socio programador</p>
+				<p className="fw-bold fs-1 mt-5 mb-2">Nombre del Usuario</p>
+				<p className="fw-bold fs-4 text-muted">Título del Usuario</p>
 			</div>
 
 			<ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mt-10 mb-5 fs-5">

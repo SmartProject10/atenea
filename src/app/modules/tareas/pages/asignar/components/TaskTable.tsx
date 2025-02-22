@@ -9,7 +9,7 @@ export interface Task {
     title: string;
     country: string;
     system: string;
-    estimatedHours: number; // Add this line
+    estimatedHours: number;
     description: string;
     status: string;
     sendDate: string;
@@ -43,21 +43,12 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             title: 'País',
             dataIndex: 'country',
             key: 'country',
-            filters: [
-                { text: 'USA', value: 'USA' },
-                { text: 'Mexico', value: 'Mexico' },
-                { text: 'Canada', value: 'Canada' },
-            ],
             onFilter: (value, record) => record.country === value,
         },
         {
             title: 'Sistema',
             dataIndex: 'system',
             key: 'system',
-            filters: [
-                { text: 'Sistema A', value: 'Sistema A' },
-                { text: 'Sistema B', value: 'Sistema B' },
-            ],
             onFilter: (value, record) => record.system === value,
         },
         {
@@ -96,7 +87,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             key: 'description',
         },
         {
-            title: 'Horas estimadas', // Add this column
+            title: 'Horas estimadas',
             dataIndex: 'estimatedHours',
             key: 'estimatedHours',
             sorter: (a, b) => a.estimatedHours - b.estimatedHours,
@@ -105,11 +96,6 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             title: 'Estado',
             dataIndex: 'status',
             key: 'status',
-            filters: [
-                { text: 'Incompleta', value: 'incompleta' },
-                { text: 'En Proceso', value: 'en proceso' },
-                { text: 'Enviada', value: 'enviada' },
-            ],
             onFilter: (value, record) => record.status.includes(String(value)),
             render: (status: string) => {
                 let color = status === 'incompleta' ? 'red' : status === 'en proceso' ? 'yellow' : 'green';
@@ -180,22 +166,12 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             title: 'Dependiencia',
             dataIndex: 'priority',
             key: 'priority',
-            filters: [
-                { text: 'Alta', value: 'alta' },
-                { text: 'Media', value: 'media' },
-                { text: 'Baja', value: 'baja' },
-            ],
             onFilter: (value, record) => record.priority === value,
         },
         {
             title: 'Tipo programación',
             dataIndex: 'programmingType',
             key: 'programmingType',
-            filters: [
-                { text: 'Back', value: 'back' },
-                { text: 'Front', value: 'front' },
-                { text: 'Mobile', value: 'mobile' },
-            ],
             onFilter: (value, record) => record.programmingType === value,
         },
         {
@@ -232,12 +208,6 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit, onDelete }) => {
             title: 'Dificultad',
             dataIndex: 'difficulty',
             key: 'difficulty',
-            filters: [
-                { text: 'Fácil', value: 'facil' },
-                { text: 'Medio', value: 'medio' },
-                { text: 'Difícil', value: 'dificil' },
-                { text: 'Complejo', value: 'complejo' },
-            ],
             onFilter: (value, record) => record.difficulty === value,
         },
         {

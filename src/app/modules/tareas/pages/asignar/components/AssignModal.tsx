@@ -16,33 +16,22 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
     const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
     const [selectedTask, setSelectedTask] = useState<string | null>(null);
-    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
 
     // Watch for changes in programmingType
     Form.useWatch('programmingType', form);
-
-    const latinCountries = ['Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'República Dominicana', 'Uruguay', 'Venezuela'];
-    const systems = ['Sistema 1', 'Sistema 2', 'Sistema 3'];
-    const availableTasks = ['Tarea A', 'Tarea B', 'Tarea C'];
 
     const handleOk = () => {
         form.validateFields()
             .then(values => {
                 form.resetFields();
                 onOk();
-                // Aquí puedes agregar la lógica para agregar los datos a la tabla
+                // Aquí puedes agregar la lógica para enviar los datos al backend
                 console.log('Valores del formulario:', values);
             })
             .catch(info => {
                 console.log('Validación fallida:', info);
             });
     };
-
-    const taskData = [
-        { key: '1', number: '1', taskName: 'Tarea A', programmers: 'Juan Pérez, Ana García' },
-        { key: '2', number: '2', taskName: 'Tarea B', programmers: 'Carlos López, María Rodriguez' },
-        { key: '3', number: '3', taskName: 'Tarea C', programmers: 'Pedro Martinez, Laura Sánchez' },
-    ];
 
     const columns = [
         { title: 'N°', dataIndex: 'number', key: 'number' },
@@ -61,9 +50,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             rules={[{ required: true, message: 'Por favor seleccione un país' }]}
                         >
                             <Select placeholder="Seleccione el país">
-                                {latinCountries.map(country => (
-                                    <Option key={country} value={country}>{country}</Option>
-                                ))}
+                                {/* Opciones de países */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -74,9 +61,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             rules={[{ required: true, message: 'Por favor seleccione un sistema' }]}
                         >
                             <Select placeholder="Seleccione el sistema">
-                                {systems.map(system => (
-                                    <Option key={system} value={system}>{system}</Option>
-                                ))}
+                                {/* Opciones de sistemas */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -89,9 +74,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             rules={[{ required: true, message: 'Por favor escoja una tarea disponible' }]}
                         >
                             <Select placeholder="Escoja la tarea disponible">
-                                {availableTasks.map(task => (
-                                    <Option key={task} value={task}>{task}</Option>
-                                ))}
+                                {/* Opciones de tareas */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -161,9 +144,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             rules={[{ required: true, message: 'Por favor seleccione la dependencia' }]}
                         >
                             <Select placeholder="Seleccione la prioridad">
-                                <Option value="alta">Alta</Option>
-                                <Option value="media">Media</Option>
-                                <Option value="baja">Baja</Option>
+                                {/* Opciones de prioridad */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -185,10 +166,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             rules={[{ required: true, message: 'Por favor seleccione la dificultad' }]}
                         >
                             <Select placeholder="Seleccione la dificultad">
-                                <Option value="facil">Fácil</Option>
-                                <Option value="medio">Medio</Option>
-                                <Option value="dificil">Difícil</Option>
-                                <Option value="complejo">Complejo</Option>
+                                {/* Opciones de dificultad */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -203,12 +181,10 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                 placeholder="Buscar sublíder"
                                 optionFilterProp="children"
                                 filterOption={(input, option) =>
-                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                    ((option as any)?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                 }
                                 options={[
-                                    { value: 'sup1', label: 'María Rodriguez' },
-                                    { value: 'sup2', label: 'Pedro Martinez' },
-                                    { value: 'sup3', label: 'Laura Sánchez' },
+                                    // Opciones de supervisores
                                 ]}
                             />
                         </Form.Item>
@@ -232,28 +208,28 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                             name="programmingType"
                         >
                             <div>
-                                    {['Back', 'Front', 'Mobile', 'IA', 'Data'].map(type => {
-                                        const currentTypes = form.getFieldValue('programmingType') || [];
-                                        const isSelected = currentTypes.includes(type);
-                                        
-                                        return !isSelected && (
-                                            <Button
-                                                key={type}
-                                                onClick={() => {
-                                                    const currentTypes = form.getFieldValue('programmingType') || [];
-                                                    if (!currentTypes.includes(type)) {
-                                                        form.setFieldsValue({ 
-                                                            programmingType: [...currentTypes, type] 
-                                                        });
-                                                    }
-                                                }}
-                                                style={{ marginRight: 8, marginBottom: 8 }}
-                                            >
-                                                {type}
-                                            </Button>
-                                        );
-                                    })}
-                                </div>
+                                {['Back', 'Front', 'Mobile', 'IA', 'Data'].map(type => {
+                                    const currentTypes = form.getFieldValue('programmingType') || [];
+                                    const isSelected = currentTypes.includes(type);
+                                    
+                                    return !isSelected && (
+                                        <Button
+                                            key={type}
+                                            onClick={() => {
+                                                const currentTypes = form.getFieldValue('programmingType') || [];
+                                                if (!currentTypes.includes(type)) {
+                                                    form.setFieldsValue({ 
+                                                        programmingType: [...currentTypes, type] 
+                                                    });
+                                                }
+                                            }}
+                                            style={{ marginRight: 8, marginBottom: 8 }}
+                                        >
+                                            {type}
+                                        </Button>
+                                    );
+                                })}
+                            </div>
                             <div style={{ marginTop: 8 }}>
                                 {(form.getFieldValue('programmingType') || []).map((type: string) => (
                                     <Tag 
@@ -285,13 +261,10 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                 placeholder="Buscar programador"
                                 optionFilterProp="children"
                                 filterOption={(input, option) =>
-                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                    ((option as any)?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                 }
                                 options={[
-                                    { value: 'prog1', label: 'Juan Pérez' },
-                                    { value: 'prog2', label: 'Ana García' },
-                                    { value: 'prog3', label: 'Carlos López' },
-                                    // Aquí puedes agregar más programadores
+                                    // Opciones de programadores
                                 ]}
                             />
                         </Form.Item>
@@ -306,9 +279,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                         placeholder="Seleccione el país"
                                         onChange={value => setSelectedCountry(value)}
                                     >
-                                        {latinCountries.map(country => (
-                                            <Option key={country} value={country}>{country}</Option>
-                                        ))}
+                                        {/* Opciones de países */}
                                     </Select>
                                 </Col>
                                 <Col span={8}>
@@ -317,9 +288,7 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                         onChange={value => setSelectedSystem(value)}
                                         disabled={!selectedCountry}
                                     >
-                                        {systems.map(system => (
-                                            <Option key={system} value={system}>{system}</Option>
-                                        ))}
+                                        {/* Opciones de sistemas */}
                                     </Select>
                                 </Col>
                                 <Col span={8}>
@@ -328,16 +297,14 @@ const AssignModal: React.FC<AssignModalProps> = ({ isVisible, onOk, onCancel }) 
                                         onChange={value => setSelectedTask(value)}
                                         disabled={!selectedSystem}
                                     >
-                                        {availableTasks.map(task => (
-                                            <Option key={task} value={task}>{task}</Option>
-                                        ))}
+                                        {/* Opciones de tareas */}
                                     </Select>
                                 </Col>
                             </Row>
                             {selectedTask && (
                                 <Table
                                     columns={columns}
-                                    dataSource={taskData}
+                                    dataSource={[]}
                                     rowSelection={{ type: 'checkbox' }}
                                     style={{ marginTop: 16 }}
                                 />

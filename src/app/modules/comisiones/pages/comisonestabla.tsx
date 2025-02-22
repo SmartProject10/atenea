@@ -31,9 +31,9 @@ function AddClientModal({ show, handleClose }: AddClientModalProps) {
 						<Form.Label>País</Form.Label>
 						<Form.Control as="select">
 							<option value="select">Seleccione país</option>
-							<option value="Peru">Peru</option>
+							{/* <option value="Peru">Peru</option>
 							<option value="Chile">Chile</option>
-							<option value="Argentina">Argentina</option>
+							<option value="Argentina">Argentina</option> */}
 						</Form.Control>
 					</Form.Group>
 				</Form>
@@ -55,11 +55,11 @@ export function Comisiones() {
 
 	// Datos y opciones del gráfico
 	const data = {
-		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+		labels: [], // Labels from backend
 		datasets: [
 			{
 				label: 'Ingresos de Comisiones',
-				data: [1000, 2000, 1500, 3000, 2500, 4000],
+				data: [], // Data from backend
 				borderColor: 'rgba(75, 192, 192, 1)',
 				backgroundColor: 'rgba(75, 192, 192, 0.2)',
 				fill: true,
@@ -80,30 +80,19 @@ export function Comisiones() {
 		},
 	};
 
-	const commissionsData = [
-		{
-			id: 1,
-			country: 'Peru',
-			ruc: '123456789',
-			companyName: 'Empresa Peruana',
-			type: 'comprado',
-			income: 1000,
-			commission: '10%',
-			status: 'pendiente',
-			date: '2023-01-01'
-		},
-		{
-			id: 2,
-			country: 'Chile',
-			ruc: '987654321',
-			companyName: 'Empresa Chilena',
-			type: 'alquiler',
-			income: 2000,
-			commission: '15%',
-			status: 'cancelado',
-			date: '2023-02-01'
-		}
-	];
+	interface Commission {
+		id: number;
+		country: string;
+		ruc: string;
+		companyName: string;
+		type: string;
+		income: number;
+		commission: number;
+		status: string;
+		date: string;
+	}
+
+	const commissionsData: Commission[] = []; // Data from backend
 
 	const handleNewClient = () => {
 		setShowModal(true);
@@ -130,24 +119,24 @@ export function Comisiones() {
 					<div className="col">
 						<select className="form-control form-control-sm">
 							<option value="">País</option>
-							<option value="Peru">Peru</option>
+							{/* <option value="Peru">Peru</option>
 							<option value="Chile">Chile</option>
-							<option value="Argentina">Argentina</option>
+							<option value="Argentina">Argentina</option> */}
 						</select>
 					</div>
 					<div className="col">
 						<select className="form-control form-control-sm">
 							<option value="">Tipo</option>
-							<option value="comprado">Comprado</option>
-							<option value="alquiler">Alquiler</option>
+							{/* <option value="comprado">Comprado</option>
+							<option value="alquiler">Alquiler</option> */}
 						</select>
 					</div>
 					<div className="col">
 						<select className="form-control form-control-sm">
 							<option value="">Estado</option>
-							<option value="cancelado">Cancelado</option>
+							{/* <option value="cancelado">Cancelado</option>
 							<option value="1 comisión">1 Comisión</option>
-							<option value="pendiente">Pendiente</option>
+							<option value="pendiente">Pendiente</option> */}
 						</select>
 					</div>
 					<div className="col">

@@ -1,29 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
 
+interface ProfileData {
+    name: string;
+    country: string;
+    systems: string[];
+    technicalProfile: string;
+    joinDate: string;
+    hoursLastTwoMonths: number;
+    totalHours: number;
+    tasksCompleted: number;
+    rank: string;
+}
+
 export const PubProfile: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    
-    // Mock data for demonstration purposes
-    const profileData = {
-        name: "Juan Pérez",
-        country: "México",
-        systems: ["Sistema A", "Sistema B", "Sistema C"],
-        technicalProfile: "Full Stack",
-        joinDate: "01/01/2020",
-        hoursLastTwoMonths: 160,
-        totalHours: 1200,
-        tasksCompleted: 50,
-        rank: "Diamante"
-    };
+    const [profileData, setProfileData] = useState<ProfileData | null>(null);
+
+    useEffect(() => {
+        // Fetch profile data from backend
+        const fetchProfileData = async () => {
+            try {
+                const response = await fetch(`/api/profile/${id}`);
+                const data = await response.json();
+                setProfileData(data);
+            } catch (error) {
+                console.error('Error fetching profile data:', error);
+            }
+        };
+
+        fetchProfileData();
+    }, [id]);
+
+    if (!profileData) {
+        return <div>Loading...</div>;
+    }
 
     const radarData = {
         labels: ['Back', 'Front', 'Mobile', 'Data', 'Otros'],
         datasets: [
             {
                 label: 'Habilidades',
-                data: [4, 3, 2, 5, 4],
+                data: [4, 3, 2, 5, 4], // This should be replaced with actual data from the backend
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,

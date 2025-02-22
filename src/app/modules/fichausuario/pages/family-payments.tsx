@@ -10,14 +10,12 @@ function Pagination() {
 					<i className="previous"></i>
 				</a>
 			</li>
-
-			<li className="page-item "><a href="#" className="page-link">1</a></li>
+			<li className="page-item"><a href="#" className="page-link">1</a></li>
 			<li className="page-item active"><a href="#" className="page-link">2</a></li>
-			<li className="page-item "><a href="#" className="page-link">3</a></li>
-			<li className="page-item "><a href="#" className="page-link">4</a></li>
-			<li className="page-item "><a href="#" className="page-link">5</a></li>
-			<li className="page-item "><a href="#" className="page-link">6</a></li>
-
+			<li className="page-item"><a href="#" className="page-link">3</a></li>
+			<li className="page-item"><a href="#" className="page-link">4</a></li>
+			<li className="page-item"><a href="#" className="page-link">5</a></li>
+			<li className="page-item"><a href="#" className="page-link">6</a></li>
 			<li className="page-item next">
 				<a href="#" className="page-link">
 					<i className="next"></i>
@@ -27,24 +25,22 @@ function Pagination() {
 	)
 }
 
-const data = [
-	{
-		id: 1,
-		number: '1',
-		name: 'Juan Perez',
-		relation: 'Hermano',
-		accountNumber: '1234567890',
-		accountType: 'Corriente',
-		country: 'México',
-		address: '123 Main St, Mexico City',
-		email: 'juan.perez@example.com',
-		phone: '555-1234',
-		percentage: '50%',
-		authorization: 'Documento.pdf',
-	},
-]
+interface FamilyMember {
+	id: number
+	number: string
+	name: string
+	relation: string
+	accountNumber: string
+	accountType: string
+	country: string
+	address: string
+	email: string
+	phone: string
+	percentage: number
+	authorization: string
+}
 
-function FamilyPaymentsTable() {
+function FamilyPaymentsTable({ data }: { data: FamilyMember[] }) {
 	return (
 		<div className="table-responsive my-16">
 			<table className="table table-bordered">
@@ -65,23 +61,21 @@ function FamilyPaymentsTable() {
 				</thead>
 				<tbody>
 					{
-						data.map((item) => {
-							return (
-								<tr key={item.id}>
-									<td>{item.number}</td>
-									<td>{item.name}</td>
-									<td>{item.relation}</td>
-									<td>{item.accountNumber}</td>
-									<td>{item.accountType}</td>
-									<td>{item.country}</td>
-									<td>{item.address}</td>
-									<td>{item.email}</td>
-									<td>{item.phone}</td>
-									<td>{item.percentage}</td>
-									<td>{item.authorization}</td>
-								</tr>
-							)
-						})
+						data.map((item) => (
+							<tr key={item.id}>
+								<td>{item.number}</td>
+								<td>{item.name}</td>
+								<td>{item.relation}</td>
+								<td>{item.accountNumber}</td>
+								<td>{item.accountType}</td>
+								<td>{item.country}</td>
+								<td>{item.address}</td>
+								<td>{item.email}</td>
+								<td>{item.phone}</td>
+								<td>{item.percentage}</td>
+								<td>{item.authorization}</td>
+							</tr>
+						))
 					}
 				</tbody>
 			</table>
@@ -91,6 +85,7 @@ function FamilyPaymentsTable() {
 
 export function FamilyPayments() {
 	const [showModal, setShowModal] = useState(false)
+	const [familyData, setFamilyData] = useState([])
 
 	const handleShow = () => setShowModal(true)
 	const handleClose = () => setShowModal(false)
@@ -114,7 +109,7 @@ export function FamilyPayments() {
 						Registro de pagos a familiares de los socios. Aquí puede agregar, editar y eliminar la información de los familiares que recibirán un porcentaje de utilidad.
 					</p>
 				</div>
-				<FamilyPaymentsTable />
+				<FamilyPaymentsTable data={familyData} />
 				<div className="d-flex justify-content-end mt-16">
 					<div className="flex-1"></div>
 					<Pagination />

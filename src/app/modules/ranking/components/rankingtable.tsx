@@ -14,11 +14,8 @@ interface HoursData {
 }
 
 interface RankingTableProps {
-
     hoursData: HoursData[];
-
     onRowClick: (data: HoursData) => void;
-
 }
 
 export const RankingTable: React.FC<RankingTableProps> = ({ hoursData }) => {

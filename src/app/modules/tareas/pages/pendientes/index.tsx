@@ -1,33 +1,12 @@
 import React, { useState } from 'react';
-import { Table, Tag, DatePicker, Button, Select, Modal, Upload, Input } from 'antd';
+import { Table, Tag, DatePicker, Button, Modal, Upload, Input } from 'antd';
 import type { ColumnType } from 'antd/es/table';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import { UploadOutlined, SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
-const { Option } = Select;
-
 const TareasListaPage: React.FC = () => {
-    const data = [
-        {
-            numero: 1,
-            pais: 'USA',
-            sistema: '27001',
-            nombreTarea: 'Actualizar Sistema',
-            descripcion: 'Actualizar el sistema a la nueva versión',
-            dependencia: 'Alta',
-            tecnologias: 'mobile, ia',
-            fechaAsignacion: '2023-09-01',
-            fechaVencimiento: '2023-10-01',
-            ultimaFecha: '2023-09-30',
-            estado: 'Pendiente',
-            asignadoA: 'Juan Perez',
-            comentarios: 'El auditor solicita actualizar el sistema',
-            materiales: 'Manual de usuario, Documentación técnica',
-        },
-        // Agrega más datos aquí
-    ];
-
+    const [data, setData] = useState<Array<{ numero: number; pais: string; sistema: string; nombreTarea: string; descripcion: string; dependencia: string; tecnologias: string; fechaAsignacion: string; fechaVencimiento: string; ultimaFecha: string; estado: string; asignadoA: string; comentarios: string; materiales: string; }>>([]);
     const [filteredData, setFilteredData] = useState(data);
     const [selectedPais, setSelectedPais] = useState<string | undefined>(undefined);
     const [selectedSistema, setSelectedSistema] = useState<string | undefined>(undefined);
@@ -68,22 +47,14 @@ const TareasListaPage: React.FC = () => {
             title: 'País',
             dataIndex: 'pais',
             key: 'pais',
-            filters: [
-                { text: 'USA', value: 'USA' },
-                { text: 'Mexico', value: 'Mexico' },
-                // Agrega más opciones de país aquí
-            ],
+            filters: [],
             onFilter: (value, record) => record.pais === value,
         },
         {
             title: 'Nombre del sistema',
             dataIndex: 'sistema',
             key: 'sistema',
-            filters: [
-                { text: '27001', value: '27001' },
-                { text: '9001', value: '9001' },
-                // Agrega más opciones de sistema aquí
-            ],
+            filters: [],
             onFilter: (value, record) => record.sistema === value,
         },
         {
@@ -195,10 +166,7 @@ const TareasListaPage: React.FC = () => {
             title: 'Estado',
             dataIndex: 'estado',
             key: 'estado',
-            filters: [
-                { text: 'Pendiente', value: 'Pendiente' },
-                { text: 'Completado', value: 'Completado' },
-            ],
+            filters: [],
             onFilter: (value, record) => record.estado.includes(String(value)),
             render: (estado: string) => {
                 let color = estado === 'Pendiente' ? 'red' : 'green';

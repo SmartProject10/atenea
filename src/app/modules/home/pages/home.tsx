@@ -1,12 +1,10 @@
-import { useNavigate } from 'react-router-dom'
-import './carousel.scss'
+import { useNavigate } from 'react-router-dom';
+import './carousel.scss';
 import { StatisticsWidget1 } from '../../../../_zeus/partials/widgets';
-import { Home as HomePage } from '../pages/home';
-
 import { useState } from 'react';
 
 export function Home(): JSX.Element {
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const [progress, setProgress] = useState<string>('0');
 	const [earnings, setEarnings] = useState<'month' | 'year'>('month'); // State to manage earnings filter
 	const totalHours = 0; // Initialize totalHours with a default value
@@ -99,5 +97,5 @@ export function Home(): JSX.Element {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

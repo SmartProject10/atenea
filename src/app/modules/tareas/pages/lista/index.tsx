@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Tag, Select, Button, DatePicker } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const { Option } = Select;
 
@@ -19,11 +20,15 @@ interface Programador {
 const ListaProgramadoresPage: React.FC = () => {
     const [filtroPais, setFiltroPais] = useState<string | undefined>(undefined);
     const [filtroSublider, setFiltroSublider] = useState<boolean | undefined>(undefined);
-    const [programadores, setProgramadores] = useState<Programador[]>([
-        { id: 1, pais: 'Argentina', nombre: 'Juan Perez', tecnologias: 'back', fechaIngreso: '2021-01-15' },
-        { id: 2, pais: 'México', nombre: 'Ana Gomez', tecnologias: 'front', fechaIngreso: '2020-06-23' },
-        { id: 3, pais: 'España', nombre: 'Carlos Ruiz', tecnologias: 'front, mobile', fechaIngreso: '2019-11-30' },
-    ]);
+    const [programadores, setProgramadores] = useState<Programador[]>([]);
+
+    useEffect(() => {
+        const fetchProgramadores = async () => {
+            const response = await axios.get('/api/programadores');
+            setProgramadores(response.data);
+        };
+        fetchProgramadores();
+    }, []);
 
     const getRango = (fechaIngreso: string) => {
         const years = moment().diff(fechaIngreso, 'years');
@@ -33,7 +38,8 @@ const ListaProgramadoresPage: React.FC = () => {
         return 'Bronce';
     };
 
-    const toggleSublider = (id: number) => {
+    const toggleSublider = async (id: number) => {
+        await axios.patch(`/api/programadores/${id}/toggle-sublider`);
         setProgramadores(prevProgramadores =>
             prevProgramadores.map(programador =>
                 programador.id === id
@@ -91,7 +97,7 @@ const ListaProgramadoresPage: React.FC = () => {
             title: 'Fecha de Ingreso',
             dataIndex: 'fechaIngreso',
             key: 'fechaIngreso',
-            sorter: (a: any, b: any) => moment(a.fechaEnvio).unix() - moment(b.fechaEnvio).unix(),
+            sorter: (a: any, b: any) => moment(a.fechaIngreso).unix() - moment(b.fechaIngreso).unix(),
             filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
                 <div style={{ padding: 8 }}>
                     <DatePicker

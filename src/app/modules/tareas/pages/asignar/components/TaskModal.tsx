@@ -80,21 +80,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
         },
     ];
 
-    const data = [
-        {
-            key: '1',
-            number: '1',
-            taskName: 'Tarea 1',
-            programmers: 'Programador 1, Programador 2',
-        },
-        {
-            key: '2',
-            number: '2',
-            taskName: 'Tarea 2',
-            programmers: 'Programador 3, Programador 4',
-        },
-    ];
-
     return (
         <Modal 
             title={editingTask ? "Editar Tarea" : "Agregar Nueva Tarea"} 
@@ -115,9 +100,9 @@ const TaskModal: React.FC<TaskModalProps> = ({
                                 onChange={(value) => onSelectChange(value, 'status')} 
                                 dropdownStyle={{ maxHeight: 200, overflow: 'auto' }}
                             >
-                                <Option value="enviada">Enviada</Option>
+                                {/* <Option value="enviada">Enviada</Option>
                                 <Option value="incompleta">Incompleta</Option>
-                                <Option value="en proceso">En Proceso</Option>
+                                <Option value="en proceso">En Proceso</Option> */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -208,8 +193,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
                                 value={selectedCountry} 
                                 onChange={handleCountryChange}
                             >
-                                <Option value="pais1">País 1</Option>
-                                <Option value="pais2">País 2</Option>
+                                {/* <Option value="pais1">País 1</Option>
+                                <Option value="pais2">País 2</Option> */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -223,8 +208,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
                                 onChange={handleSystemChange}
                                 disabled={!selectedCountry}
                             >
-                                <Option value="sistema1">Sistema 1</Option>
-                                <Option value="sistema2">Sistema 2</Option>
+                                {/* <Option value="sistema1">Sistema 1</Option>
+                                <Option value="sistema2">Sistema 2</Option> */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -238,8 +223,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
                                 onChange={handleTaskChange}
                                 disabled={!selectedSystem}
                             >
-                                <Option value="tarea1">Tarea 1</Option>
-                                <Option value="tarea2">Tarea 2</Option>
+                                {/* <Option value="tarea1">Tarea 1</Option>
+                                <Option value="tarea2">Tarea 2</Option> */}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -247,7 +232,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
                 {selectedTask && (
                     <Table 
                         columns={columns} 
-                        dataSource={data} 
+                        dataSource={[]} 
                         rowSelection={{ type: 'checkbox' }} 
                     />
                 )}

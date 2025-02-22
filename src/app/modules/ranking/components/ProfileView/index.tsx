@@ -1,49 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
 import './profileview.scss';
 
 export const ProfileView: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    
-    // Mock data for demonstration purposes
-    const profileData = {
-        name: "Juan Pérez",
-        country: "México",
-        technicalProfile: "Back-End Developer, Front-End Developer",
-        phone: "1234567890",
-        joinDate: "01/01/2020",
-        hoursLastTwoMonths: 160,
-        totalHours: 1200,
-        tasksCompleted: 50,
-        status: "Activo",
-        rank: "Oro" // Changed rank to "Oro"
-    };
-
-    const radarData = {
-        labels: ['Back', 'Front', 'Mobile', 'Data', 'IA'],
-        datasets: [
-            {
-                label: 'Habilidades',
-                data: [4, 3, 2, 5, 4],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1,
-            },
-        ],
-    };
-
+    const [profileData, setProfileData] = useState<any>(null);
+    const [radarData, setRadarData] = useState<any>(null);
+    const [tasks, setTasks] = useState<any[]>([]);
     const [filterMonth, setFilterMonth] = useState<string>('');
 
-    const tasks = [
-        { number: 1, name: 'Tarea 1', country: 'México', system: 'Sistema A', supervisor: 'Supervisor 1', date: '01/01/2023' },
-        { number: 2, name: 'Tarea 2', country: 'México', system: 'Sistema B', supervisor: 'Supervisor 2', date: '02/01/2023' },
-        // Add more tasks as needed
-    ];
+    useEffect(() => {
+        // Fetch profile data from backend
+        fetch(`/api/profile/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                setProfileData(data.profile);
+                setRadarData({
+                    labels: ['Back', 'Front', 'Mobile', 'Data', 'IA'],
+                    datasets: [
+                        {
+                            label: 'Habilidades',
+                            data: data.skills,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                        },
+                    ],
+                });
+                setTasks(data.tasks);
+            });
+    }, [id]);
 
     const filteredTasks = tasks.filter(task => 
         filterMonth === '' || new Date(task.date).getMonth() + 1 === parseInt(filterMonth)
     );
+
+    if (!profileData) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="perfil-programador">
