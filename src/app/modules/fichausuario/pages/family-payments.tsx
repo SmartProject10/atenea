@@ -10,14 +10,12 @@ function Pagination() {
 					<i className="previous"></i>
 				</a>
 			</li>
-
-			<li className="page-item "><a href="#" className="page-link">1</a></li>
+			<li className="page-item"><a href="#" className="page-link">1</a></li>
 			<li className="page-item active"><a href="#" className="page-link">2</a></li>
-			<li className="page-item "><a href="#" className="page-link">3</a></li>
-			<li className="page-item "><a href="#" className="page-link">4</a></li>
-			<li className="page-item "><a href="#" className="page-link">5</a></li>
-			<li className="page-item "><a href="#" className="page-link">6</a></li>
-
+			<li className="page-item"><a href="#" className="page-link">3</a></li>
+			<li className="page-item"><a href="#" className="page-link">4</a></li>
+			<li className="page-item"><a href="#" className="page-link">5</a></li>
+			<li className="page-item"><a href="#" className="page-link">6</a></li>
 			<li className="page-item next">
 				<a href="#" className="page-link">
 					<i className="next"></i>
@@ -27,24 +25,22 @@ function Pagination() {
 	)
 }
 
-const data = [
-	{
-		id: 1,
-		number: '1',
-		name: 'Juan Perez',
-		relation: 'Hermano',
-		accountNumber: '1234567890',
-		accountType: 'Corriente',
-		country: 'México',
-		address: '123 Main St, Mexico City',
-		email: 'juan.perez@example.com',
-		phone: '555-1234',
-		percentage: '50%',
-		authorization: 'Documento.pdf',
-	},
-]
+interface FamilyMember {
+	id: number
+	number: string
+	name: string
+	relation: string
+	accountNumber: string
+	accountType: string
+	country: string
+	address: string
+	email: string
+	phone: string
+	percentage: number
+	authorization: string
+}
 
-function FamilyPaymentsTable() {
+function FamilyPaymentsTable({ data }: { data: FamilyMember[] }) {
 	return (
 		<div className="table-response my-16">
 			<table className="table table-bordered">
@@ -91,6 +87,7 @@ function FamilyPaymentsTable() {
 
 export function FamilyPayments() {
 	const [showModal, setShowModal] = useState(false)
+	const [data, setData] = useState([])
 
 	const handleShow = () => setShowModal(true)
 	const handleClose = () => setShowModal(false)
@@ -114,7 +111,7 @@ export function FamilyPayments() {
 						Registro de pagos a familiares de los socios. Aquí puede agregar, editar y eliminar la información de los familiares que recibirán un porcentaje de utilidad.
 					</p>
 				</div>
-				<FamilyPaymentsTable />
+				<FamilyPaymentsTable data={data} />
 				<div className="d-flex justify-content-end mt-16">
 					<div className="flex-1"></div>
 					<Pagination />

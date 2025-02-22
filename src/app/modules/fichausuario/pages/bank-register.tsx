@@ -10,14 +10,12 @@ function Pagination() {
 					<i className="previous"></i>
 				</a>
 			</li>
-
-			<li className="page-item "><a href="#" className="page-link">1</a></li>
+			<li className="page-item"><a href="#" className="page-link">1</a></li>
 			<li className="page-item active"><a href="#" className="page-link">2</a></li>
-			<li className="page-item "><a href="#" className="page-link">3</a></li>
-			<li className="page-item "><a href="#" className="page-link">4</a></li>
-			<li className="page-item "><a href="#" className="page-link">5</a></li>
-			<li className="page-item "><a href="#" className="page-link">6</a></li>
-
+			<li className="page-item"><a href="#" className="page-link">3</a></li>
+			<li className="page-item"><a href="#" className="page-link">4</a></li>
+			<li className="page-item"><a href="#" className="page-link">5</a></li>
+			<li className="page-item"><a href="#" className="page-link">6</a></li>
 			<li className="page-item next">
 				<a href="#" className="page-link">
 					<i className="next"></i>
@@ -27,20 +25,17 @@ function Pagination() {
 	)
 }
 
-const data = [
-	{
-		id: 1,
-		numero: '1',
-		pais: 'España',
-		banco: 'Banco Santander',
-		numeroCuenta: 'ES7620770024003102575766',
-		tipoCuenta: 'Corriente',
-		moneda: 'DOLAR',
-		acciones: 'Ver detalles',
-	},
-]
+interface BankData {
+	id: number
+	numero: string
+	pais: string
+	banco: string
+	numeroCuenta: string
+	moneda: string
+	acciones: string
+}
 
-function BankRegisterTable() {
+function BankRegisterTable({ data }: { data: BankData[] }) {
 	return (
 		<div className="table-response my-16">
 			<table className="table table-bordered">
@@ -50,26 +45,22 @@ function BankRegisterTable() {
 						<th>País</th>
 						<th>Banco</th>
 						<th>Número de cuenta</th>
-						{/* <th>Tipo de Cuenta</th> */}
 						<th>Moneda</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
 					{
-						data.map((item) => {
-							return (
-								<tr key={item.id}>
-									<td>{item.numero}</td>
-									<td>{item.pais}</td>
-									<td>{item.banco}</td>
-									<td>{item.numeroCuenta}</td>
-									{/*<td>{item.tipoCuenta}</td>*/}
-									<td>{item.moneda}</td>
-									<td>{item.acciones}</td>
-								</tr>
-							)
-						})
+						data.map((item) => (
+							<tr key={item.id}>
+								<td>{item.numero}</td>
+								<td>{item.pais}</td>
+								<td>{item.banco}</td>
+								<td>{item.numeroCuenta}</td>
+								<td>{item.moneda}</td>
+								<td>{item.acciones}</td>
+							</tr>
+						))
 					}
 				</tbody>
 			</table>
@@ -79,6 +70,7 @@ function BankRegisterTable() {
 
 export function BankRegister() {
 	const [showModal, setShowModal] = useState(false)
+	const [data, setData] = useState([])
 
 	const handleShow = () => setShowModal(true)
 	const handleClose = () => setShowModal(false)
@@ -106,7 +98,7 @@ export function BankRegister() {
 						transacciones financieras y asegurar que los pagos se procesen correctamente.
 					</p>
 				</div>
-				<BankRegisterTable />
+				<BankRegisterTable data={data} />
 				<div className="d-flex justify-content-end mt-16">
 					<div className="flex-1"></div>
 					<Pagination />
@@ -162,16 +154,6 @@ function AddAccountModal({ show, handleClose }: AddAccountModalProps) {
 						<Form.Label>Número de cuenta</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el número de cuenta" />
 					</Form.Group>
-					{/* <Form.Group controlId="formTipoCuenta">
-						<Form.Label>Tipo de Cuenta</Form.Label>
-						<Form.Control as="select">
-							<option value="">Seleccione el tipo de cuenta</option>
-							<option value="Corriente">Corriente</option>
-							<option value="Ahorro">Ahorro</option>
-							<option value="Nómina">Nómina</option>
-							<option value="Inversión">Inversión</option>
-						</Form.Control>
-					</Form.Group> */}
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>

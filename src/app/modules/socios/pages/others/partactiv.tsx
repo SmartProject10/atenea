@@ -28,27 +28,7 @@ function Pagination() {
     );
 }
 
-const data = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        nombre: 'Juan Pérez',
-        celular: '1234567890',
-        tipoSocio: 'Abogado',
-        fechaIngreso: '2023-01-01',
-        fechaSalida: '2023-12-31',
-        utilidad: '0.5%',
-        ingresoUtilidad: '500',
-        nombreBco: 'Banco XYZ',
-        numeroCuenta: '123456789',
-        estado: 'Activo',
-        idiomas: 'Español, Inglés',
-    },
-    // Otros datos...
-];
-
-function ActivePartnersTable() {
+function ActivePartnersTable({ data }: { data: PartnerData[] }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [editValue, setEditValue] = useState('');
@@ -145,7 +125,7 @@ function ActivePartnersTable() {
     );
 }
 
-function exportToExcel() {
+function exportToExcel(data: any) {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Historial de Socios');
@@ -154,7 +134,24 @@ function exportToExcel() {
     saveAs(blob, 'historial_de_socios.xlsx');
 }
 
-export function PartActiv() {
+interface PartnerData {
+    id: number;
+    numero: string;
+    pais: string;
+    nombre: string;
+    celular: string;
+    tipoSocio: string;
+    fechaIngreso: string;
+    fechaSalida: string;
+    utilidad: string;
+    ingresoUtilidad: string;
+    nombreBco: string;
+    numeroCuenta: string;
+    estado: string;
+    idiomas: string;
+}
+
+export function PartActiv({ data }: { data: PartnerData[] }) {
     return (
         <div className="card">
             <div className="card-body">
@@ -163,12 +160,12 @@ export function PartActiv() {
                         El historial de socios permite a los usuarios almacenar y gestionar la información de los socios de manera segura y eficiente. Los datos registrados incluyen el número, país, nombre, celular, tipo de socio, fecha de ingreso, fecha de salida, utilidad, ingreso por utilidad, nombre del banco, número de cuenta y estado.
                     </p>
                 </div>
-                <ActivePartnersTable />
+                <ActivePartnersTable data={data} />
                 <div className="d-flex justify-content-end mt-16">
                     <div className="flex-1"></div>
                     <Pagination />
                     <div className="card-footer">
-                        <button className="btn btn-primary" onClick={exportToExcel}>Exportar</button>
+                        <button className="btn btn-primary" onClick={() => exportToExcel(data)}>Exportar</button>
                     </div>
                 </div>
             </div>

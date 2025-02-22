@@ -54,47 +54,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     );
 };
 
-const initialData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        nombre: 'Juan Pérez',
-        celular: '1234567890',
-        fechaPostulacion: '2023-10-01',
-        especialidad: 'Desarrollo',
-        expBack: '5',
-        expFront: '3',
-        expMobile: '2',
-        expOtra: '1',
-        expTotal: '11',
-        cv: 'cv_juan_perez.pdf',
-        aprobar: false,
-        estado: 'Pendiente',
-    },
-];
-
-const initialNewApplicantsData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        nombre: 'Ana Gómez',
-        celular: '0987654321',
-        fechaPostulacion: '2023-10-01',
-        especialidad: 'Consultoría',
-        expBack: '4',
-        expFront: '2',
-        expMobile: '1',
-        expOtra: '3',
-        expTotal: '10',
-        cv: 'cv_ana_gomez.pdf',
-        aprobar: false,
-        estado: 'Pendiente',
-    },
-];
-
-function NewApplicantsTable({ newApplicantsData, setDevelopersData }: { newApplicantsData: typeof initialNewApplicantsData, setDevelopersData: React.Dispatch<React.SetStateAction<typeof initialData>> }) {
+function NewApplicantsTable({ newApplicantsData, setDevelopersData }: { newApplicantsData: any[], setDevelopersData: React.Dispatch<React.SetStateAction<any[]>> }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterApproved, setFilterApproved] = useState<'all' | 'approved' | 'notApproved'>('all');
 
@@ -103,20 +63,7 @@ function NewApplicantsTable({ newApplicantsData, setDevelopersData }: { newAppli
         updatedApplicants[index].aprobar = !updatedApplicants[index].aprobar;
         if (updatedApplicants[index].aprobar) {
             const newDeveloper = {
-                id: updatedApplicants[index].id,
-                numero: updatedApplicants[index].numero,
-                pais: updatedApplicants[index].pais,
-                nombre: updatedApplicants[index].nombre,
-                celular: updatedApplicants[index].celular,
-                fechaPostulacion: updatedApplicants[index].fechaPostulacion,
-                especialidad: updatedApplicants[index].especialidad,
-                expBack: updatedApplicants[index].expBack,
-                expFront: updatedApplicants[index].expFront,
-                expMobile: updatedApplicants[index].expMobile,
-                expOtra: updatedApplicants[index].expOtra,
-                expTotal: updatedApplicants[index].expTotal,
-                cv: updatedApplicants[index].cv,
-                aprobar: updatedApplicants[index].aprobar,
+                ...updatedApplicants[index],
                 estado: 'Activo',
             };
             setDevelopersData(prevData => [...prevData, newDeveloper]);
@@ -233,7 +180,7 @@ function NewApplicantsTable({ newApplicantsData, setDevelopersData }: { newAppli
     );
 }
 
-function exportToExcel(data: typeof initialData) {
+function exportToExcel(data: any[]) {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Desarrolladores');
@@ -243,8 +190,8 @@ function exportToExcel(data: typeof initialData) {
 }
 
 export function NewPartDev() {
-    const [developersData, setDevelopersData] = useState(initialData);
-    const [newApplicantsData, setNewApplicantsData] = useState(initialNewApplicantsData);
+    const [developersData, setDevelopersData] = useState<any[]>([]);
+    const [newApplicantsData, setNewApplicantsData] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 6; // Or calculate based on data length
 

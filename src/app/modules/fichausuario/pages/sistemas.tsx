@@ -12,14 +12,12 @@ function Pagination() {
                     <i className="previous"></i>
                 </a>
             </li>
-
             <li className="page-item "><a href="#" className="page-link">1</a></li>
             <li className="page-item active"><a href="#" className="page-link">2</a></li>
             <li className="page-item "><a href="#" className="page-link">3</a></li>
             <li className="page-item "><a href="#" className="page-link">4</a></li>
             <li className="page-item "><a href="#" className="page-link">5</a></li>
             <li className="page-item "><a href="#" className="page-link">6</a></li>
-
             <li className="page-item next">
                 <a href="#" className="page-link">
                     <i className="next"></i>
@@ -29,20 +27,18 @@ function Pagination() {
     )
 }
 
-const data = [
-    {
-        id: 1,
-        nombreSistema: 'Sistema 1',
-        pais: 'Perú',
-        usuario: 'Usuario 1',
-        estado: 'Activo',
-        existencia: 'Sí',
-        comentario: 'Comentario 1',
-        observaciones: 'Documentación 1',
-    },
-]
+interface Sistema {
+    id: number;
+    nombreSistema: string;
+    pais: string;
+    usuario: string;
+    estado: string;
+    existencia: string;
+    comentario: string;
+    observaciones: string;
+}
 
-function SistemasTable() {
+function SistemasTable({ data }: { data: Sistema[] }) {
     return (
         <div className="table-responsive my-16">
             <table className="table table-bordered">
@@ -83,9 +79,30 @@ function SistemasTable() {
 
 export function Sistemas() {
     const [showModal, setShowModal] = useState(false)
+    const [data, setData] = useState([])
 
     const handleShow = () => setShowModal(true)
     const handleClose = () => setShowModal(false)
+
+    const fetchData = async () => {
+        // Fetch data from backend
+        const response = await fetch('/api/sistemas')
+        const result = await response.json()
+        setData(result)
+    }
+
+    const exportToExcel = () => {
+        const ws = XLSX.utils.json_to_sheet(data)
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'Historial de Sistemas')
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+        const blob = new Blob([wbout], { type: 'application/octet-stream' })
+        saveAs(blob, 'historial_de_sistemas.xlsx')
+    }
+
+    React.useEffect(() => {
+        fetchData()
+    }, [])
 
     return (
         <div className="card">
@@ -112,7 +129,7 @@ export function Sistemas() {
                         El historial de sistemas permite a los usuarios almacenar y gestionar la información de los sistemas utilizados en los proyectos de manera segura y eficiente. Los datos registrados incluyen el nombre del sistema, el país, el usuario, el estado, la existencia, comentarios y observaciones/documentación.
                     </p>
                 </div>
-                <SistemasTable />
+                <SistemasTable data={data} />
                 <div className="d-flex justify-content-end mt-16">
                     <div className="flex-1"></div>
                     <Pagination />
@@ -121,15 +138,6 @@ export function Sistemas() {
             <AddSistemaModal show={showModal} handleClose={handleClose} />
         </div>
     )
-}
-
-function exportToExcel() {
-    const ws = XLSX.utils.json_to_sheet(data)
-    const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws, 'Historial de Sistemas')
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-    const blob = new Blob([wbout], { type: 'application/octet-stream' })
-    saveAs(blob, 'historial_de_sistemas.xlsx')
 }
 
 interface AddSistemaModalProps {

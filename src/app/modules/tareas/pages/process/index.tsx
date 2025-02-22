@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Tag, Input, Select, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Table, Tag } from 'antd';
 import type { ColumnType } from 'antd/es/table';
-import type { FilterDropdownProps } from 'antd/es/table/interface';
 
 interface SystemData {
     country: string;
@@ -20,38 +18,13 @@ interface SystemData {
     projectStatus: string;
 }
 
-const systemsData: SystemData[] = [
-    {
-        country: 'Peru',
-        systemName: 'Sistema de ventas',
-        user: 'Juan Perez',
-        status: 'En proceso',
-        auditorPercentage: 50,
-        programmerPercentage: 50,
-        frontTasks: 50,
-        backTasks: 50,
-        mobileTasks: 50,
-        rvTasks: 50,
-        iaTasks: 50,
-        projectEndDate: '2021-10-10',
-        projectStatus: 'En proceso',
-    },
-];
-
 export function ProcessPage() {
-    const [filteredData, setFilteredData] = useState(systemsData);
+    const [filteredData, setFilteredData] = useState<SystemData[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<string | undefined>(undefined);
     const [selectedStatus, setSelectedStatus] = useState<string | undefined>(undefined);
 
     const handleFilterChange = () => {
-        let filtered = systemsData;
-        if (selectedCountry) {
-            filtered = filtered.filter(item => item.country === selectedCountry);
-        }
-        if (selectedStatus) {
-            filtered = filtered.filter(item => item.status === selectedStatus);
-        }
-        setFilteredData(filtered);
+        // This function will be used to filter data based on selectedCountry and selectedStatus
     };
 
     const columns: Array<ColumnType<SystemData>> = [

@@ -39,7 +39,7 @@ export const Partners: React.FC = () => {
                     id="kt_tab_pane_1"
                     role="tabpanel"
                 >
-                    <PartActiv />
+                    <PartActiv data={[]} />
                 </div>
                 <div
                     className={`tab-pane fade ${activeTab === 'kt_tab_pane_2' ? 'active show' : ''}`}

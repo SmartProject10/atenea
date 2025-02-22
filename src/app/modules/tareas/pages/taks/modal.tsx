@@ -30,9 +30,7 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                         <Form.Label>País</Form.Label>
                         <Form.Control as="select" required>
                             <option value="">Seleccione el país</option>
-                            <option value="Peru">Peru</option>
-                            <option value="Chile">Chile</option>
-                            <option value="Argentina">Argentina</option>
+                            {/* Add options dynamically */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione un país.
@@ -43,9 +41,7 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                         <Form.Label>Nombre del sistema</Form.Label>
                         <Form.Control as="select" required>
                             <option value="">Seleccione el sistema</option>
-                            <option value="ISO 45001">ISO 45001</option>
-                            <option value="ISO 9001">ISO 9001</option>
-                            <option value="ISO 14001">ISO 14001</option>
+                            {/* Add options dynamically */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione un sistema.
@@ -132,9 +128,10 @@ function AddTaskModal({ show, handleClose }: AddTaskModalProps) {
                     <Form.Group controlId="formPriority">
                         <Form.Label>Dependencia</Form.Label>
                         <Form.Control as="select" required>
-                            <option value="alta">Alta</option>
-                            <option value="media">Media</option>
-                            <option value="baja">Baja</option>
+                            <option value="">Seleccione la dependencia</option>
+                            {/* Add options dynamically 
+                            ALTA, MEDIA, BAJA
+                            */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione una dependencia.

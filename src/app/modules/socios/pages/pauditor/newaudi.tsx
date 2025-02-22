@@ -54,42 +54,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     );
 };
 
-const initialData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        nombres: 'Juan Pérez',
-        celular: '1234567890',
-        sgDigital: 'SG123',
-        paisSistema: 'México',
-        utilidad: '0.5%',
-        ingresoUtilidad: '500',
-        nombreBco: 'Banco XYZ',
-        numeroCuenta: '123456789',
-        estado: 'Activo',
-        material: 'material_juan_perez.pdf',
-    },
-];
-
-const initialNewApplicantsData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        namesystem: 'ISO 9001',
-        nombre: 'Ana Gómez',
-        celular: '0987654321',
-        fechaPostulacion: '2023-10-01',
-        especialidad: 'Consultoría',
-        cv: 'cv_ana_gomez.pdf',
-        aprobar: false,
-        estado: 'Pendiente',
-        material: 'material_ana_gomez.pdf',
-    },
-];
-
-function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplicantsData: typeof initialNewApplicantsData, setAuditorsData: React.Dispatch<React.SetStateAction<typeof initialData>> }) {
+function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplicantsData: any[], setAuditorsData: React.Dispatch<React.SetStateAction<any[]>> }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterApproved, setFilterApproved] = useState<'all' | 'approved' | 'notApproved'>('all');
 
@@ -225,7 +190,7 @@ function NewApplicantsTable({ newApplicantsData, setAuditorsData }: { newApplica
     );
 }
 
-function exportToExcel(data: typeof initialData) {
+function exportToExcel(data: any[]) {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Auditores');
@@ -235,8 +200,8 @@ function exportToExcel(data: typeof initialData) {
 }
 
 export function NewPartner() {
-    const [auditorsData, setAuditorsData] = useState(initialData);
-    const [newApplicantsData] = useState(initialNewApplicantsData);
+    const [auditorsData, setAuditorsData] = useState<any[]>([]);
+    const [newApplicantsData, setNewApplicantsData] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 6; // Or calculate based on data length
 

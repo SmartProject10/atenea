@@ -25,28 +25,11 @@ interface Task {
 }
 
 export function TasksPage() {
-    const [tasks, setTasks] = useState<Task[]>([
-        {
-            id: 1,
-            country: 'Perú',
-            namesystem: 'ISO 45001',
-            taskName: 'Implementar API',
-            taskDescription: 'Desarrollar la API para el sistema',
-            dependency: 'Alta',
-            requiredTechnologies: ['Backend'],
-            assignmentDate: '2023-01-01',
-            dueDate: '2023-01-15',
-            lastDate: '2023-01-10',
-            state: 'En proceso',
-            assignedTo: 'Juan Pérez',
-            comments: 'Intermedia',
-            materials: ['api-docs.pdf']
-        }
-    ]);
+    const [tasks, setTasks] = useState<Task[]>([]);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editingTask, setEditingTask] = useState<Task | null>(null);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+
     const handleAddTask = (newTask: Task) => {
         setTasks([...tasks, { ...newTask, id: tasks.length + 1 }]);
         setShowAddModal(false);
@@ -83,12 +66,6 @@ export function TasksPage() {
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
         saveAs(blob, 'tareas.xlsx');
-    };
-
-    const showModalUpload = (record: Task) => {
-        setEditingTask(record);
-        setEditingTask(record);
-        setShowEditModal(true);
     };
 
     const onEdit = (task: Task) => {

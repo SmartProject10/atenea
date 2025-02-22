@@ -29,17 +29,19 @@ function Pagination() {
     )
 }
 
-const data = [
-    {
-        id: 1,
-        numeroRecibo: '1',
-        rucEmpresa: '1234567890',
-        paisSistema: 'Perú',
-        sgDigital: '9001',
-        fechaRecibo: '2023-01-01',
-        costoVenta: '1000',
-        utilidad: '500',
-    },
+interface Recibo {
+    id: number
+    numeroRecibo: string
+    rucEmpresa: string
+    paisSistema: string
+    sgDigital: string
+    fechaRecibo: string
+    costoVenta: number
+    utilidad: number
+}
+
+const data: Recibo[] = [
+    // Data should be fetched from backend
 ]
 
 function RecibosTable() {
@@ -147,25 +149,7 @@ function AddReciboModal({ show, handleClose }: AddReciboModalProps) {
                         <Form.Label>País del sistema</Form.Label>
                         <Form.Control as="select">
                             <option value="">Seleccione el país</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Bolivia">Bolivia</option>
-                            <option value="Brasil">Brasil</option>
-                            <option value="Chile">Chile</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Costa Rica">Costa Rica</option>
-                            <option value="Cuba">Cuba</option>
-                            <option value="Ecuador">Ecuador</option>
-                            <option value="El Salvador">El Salvador</option>
-                            <option value="Guatemala">Guatemala</option>
-                            <option value="Honduras">Honduras</option>
-                            <option value="México">México</option>
-                            <option value="Nicaragua">Nicaragua</option>
-                            <option value="Panamá">Panamá</option>
-                            <option value="Paraguay">Paraguay</option>
-                            <option value="Perú">Perú</option>
-                            <option value="República Dominicana">República Dominicana</option>
-                            <option value="Uruguay">Uruguay</option>
-                            <option value="Venezuela">Venezuela</option>
+                            {/* Add options dynamically */}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formRucEmpresa">
@@ -180,8 +164,7 @@ function AddReciboModal({ show, handleClose }: AddReciboModalProps) {
                         <Form.Label>Sistema de gestión</Form.Label>
                         <Form.Control as="select">
                             <option value="">Seleccione el sistema de gestión</option>
-                            <option value="9001">9001</option>
-                            <option value="45001">45001</option>
+                            {/* Add options dynamically */}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formOtroSg">

@@ -124,9 +124,9 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         <Form.Label>País</Form.Label>
                         <Form.Control as="select" value={country} onChange={(e) => setCountry(e.target.value)} required>
                             <option value="">Seleccione el país</option>
-                            <option value="USA">USA</option>
+                            {/* <option value="USA">USA</option>
                             <option value="Canada">Canada</option>
-                            <option value="Mexico">Mexico</option>
+                            <option value="Mexico">Mexico</option> */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione un país.
@@ -137,9 +137,9 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         <Form.Label>Sistema</Form.Label>
                         <Form.Control as="select" value={system} onChange={(e) => setSystem(e.target.value)} required>
                             <option value="">Seleccione el sistema</option>
-                            <option value="Sistema A">Sistema A</option>
+                            {/* <option value="Sistema A">Sistema A</option>
                             <option value="Sistema B">Sistema B</option>
-                            <option value="Sistema C">Sistema C</option>
+                            <option value="Sistema C">Sistema C</option> */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione un sistema.
@@ -172,9 +172,9 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         <Form.Label>Rango</Form.Label>
                         <Form.Control as="select" value={rank} onChange={(e) => setRank(e.target.value)} disabled={!experience} required>
                             <option value="">Aquí carga el rango</option>
-                            <option value="plata">Plata</option>
+                            {/* <option value="plata">Plata</option>
                             <option value="oro">Oro</option>
-                            <option value="diamante">Diamante</option>
+                            <option value="diamante">Diamante</option> */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione un rango.
@@ -185,8 +185,8 @@ function AddTaskModal({ show, handleClose, setSelectedProgrammer }: AddTaskModal
                         <Form.Label>Estado</Form.Label>
                         <Form.Control as="select" value={status} onChange={(e) => setStatus(e.target.value)} disabled={!experience} required>
                             <option value="">Aquí se ve el estado</option>
-                            <option value="activo">Activo</option>
-                            <option value="inactivo">Inactivo</option>
+                            {/* <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option> */}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Por favor seleccione un estado.

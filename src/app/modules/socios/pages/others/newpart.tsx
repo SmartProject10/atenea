@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
 
-const initialNewApplicantsData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        nombre: 'Ana Gómez',
-        celular: '0987654321',
-        fechaPostulacion: '2023-10-01',
-        tipoProfesion: 'Consultoría',
-        anosExperiencia: '10',
-        cv: 'cv_ana_gomez.pdf',
-        idiomas: 'Español, Inglés',
-        aprobar: false,
-        estado: 'Pendiente',
-    },
-];
-
 function NewApplicantsTable() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterApproved, setFilterApproved] = useState<'all' | 'approved' | 'notApproved'>('all');
-    const [newApplicantsData, setNewApplicantsData] = useState(initialNewApplicantsData);
+    interface Applicant {
+        id: number;
+        numero: number;
+        pais: string;
+        nombre: string;
+        celular: string;
+        fechaPostulacion: string;
+        tipoProfesion: string;
+        anosExperiencia: number;
+        cv: string;
+        idiomas: string;
+        aprobar: boolean;
+        estado: string;
+    }
+
+    const [newApplicantsData, setNewApplicantsData] = useState<Applicant[]>([]);
 
     const filteredData = newApplicantsData.filter(item => {
         const matchesSearchTerm = Object.values(item).some(val =>

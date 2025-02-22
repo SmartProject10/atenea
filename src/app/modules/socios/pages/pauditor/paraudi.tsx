@@ -22,25 +22,7 @@ const Pagination = () => (
     </ul>
 );
 
-const initialData = [
-    {
-        id: 1,
-        numero: '1',
-        pais: 'México',
-        paisSistema: 'México',
-        sgDigital: 'SG123',
-        nombres: 'Juan Pérez',
-        celular: '1234567890',
-        utilidad: '0.5%',
-        ingresoUtilidad: '500',
-        nombreBco: 'Banco XYZ',
-        numeroCuenta: '123456789',
-        estado: 'Activo',
-        material: 'material_juan_perez.pdf',
-    },
-];
-
-const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: React.Dispatch<React.SetStateAction<typeof initialData>> }) => {
+const AuditorTable = ({ data, setData }: { data: any[], setData: React.Dispatch<React.SetStateAction<any[]>> }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [editValue, setEditValue] = useState('');
@@ -141,7 +123,7 @@ const AuditorTable = ({ data, setData }: { data: typeof initialData, setData: Re
     );
 };
 
-const exportToExcel = (data: typeof initialData) => {
+const exportToExcel = (data: any[]) => {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Auditores');
@@ -151,7 +133,7 @@ const exportToExcel = (data: typeof initialData) => {
 };
 
 export const Partner = () => {
-    const [auditorsData, setAuditorsData] = useState(initialData);
+    const [auditorsData, setAuditorsData] = useState<any[]>([]);
 
     return (
         <div className="card">
