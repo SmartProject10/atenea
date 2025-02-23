@@ -11,7 +11,7 @@ const DashboardWrapper: FC = () => {
   const [filterDateTo, setFilterDateTo] = useState('')
 
   const monthlyIncomeData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    labels: [], // Data to be fetched from backend
     datasets: [
       {
         label: 'Monthly Income',
@@ -20,17 +20,23 @@ const DashboardWrapper: FC = () => {
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(75,192,192,0.4)',
         hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [6500, 5900, 8000, 8100, 5600, 5500, 4000, 7000, 8500, 9000, 9500, 9800],
+        data: [], // Data to be fetched from backend
       },
     ],
   }
 
-  const tableData = [
-    { id: 1, number: 1, country: 'USA', ruc: '123456789', companyName: 'Company A', acquiredDate: '2023-01-01', amount: 10000, status: 'ACCEPTED' },
-    { id: 2, number: 2, country: 'Canada', ruc: '987654321', companyName: 'Company B', acquiredDate: '2023-02-01', amount: 20000, status: 'PENDING' },
-    { id: 3, number: 3, country: 'Mexico', ruc: '456789123', companyName: 'Company C', acquiredDate: '2023-03-01', amount: 15000, status: 'CANCELLED' },
-    { id: 4, number: 4, country: 'Brazil', ruc: '789123456', companyName: 'Company D', acquiredDate: '2023-04-01', amount: 25000, status: 'REJECTED' },
-  ]
+  interface TableDataItem {
+    id: number;
+    number: number;
+    country: string;
+    ruc: string;
+    companyName: string;
+    acquiredDate: string;
+    amount: number;
+    status: string;
+  }
+
+  const tableData: TableDataItem[] = [] // Data to be fetched from backend
 
   const filteredData = tableData.filter(item => {
     const matchesSearchTerm = item.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -65,10 +71,10 @@ const DashboardWrapper: FC = () => {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">INFORMACIÓN</h5>
-                <p><strong>Sección de clientes:</strong> 20 clientes</p>
-                <p><strong>Número de usuarios:</strong> 4000</p>
-                <p><strong>Ingreso acumulado:</strong> 80000</p>
-                <p><strong>Ingreso promedio mensual:</strong> 9800</p>
+                <p><strong>Sección de clientes:</strong> {/* Data to be fetched from backend */}</p>
+                <p><strong>Número de usuarios:</strong> {/* Data to be fetched from backend */}</p>
+                <p><strong>Ingreso acumulado:</strong> {/* Data to be fetched from backend */}</p>
+                <p><strong>Ingreso promedio mensual:</strong> {/* Data to be fetched from backend */}</p>
               </div>
             </div>
           </div>

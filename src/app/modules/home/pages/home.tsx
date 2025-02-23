@@ -66,45 +66,6 @@ export function Home(): JSX.Element {
 						description="Reunión para discutir los servicios<br/>y proyectos de ISO AND ISO"
 					/>
 				</div>
-
-				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="card">
-						<div className="card-body">
-							<div className="card-title fw-bold fs-1">Horas Trabajadas</div>
-							
-							<div className="d-flex justify-content-between mb-4">
-								<button className="btn btn-outline-primary" onClick={() => setProgress('25')}>Día</button>
-								<button className="btn btn-outline-primary" onClick={() => setProgress('50')}>Mes</button>
-								<button className="btn btn-outline-primary" onClick={() => setProgress('75')}>Año</button>
-							</div>
-							
-							<p className="text-center fw-bold fs-2 mb-4">Total: {progress === '25' ? 5 : progress === '50' ? 50 : 200} horas</p>
-							
-							<div className="progress mt-4">
-								<div className="progress-bar" role="progressbar" style={{ width: `${progress}%` }} aria-valuenow={parseInt(progress)} aria-valuemin={0} aria-valuemax={100}>
-									{progress}%
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className="col-lg-4 col-md-6 col-xs-12">
-					<div className="card">
-						<div className="card-body">
-							<div className="card-title fw-bold fs-1">Salario</div>
-							
-							<div className="d-flex justify-content-between mb-4">
-								<button className="btn btn-outline-primary" onClick={() => setEarnings('month')}>Mes</button>
-								<button className="btn btn-outline-primary" onClick={() => setEarnings('year')}>Año</button>
-							</div>
-							
-							<p className="text-center fw-bold fs-2 mb-4">Total: ${earnings === 'month' ? earningsData.month : earningsData.year}</p>
-							
-							<p className="text-center fw-bold fs-2 mb-4">Utilidades: {earningsData.profitPercentage * 100}%</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	)

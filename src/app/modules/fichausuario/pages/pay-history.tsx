@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
+import axios from 'axios'
 
 function Pagination() {
 	return (
@@ -27,22 +28,20 @@ function Pagination() {
 	)
 }
 
-const data = [
-	{
-		id: 1,
-		numero: '1',
-		fechaPago: '2023-01-01',
-		metodoPago: 'Transferencia',
-		beneficiario: 'Juan Pérez',
-		descripcion: 'Pago de servicios',
-		numeroReferencia: '123456',
-		estadoPago: 'Completado',
-		porcentajeUtilidad: '0.5%',
-		notasAdicionales: 'Ninguna',
-	},
-]
+interface PayHistoryItem {
+	id: number;
+	numero: string;
+	fechaPago: string;
+	metodoPago: string;
+	beneficiario: string;
+	descripcion: string;
+	numeroReferencia: string;
+	estadoPago: string;
+	porcentajeUtilidad: string;
+	notasAdicionales: string;
+}
 
-function PayHistoryTable() {
+function PayHistoryTable({ data }: { data: PayHistoryItem[] }) {
 	return (
 		<div className="table-response my-16">
 			<table className="table table-bordered">
@@ -84,6 +83,14 @@ function PayHistoryTable() {
 }
 
 export function PayHistory() {
+	const [data, setData] = useState([])
+
+	useEffect(() => {
+		axios.get('/api/pay-history')
+			.then(response => setData(response.data))
+			.catch(error => console.error('Error fetching data:', error))
+	}, [])
+
 	return (
 		<div className="card">
 			<div className="card-body">
@@ -92,12 +99,12 @@ export function PayHistory() {
 						El historial de pagos permite a los usuarios almacenar y gestionar la información de los pagos realizados a sus familiares de manera segura y eficiente. Los datos registrados incluyen el número de pago, la fecha, el método de pago, el beneficiario, la descripción, el número de referencia, el estado del pago, el porcentaje de utilidad recibida y notas adicionales.
 					</p>
 				</div>
-				<PayHistoryTable />
+				<PayHistoryTable data={data} />
 				<div className="d-flex justify-content-end mt-16">
 					<div className="flex-1"></div>
 					<Pagination />
 					<div className="card-footer">
-						<button className="btn btn-primary" onClick={exportToExcel}>Exportar</button>
+						<button className="btn btn-primary" onClick={() => exportToExcel(data)}>Exportar</button>
 					</div>
 				</div>
 			</div>
@@ -105,11 +112,11 @@ export function PayHistory() {
 	)
 }
 
-function exportToExcel() {
-	const ws = XLSX.utils.json_to_sheet(data)
-	const wb = XLSX.utils.book_new()
+function exportToExcel(data: PayHistoryItem[]) {
+	const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data)
+	const wb: XLSX.WorkBook = XLSX.utils.book_new()
 	XLSX.utils.book_append_sheet(wb, ws, 'Historial de Pagos')
-	const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-	const blob = new Blob([wbout], { type: 'application/octet-stream' })
+	const wbout: ArrayBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+	const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' })
 	saveAs(blob, 'historial_de_pagos.xlsx')
 }

@@ -84,24 +84,16 @@ export function Implementacion() {
         },
     };
 
-    const implementationsData = [
-        {
-            id: 1,
-            system: 'Contabilidad',
-            status: 'pendiente',
-            date: '2023-01-01',
-            country: 'Peru',
-            observations: 'Observación 1'
-        },
-        {
-            id: 2,
-            system: 'Almacen',
-            status: 'cancelado',
-            date: '2023-02-01',
-            country: 'Chile',
-            observations: 'Observación 2'
-        }
-    ];
+    interface Implementation {
+        id: number;
+        system: string;
+        status: string;
+        date: string;
+        country: string;
+        observations: string;
+    }
+
+    const [implementationsData, setImplementationsData] = useState<Implementation[]>([]);
 
     const handleNewImplementation = () => {
         setShowModal(true);

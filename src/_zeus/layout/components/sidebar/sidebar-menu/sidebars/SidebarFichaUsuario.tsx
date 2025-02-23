@@ -9,20 +9,19 @@ export const SidebarFichaUsuario = () => {
 	return (
 		<>
 			<SidebarMenuItem
-				to="/dashboard"
+				to="/home"
 				icon="home"
 				title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
 				fontIcon="bi-app-indicator"
 			/>
-			<SidebarSubtitle label="información personal" />
-			<SidebarMenuItem
-				to="/ficha-usuario"
-				icon="user"
-				title={intl.formatMessage({ id: "MENU.USER_TAB" })}
-				fontIcon="bi-app-indicator"
-			/>
 
 			<SidebarSubtitle label="empresa" />
+			<SidebarMenuItem
+				to="/dashboard"
+				icon="minus-folder"
+				title= "Ingresos"
+				fontIcon="bi-currency-dollar"
+			/>
 			<SidebarMenuItem
 				to="/comisiones"
 				icon="abstract-1"

@@ -2,66 +2,19 @@ import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const data = [
-	{
-		title: 'Nombres Completos',
-		type: 'text',
-		value: 'Juan Perez',
-		disabled: true,
-		name: 'name',
-	},
-	{
-		title: 'DNI',
-		type: 'text',
-		value: '1234567890',
-		disabled: true,
-		name: 'dni',
-	},
-	{
-		title: 'Fecha de nacimiento',
-		type: 'date',
-		value: '01/01/1990',
-		disabled: true,
-		name: 'birthdate',
-	},
-	{
-		title: 'Sexo',
-		type: 'select',
-		value: 'Masculino',
-		disabled: true,
-		name: 'sex',
-	},
-	{
-		title: 'Correo personal (no institucional)',
-		type: 'email',
-		value: 'abelairton@gmail.com',
-		disabled: true,
-		name: 'email',
-	},
-	{
-		title: 'Dirección exacta del domicilio',
-		type: 'text',
-		value: 'Calle 123, 123 123',
-		disabled: true,
-		name: 'address',
-	},
-	{
-		title: 'País',
-		type: 'text',
-		value: 'Ecuador',
-		disabled: true,
-		name: 'country',
-	},
-	{
-		title: 'Número de teléfono',
-		type: 'number',
-		value: '+593 980513677',
-		disabled: true,
-		name: 'phone',
-	},
-]
+const initialData = [
+	{ title: 'Nombres Completos', type: 'text', value: '', disabled: true, name: 'name' },
+	{ title: 'DNI', type: 'text', value: '', disabled: true, name: 'dni' },
+	{ title: 'Fecha de nacimiento', type: 'date', value: '', disabled: true, name: 'birthdate' },
+	{ title: 'Sexo', type: 'select', value: '', disabled: true, name: 'sex' },
+	{ title: 'Correo personal (no institucional)', type: 'email', value: '', disabled: true, name: 'email' },
+	{ title: 'Dirección exacta del domicilio', type: 'text', value: '', disabled: true, name: 'address' },
+	{ title: 'País', type: 'text', value: '', disabled: true, name: 'country' },
+	{ title: 'Número de teléfono', type: 'number', value: '', disabled: true, name: 'phone' },
+];
 
 export function PersonalDataSection() {
+	const [data, setData] = useState(initialData);
 	const [showModal, setShowModal] = useState(false);
 	const [currentField, setCurrentField] = useState({ name: '', value: '' });
 
@@ -71,15 +24,15 @@ export function PersonalDataSection() {
 			setCurrentField({ name: field.name, value: field.value });
 			setShowModal(true);
 		}
-	}
+	};
 
 	const handleSave = () => {
-		const field = data.find(item => item.name === currentField.name);
-		if (field) {
-			field.value = currentField.value;
-		}
+		const updatedData = data.map(item =>
+			item.name === currentField.name ? { ...item, value: currentField.value } : item
+		);
+		setData(updatedData);
 		setShowModal(false);
-	}
+	};
 
 	return (
 		<div className="card mb-8" id="personal-data">
@@ -89,45 +42,40 @@ export function PersonalDataSection() {
 			<div className="card-body">
 				<div className="card-content">
 					<form action="">
-						{
-							data.map((item) => (
-								<div className="form-group row my-4" key={item.name}>
-									<label className="col-form-label col-lg-4 col-sm-12">
-										{item.title}
-									</label>
-									<div className="col-lg-8 col-md-9 col-sm-12 position-relative">
-										{['birthdate', 'phone', 'sex', 'email', 'country', 'address'].includes(item.name) && (
-											<button
+						{data.map(item => (
+							<div className="form-group row my-4" key={item.name}>
+								<label className="col-form-label col-lg-4 col-sm-12">{item.title}</label>
+								<div className="col-lg-8 col-md-9 col-sm-12 position-relative">
+									{['birthdate', 'phone', 'sex', 'email', 'country', 'address'].includes(item.name) && (
+										<button
 											type="button"
 											className="btn btn-link p-0 position-absolute"
 											style={{
-											  right: '10px',
-											  top: '50%',
-											  transform: 'translateY(-50%)',
-											  color: '#007bff',
-											  fontSize: '14px', 
-											  border: '2px solid #007bff', 
-											  padding: '10px', 
-											  borderRadius: '10px', 
-											  backgroundColor: 'rgba(0, 123, 255, 0.1)', 
+												right: '10px',
+												top: '50%',
+												transform: 'translateY(-50%)',
+												color: '#007bff',
+												fontSize: '14px',
+												border: '2px solid #007bff',
+												padding: '10px',
+												borderRadius: '10px',
+												backgroundColor: 'rgba(0, 123, 255, 0.1)',
 											}}
 											onClick={() => handleEdit(item.name)}
-										  >
+										>
 											<MdEdit size={20} />
-										  </button>
-										  
-										)}
-										<input
-											name={item.name}
-											type={item.type}
-											className="form-control pr-5"
-											placeholder={item.value}
-											disabled={item.disabled}
-										/>
-									</div>
+										</button>
+									)}
+									<input
+										name={item.name}
+										type={item.type}
+										className="form-control pr-5"
+										placeholder={item.value}
+										disabled={item.disabled}
+									/>
 								</div>
-							))
-						}
+							</div>
+						))}
 						<div className="d-flex justify-content-end mt-8">
 							<button className="btn btn-primary">Guardar cambios</button>
 						</div>
@@ -146,7 +94,7 @@ export function PersonalDataSection() {
 							<Form.Control
 								type={data.find(item => item.name === currentField.name)?.type}
 								value={currentField.value}
-								onChange={(e) => setCurrentField({ ...currentField, value: e.target.value })}
+								onChange={e => setCurrentField({ ...currentField, value: e.target.value })}
 							/>
 						</Form.Group>
 					</Form>
@@ -161,5 +109,5 @@ export function PersonalDataSection() {
 				</Modal.Footer>
 			</Modal>
 		</div>
-	)
+	);
 }

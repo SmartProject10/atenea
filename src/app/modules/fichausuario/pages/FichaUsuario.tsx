@@ -4,6 +4,7 @@ import { EmploymentDataSection } from './employment-data'
 import { FamilyPayments } from './family-payments'
 import { PayHistory } from './pay-history'
 import { PersonalDataSection } from './personal-data'
+import Security from './security'
 
 
 export function FichaUsuario() {
@@ -77,6 +78,15 @@ export function FichaUsuario() {
 						Historial de pagos
 					</a>
 				</li>
+				<li className="nav-item">
+					<a
+						className="nav-link"
+						data-bs-toggle="tab"
+						href="#kt_tab_pane_6"
+					>
+						Seguridad
+					</a>
+				</li>
 
 			</ul>
 
@@ -115,6 +125,13 @@ export function FichaUsuario() {
 					role="tabpanel"
 				>
 					<PayHistory />
+				</div>
+				<div
+					className="tab-pane fade"
+					id="kt_tab_pane_6"
+					role="tabpanel"
+				>
+					<Security />	
 				</div>
 			</div>
 		</div>

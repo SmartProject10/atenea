@@ -57,11 +57,11 @@ export function Comisiones() {
 
 	// Datos y opciones del gráfico
 	const data = {
-		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+		labels: [], // Labels should be fetched from backend
 		datasets: [
 			{
 				label: 'Ingresos de Comisiones',
-				data: [1000, 2000, 1500, 3000, 2500, 4000],
+				data: [], // Data should be fetched from backend
 				borderColor: 'rgba(75, 192, 192, 1)',
 				backgroundColor: 'rgba(75, 192, 192, 0.2)',
 				fill: true,
@@ -82,30 +82,19 @@ export function Comisiones() {
 		},
 	};
 
-	const commissionsData = [
-		{
-			id: 1,
-			country: 'Peru',
-			ruc: '123456789',
-			companyName: 'Empresa Peruana',
-			type: 'comprado',
-			income: 1000,
-			commission: '10%',
-			status: 'pendiente',
-			date: '2023-01-01'
-		},
-		{
-			id: 2,
-			country: 'Chile',
-			ruc: '987654321',
-			companyName: 'Empresa Chilena',
-			type: 'alquiler',
-			income: 2000,
-			commission: '15%',
-			status: 'cancelado',
-			date: '2023-02-01'
-		}
-	];
+	interface Commission {
+		id: number;
+		country: string;
+		ruc: string;
+		companyName: string;
+		type: string;
+		income: number;
+		commission: number;
+		status: string;
+		date: string;
+	}
+
+	const commissionsData: Commission[] = []; // Data should be fetched from backend
 
 	const handleNewClient = () => {
 		setShowModal(true);
