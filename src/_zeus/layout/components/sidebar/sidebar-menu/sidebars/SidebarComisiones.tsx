@@ -45,7 +45,7 @@ export const SidebarComisiones = () => {
 				<SidebarMenuItem
 					to="/tareas/lista"
 					icon="file-added"
-					title="Programadores activos"
+					title="Tareas cumplidas"
 					fontIcon="bi-app-indicator"
 				/>
 			</SidebarMenuItemWithSub>

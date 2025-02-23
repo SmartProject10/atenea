@@ -1,91 +1,147 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Select, Button, DatePicker } from 'antd';
-import { ColumnsType } from 'antd/es/table';
+import { Table, Tag, DatePicker, Button, Input, Select } from 'antd';
+import type { ColumnType } from 'antd/es/table';
+import type { FilterDropdownProps } from 'antd/es/table/interface';
+import { SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const { Option } = Select;
 
-interface Programador {
-    id: number;
+interface Tarea {
+    numero: number;
     pais: string;
-    nombre: string;
+    sistema: string;
+    nombreTarea: string;
+    descripcion: string;
+    dependencia: string;
     tecnologias: string;
-    fechaIngreso: string;
-    horasTotalesTrabajadas: number;
-    rango?: string;
+    fechaAsignacion: string;
+    fechaVencimiento: string;
+    ultimaFecha: string;
+    estado: string;
+    asignadoA: string;
+    comentarios: string;
+    materiales: string;
 }
 
-const ListaProgramadoresPage: React.FC = () => {
-    const [filtroPais, setFiltroPais] = useState<string | undefined>(undefined);
-    const [programadores, setProgramadores] = useState<Programador[]>([]);
+const TareasListaPage: React.FC = () => {
+    const [data, setData] = useState<Tarea[]>([]);
+    const [filteredData, setFilteredData] = useState<Tarea[]>([]);
+    const [selectedPais, setSelectedPais] = useState<string | undefined>(undefined);
+    const [selectedSistema, setSelectedSistema] = useState<string | undefined>(undefined);
 
     useEffect(() => {
-        const fetchProgramadores = async () => {
-            const response = await axios.get('/api/programadores');
-            setProgramadores(response.data);
+        const fetchTareas = async () => {
+            const response = await axios.get('/api/tareas');
+            setData(response.data);
+            setFilteredData(response.data);
         };
-        fetchProgramadores();
+        fetchTareas();
     }, []);
 
-    const getRango = (fechaIngreso: string) => {
-        const years = moment().diff(fechaIngreso, 'years');
-        if (years >= 3) return 'Diamante';
-        if (years >= 2) return 'Oro';
-        if (years >= 1) return 'Plata';
-        return 'Bronce';
+    const handleFilterChange = () => {
+        let filtered = data;
+        if (selectedPais) {
+            filtered = filtered.filter(item => item.pais === selectedPais);
+        }
+        if (selectedSistema) {
+            filtered = filtered.filter(item => item.sistema === selectedSistema);
+        }
+        setFilteredData(filtered);
     };
 
-    const programadoresConRango = programadores.map(programador => ({
-        ...programador,
-        rango: getRango(programador.fechaIngreso),
-    }));
-
-    const programadoresFiltrados = programadoresConRango.filter(programador => {
-        return filtroPais ? programador.pais === filtroPais : true;
-    });
-
-    const columns: ColumnsType<Programador> = [
+    const columns: ColumnType<Tarea>[] = [
         {
             title: 'N°',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
-            title: 'Ver Perfil',
-            key: 'acciones',
-            render: (text, record) => (
-                <Link 
-                    to={`/profile/${record.id}`} 
-                    className="btn btn-sm btn-icon"
-                    title="Ver perfil del programador"
-                >
-                    <i className="fas fa-eye"></i>
-                </Link>
-            ),
+            dataIndex: 'numero',
+            key: 'numero',
         },
         {
             title: 'País',
             dataIndex: 'pais',
             key: 'pais',
+            filters: [],
+            onFilter: (value, record) => record.pais === value,
         },
         {
-            title: 'Nombre',
-            dataIndex: 'nombre',
-            key: 'nombre',
+            title: 'Nombre del sistema',
+            dataIndex: 'sistema',
+            key: 'sistema',
+            filters: [],
+            onFilter: (value, record) => record.sistema === value,
         },
         {
-            title: 'Perfil Tecnológico',
+            title: 'Nombre de la tarea',
+            dataIndex: 'nombreTarea',
+            key: 'nombreTarea',
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
+                <div style={{ padding: 8 }}>
+                    <Input
+                        placeholder="Buscar tarea"
+                        value={selectedKeys[0]}
+                        onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{ marginBottom: 8, display: 'block' }}
+                    />
+                    <Button
+                        type="primary"
+                        onClick={() => confirm()}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        style={{ width: 90, marginRight: 8 }}
+                    >
+                        Buscar
+                    </Button>
+                    <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                        Resetear
+                    </Button>
+                </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+            onFilter: (value, record) => record.nombreTarea.toLowerCase().includes(String(value).toLowerCase()),
+        },
+        {
+            title: 'Descripción',
+            dataIndex: 'descripcion',
+            key: 'descripcion',
+        },
+        {
+            title: 'Dependencia',
+            dataIndex: 'dependencia',
+            key: 'dependencia',
+        },
+        {
+            title: 'Tecnologías requeridas',
             dataIndex: 'tecnologias',
             key: 'tecnologias',
         },
         {
-            title: 'Fecha de Ingreso',
-            dataIndex: 'fechaIngreso',
-            key: 'fechaIngreso',
-            sorter: (a: any, b: any) => moment(a.fechaIngreso).unix() - moment(b.fechaIngreso).unix(),
-            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
+            title: 'Fecha de asignación',
+            dataIndex: 'fechaAsignacion',
+            key: 'fechaAsignacion',
+            sorter: (a, b) => moment(a.fechaAsignacion).unix() - moment(b.fechaAsignacion).unix(),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
+                <div style={{ padding: 8 }}>
+                    <DatePicker
+                        onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
+                        style={{ marginBottom: 8, display: 'block' }}
+                    />
+                    <Button type="primary" onClick={() => confirm()} size="small" style={{ width: 90, marginRight: 8 }}>
+                        Buscar
+                    </Button>
+                    <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                        Resetear
+                    </Button>
+                </div>
+            ),
+        },
+        {
+            title: 'Fecha de vencimiento',
+            dataIndex: 'fechaVencimiento',
+            key: 'fechaVencimiento',
+            sorter: (a, b) => moment(a.fechaVencimiento).unix() - moment(b.fechaVencimiento).unix(),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
                 <div style={{ padding: 8 }}>
                     <DatePicker
                         onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
@@ -101,34 +157,61 @@ const ListaProgramadoresPage: React.FC = () => {
             ),
         },
         {
-            title: 'Horas Totales Trabajadas',
-            dataIndex: 'horasTotalesTrabajadas',
-            key: 'horasTotalesTrabajadas',
+            title: 'Última fecha',
+            dataIndex: 'ultimaFecha',
+            key: 'ultimaFecha',
+            sorter: (a, b) => moment(a.ultimaFecha).unix() - moment(b.ultimaFecha).unix(),
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: FilterDropdownProps) => (
+                <div style={{ padding: 8 }}>
+                    <DatePicker
+                        onChange={(_, dateString) => setSelectedKeys(dateString ? [dateString as React.Key] : [])}
+                        style={{ marginBottom: 8, display: 'block' }}
+                    />
+                    <Button type="primary" onClick={() => confirm({ closeDropdown: true })} size="small" style={{ width: 90, marginRight: 8 }}>
+                        Buscar
+                    </Button>
+                    <Button onClick={clearFilters} size="small" style={{ width: 90 }}>
+                        Resetear
+                    </Button>
+                </div>
+            ),
         },
         {
-            title: 'Rango',
-            dataIndex: 'rango',
-            key: 'rango',
+            title: 'Estado',
+            dataIndex: 'estado',
+            key: 'estado',
+            filters: [],
+            onFilter: (value, record) => record.estado.includes(String(value)),
+            render: (estado: string) => {
+                let color = estado === 'Pendiente' ? 'red' : 'green';
+                return <Tag color={color}>{estado.toUpperCase()}</Tag>;
+            },
         },
+        {
+            title: 'Asignado a',
+            dataIndex: 'asignadoA',
+            key: 'asignadoA',
+        },
+        {
+            title: 'Comentarios',
+            dataIndex: 'comentarios',
+            key: 'comentarios',
+        },
+        {
+            title: 'Materiales',
+            dataIndex: 'materiales',
+            key: 'materiales',
+        }
     ];
 
     return (
         <div>
-            <h1>Perfiles activos</h1>
-            <Select
-                placeholder="Selecciona un país"
-                onChange={value => setFiltroPais(value)}
-                style={{ width: 200, marginBottom: 20, marginRight: 20 }}
-            >
-                <Option value="Argentina">Argentina</Option>
-                <Option value="Chile">Chile</Option>
-                <Option value="Colombia">Colombia</Option>
-                <Option value="México">México</Option>
-                <Option value="Perú">Perú</Option>
-            </Select>
-            <Table dataSource={programadoresFiltrados} columns={columns} rowKey="id" />
+            <h1>Tareas cumplidas</h1>
+            <div style={{ overflowX: 'auto' }}>
+                <Table dataSource={filteredData} columns={columns} rowKey="numero" />
+            </div>
         </div>
     );
 };
 
-export default ListaProgramadoresPage;
+export default TareasListaPage;
