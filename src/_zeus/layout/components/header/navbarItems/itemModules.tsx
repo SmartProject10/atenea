@@ -74,7 +74,7 @@ export const NavbarItemModules = ({
 					</div>
 				))}
 			</div> */}
-			<h4>Lider</h4>
+			<h4>Sub-Lider</h4>
 		</>
 	)
 }
