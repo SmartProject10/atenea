@@ -46,7 +46,7 @@ const HeaderUserMenu: FC = () => {
 							Mi Perfil
 						</Link>
 					</div>
-
+				{/*
 					<div className='menu-item px-5'>
 						<a href='#' className='menu-link px-5'>
 							<span className='menu-text'>Pendientes</span>
@@ -55,7 +55,7 @@ const HeaderUserMenu: FC = () => {
 							</span>
 						</a>
 					</div>
-
+				*/}
 					<div
 						className='menu-item px-5'
 						data-kt-menu-trigger='hover'
@@ -72,12 +72,13 @@ const HeaderUserMenu: FC = () => {
 			}
 
 			{/*<Languages />*/}
-
+			{/*
 			<div className='menu-item px-5 my-1'>
-				<Link to='#' className='menu-link px-5'>
-					Configuracion
+				<Link to='/configuration' className='menu-link px-5'>
+					Configuración
 				</Link>
 			</div>
+			*/}
 
 			<div className='menu-item px-5'>
 				<a onClick={logout} className='menu-link px-5'>

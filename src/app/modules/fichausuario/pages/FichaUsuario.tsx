@@ -5,6 +5,7 @@ import { FamilyPayments } from './family-payments'
 import { PayHistory } from './pay-history'
 import { PersonalDataSection } from './personal-data'
 import { PubProfile } from './public'
+import Security from './security'
 
 export function FichaUsuario() {
 	return (
@@ -86,6 +87,15 @@ export function FichaUsuario() {
 						Perfil público
 					</a>
 				</li>
+				<li className="nav-item">
+					<a
+						className="nav-link"
+						data-bs-toggle="tab"
+						href="#kt_tab_pane_7"
+					>
+						Seguridad
+					</a>
+				</li>
 
 			</ul>
 
@@ -131,6 +141,13 @@ export function FichaUsuario() {
 					role="tabpanel"
 				>
 					<PubProfile />
+				</div>
+				<div
+					className="tab-pane fade"
+					id="kt_tab_pane_7"
+					role="tabpanel"
+				>	
+					<Security />
 				</div>
 			</div>
 		</div>
