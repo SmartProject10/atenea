@@ -49,12 +49,20 @@ export const SidebarRanking = () => {
 					fontIcon="bi-app-indicator"
 				/>
 				<SidebarMenuItem
+					to="/tareas/cumplidas"
+					icon="check"
+					title="Cumplidas"
+					fontIcon="bi-app-indicator"
+				/>
+
+			</SidebarMenuItemWithSub>
+
+			<SidebarMenuItem
 					to="/tareas/lista"
 					icon="file-added"
 					title="Programadores activos"
 					fontIcon="bi-app-indicator"
 				/>
-			</SidebarMenuItemWithSub>
 
 			<SidebarSubtitle label="soporte y ayuda" />
 			<SidebarMenuItem
