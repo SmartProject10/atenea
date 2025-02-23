@@ -13,6 +13,36 @@ interface AddImplementationModalProps {
 }
 
 function AddImplementationModal({ show, handleClose }: AddImplementationModalProps) {
+    const [country, setCountry] = useState('');
+    const [system, setSystem] = useState('');
+    const [otherSystem, setOtherSystem] = useState('');
+    const [observations, setObservations] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleSystemChange = (e: React.ChangeEvent<any>) => {
+        setSystem((e.target as HTMLSelectElement).value);
+        if (e.target.value !== 'select') {
+            setOtherSystem('');
+        }
+    };
+
+    const handleOtherSystemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setOtherSystem(e.target.value);
+        if (e.target.value !== '') {
+            setSystem('select');
+        }
+    };
+
+    const handleSubmit = () => {
+        // Validaciones
+        if (country === '' || system === 'select' && otherSystem === '' || observations === '') {
+            alert('Por favor, complete todos los campos obligatorios.');
+            return;
+        }
+        // Aquí puedes agregar la lógica para guardar la implementación
+        handleClose();
+    };
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -22,8 +52,8 @@ function AddImplementationModal({ show, handleClose }: AddImplementationModalPro
                 <Form>
                     <Form.Group controlId="formCountry">
                         <Form.Label>País</Form.Label>
-                        <Form.Control as="select">
-                            <option value="select">Seleccione país</option>
+                        <Form.Control as="select" value={country} onChange={(e) => setCountry(e.target.value)}>
+                            <option value="">Seleccione país</option>
                             <option value="Peru">Peru</option>
                             <option value="Chile">Chile</option>
                             <option value="Argentina">Argentina</option>
@@ -32,7 +62,7 @@ function AddImplementationModal({ show, handleClose }: AddImplementationModalPro
                     <br />
                     <Form.Group controlId="formISO">
                         <Form.Label>Sistema</Form.Label>
-                        <Form.Control as="select">
+                        <Form.Control as="select" value={system} onChange={handleSystemChange} disabled={otherSystem !== ''}>
                             <option value="select">Seleccione Sistema</option>
                             <option value="ISO 9001">ISO 9001</option>
                             <option value="ISO 14001">ISO 14001</option>
@@ -42,17 +72,20 @@ function AddImplementationModal({ show, handleClose }: AddImplementationModalPro
                     <br />
                     <Form.Group controlId="formOtherISO">
                         <Form.Label>Otro Sistema</Form.Label>
-                        <Form.Control type="text" placeholder="Ingrese otro Sistema (opcional)" />
+                        <Form.Control type="text" placeholder="Ingrese otro Sistema (opcional)" value={otherSystem} onChange={handleOtherSystemChange} disabled={system !== 'select'} />
                     </Form.Group>
                     <br />
                     <Form.Group controlId="formObservations">
                         <Form.Label>Observaciones</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control as="textarea" rows={3} value={observations} onChange={(e) => setObservations(e.target.value)} />
                     </Form.Group>
                     <br />
                     <Form.Group controlId="formFile">
                         <Form.Label>Subir un archivo</Form.Label>
-                        <Form.Control type="file" />
+                        <Form.Control type="file" onChange={(e) => {
+                            const files = (e.target as HTMLInputElement).files;
+                            setFile(files ? files[0] : null);
+                        }} />
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -60,7 +93,7 @@ function AddImplementationModal({ show, handleClose }: AddImplementationModalPro
                 <Button variant="secondary" onClick={handleClose}>
                     Cerrar
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleSubmit}>
                     Guardar y Cerrar
                 </Button>
             </Modal.Footer>
