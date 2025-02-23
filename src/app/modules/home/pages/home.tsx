@@ -59,42 +59,6 @@ export function Home(): JSX.Element {
 						description="Reunión para discutir los servicios<br/>y proyectos de ISO AND ISO"
 					/>
 				</div>
-
-				<div className="col-lg-8 col-md-12 col-xs-12">
-					<div className="card-xl-stretch mb-xl-8 position-relative">
-						<StatisticsWidget1
-							className="mb-4"
-							image="abstract-1.svg"
-							title="Horas Totales Acumuladas"
-							time=""
-							description="Total: 1000 horas"
-						/>
-						<StatisticsWidget1
-							className="mb-4"
-							image="abstract-2.svg"
-							title="Horas Totales de Programadores"
-							time=""
-							description="Total: 8000 horas"
-						/>
-						<StatisticsWidget1
-							className="mb-4"
-							image="abstract-3.svg"
-							title="Mis Horas Trabajadas"
-							time=""
-							description="Total: 200 horas"
-						/>
-						<StatisticsWidget1
-							className="mb-4"
-							image="abstract-4.svg"
-							title="Mis Horas en el Último Mes"
-							time=""
-							description="Total: 50 horas"
-						/>
-						<div className="d-flex justify-content-end">
-							<button className="btn btn-primary mt-2 me-2" onClick={() => navigate('/ranking')}>Ver Más</button>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	);
