@@ -201,7 +201,7 @@ const TareasListaPage: React.FC = () => {
 
     return (
         <div>
-            <h1>Tareas del líder para asignar</h1>
+            <h1>Mis Tareas pendientes</h1>
             <br />
             <div style={{ overflowX: 'auto' }}>
                 <Table dataSource={filteredData} columns={columns} rowKey="numero" />

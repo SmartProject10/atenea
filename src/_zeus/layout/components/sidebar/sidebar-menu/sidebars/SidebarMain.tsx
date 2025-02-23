@@ -44,12 +44,6 @@ export function SidebarMain(): JSX.Element {
 					fontIcon="bi-app-indicator"
 				/>
 				<SidebarMenuItem
-					to="/tareas/asignar"
-					icon="calendar"
-					title="Asignar"
-					fontIcon="bi-app-indicator"
-				/>
-				<SidebarMenuItem
 					to="/tareas/lista"
 					icon="file-added"
 					title="Programadores activos"

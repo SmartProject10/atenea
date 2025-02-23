@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Tag, Select, Button, DatePicker } from 'antd';
+import { Table, Select, Button, DatePicker } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -13,13 +13,12 @@ interface Programador {
     nombre: string;
     tecnologias: string;
     fechaIngreso: string;
+    horasTotalesTrabajadas: number;
     rango?: string;
-    sublider?: boolean;
 }
 
 const ListaProgramadoresPage: React.FC = () => {
     const [filtroPais, setFiltroPais] = useState<string | undefined>(undefined);
-    const [filtroSublider, setFiltroSublider] = useState<boolean | undefined>(undefined);
     const [programadores, setProgramadores] = useState<Programador[]>([]);
 
     useEffect(() => {
@@ -38,25 +37,13 @@ const ListaProgramadoresPage: React.FC = () => {
         return 'Bronce';
     };
 
-    const toggleSublider = async (id: number) => {
-        await axios.patch(`/api/programadores/${id}/toggle-sublider`);
-        setProgramadores(prevProgramadores =>
-            prevProgramadores.map(programador =>
-                programador.id === id
-                    ? { ...programador, sublider: !programador.sublider }
-                    : programador
-            )
-        );
-    };
-
     const programadoresConRango = programadores.map(programador => ({
         ...programador,
         rango: getRango(programador.fechaIngreso),
     }));
 
     const programadoresFiltrados = programadoresConRango.filter(programador => {
-        return (filtroPais ? programador.pais === filtroPais : true) &&
-               (filtroSublider !== undefined ? programador.sublider === filtroSublider : true);
+        return filtroPais ? programador.pais === filtroPais : true;
     });
 
     const columns: ColumnsType<Programador> = [
@@ -66,7 +53,7 @@ const ListaProgramadoresPage: React.FC = () => {
             key: 'id',
         },
         {
-            title: 'Perfil',
+            title: 'Ver Perfil',
             key: 'acciones',
             render: (text, record) => (
                 <Link 
@@ -114,40 +101,30 @@ const ListaProgramadoresPage: React.FC = () => {
             ),
         },
         {
+            title: 'Horas Totales Trabajadas',
+            dataIndex: 'horasTotalesTrabajadas',
+            key: 'horasTotalesTrabajadas',
+        },
+        {
             title: 'Rango',
             dataIndex: 'rango',
             key: 'rango',
-        },
-        {
-            title: 'Asignar como sublíder',
-            key: 'sublider',
-            render: (text, record) => (
-                <Button onClick={() => toggleSublider(record.id)}>
-                    {record.sublider ? 'Revocar sublíder' : 'Asignar como sublíder'}
-                </Button>
-            ),
         },
     ];
 
     return (
         <div>
-            <h1>Programadores Activos</h1>
+            <h1>Perfiles activos</h1>
             <Select
                 placeholder="Selecciona un país"
                 onChange={value => setFiltroPais(value)}
                 style={{ width: 200, marginBottom: 20, marginRight: 20 }}
             >
                 <Option value="Argentina">Argentina</Option>
+                <Option value="Chile">Chile</Option>
+                <Option value="Colombia">Colombia</Option>
                 <Option value="México">México</Option>
-                <Option value="España">España</Option>
-            </Select>
-            <Select
-                placeholder="Filtrar por sublíder"
-                onChange={value => setFiltroSublider(value === 'true')}
-                style={{ width: 200, marginBottom: 20 }}
-            >
-                <Option value="true">Sublíder</Option>
-                <Option value="false">No Sublíder</Option>
+                <Option value="Perú">Perú</Option>
             </Select>
             <Table dataSource={programadoresFiltrados} columns={columns} rowKey="id" />
         </div>
