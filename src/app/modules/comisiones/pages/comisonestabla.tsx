@@ -23,10 +23,12 @@ function AddClientModal({ show, handleClose }: AddClientModalProps) {
 						<Form.Label>RUC</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el RUC" />
 					</Form.Group>
+					<br />
 					<Form.Group controlId="formCompanyName">
 						<Form.Label>Nombre o razón social</Form.Label>
 						<Form.Control type="text" placeholder="Ingrese el nombre o razón social" />
 					</Form.Group>
+					<br />
 					<Form.Group controlId="formCountry">
 						<Form.Label>País</Form.Label>
 						<Form.Control as="select">
