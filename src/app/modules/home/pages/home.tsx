@@ -24,10 +24,6 @@ export function Home(): JSX.Element {
 					<p className="fw-bold fs-1 mb-0">Inicio</p>
 					<p className="text-muted fw-bold fs-7">Bienvenido, Socio Auditor</p>
 				</div>
-
-				<div>
-					<button className="btn btn-secondary" onClick={() => navigate('/ficha-usuario')}>Ver mi perfil</button>
-				</div>
 			</div>
 
 			<div id="kt_carousel_1_carousel" className="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
