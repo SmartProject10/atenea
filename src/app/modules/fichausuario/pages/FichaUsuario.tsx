@@ -5,6 +5,7 @@ import { PayHistory } from './pay-history'
 import { PersonalDataSection } from './personal-data'
 import { Recibos } from './recibos'
 import { Sistemas } from './sistemas'
+import  Security  from './security'
 
 export function FichaUsuario() {
 	return (
@@ -85,6 +86,15 @@ export function FichaUsuario() {
 						Sistemas
 					</a>
 				</li>
+				<li className="nav-item">
+					<a
+						className="nav-link"
+						data-bs-toggle="tab"
+						href="#kt_tab_pane_8"
+					>
+						Seguridad
+					</a>
+				</li>
 
 			</ul>
 
@@ -130,6 +140,13 @@ export function FichaUsuario() {
 					role="tabpanel"
 				>
 					<Sistemas />
+				</div>
+				<div
+					className="tab-pane fade"
+					id="kt_tab_pane_8"
+					role="tabpanel"
+				>
+					<Security />
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,86 @@
+.security-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.security-title {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.security-item {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.security-button {
+    padding: 10px 15px;
+    background-color: #4285f4; /* Color de Google */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.security-button:hover {
+    background-color: #357ae8; /* Un poco más oscuro al pasar el ratón */
+}
+
+.security-input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+
+.security-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.security-form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.security-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.security-form-group .error {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+}
+
+.security-button-toggle {
+    background: none;
+    border: none;
+    color: #4285f4;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.security-button-toggle:hover {
+    text-decoration: underline;
+}
