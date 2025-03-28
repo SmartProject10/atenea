@@ -9,15 +9,22 @@ import { useAuth } from "@zeus/@hooks/auth/useAuth.tsx";
 import { backyService } from "@zeus/@services/api";
 import FilterableSelect from "./selectCountry";
 import { Form } from "react-bootstrap";
+import FilterableRole from "./selectRol";
 
 interface Country {
   name: string;
   code: string;
 }
-
+interface Rol {
+  name: string;
+  access: string[];
+}
 const initialValues = {
   firstname: "",
+  lastname: "",
   cellphone: "",
+  country: "",
+  rol: "",
   email: "",
   password: "",
   changepassword: "",
@@ -63,16 +70,32 @@ const countries: Country[] = [
   { name: "Venezuela", code: "+58" },
 ];
 
+const roles: Rol[] = [
+  { name: "Administrador", access: ["all"] },
+  { name: "Auditor / implemntador", access: ["read"] },
+  { name: "Programador", access: ["all"] },
+  { name: "Ux / UI", access: ["read"] },
+  { name: "Aanalista financiero", access: ["read"] },
+  { name: "Contador", access: ["read"] },
+  { name: "Aabogado", access: ["read"] },
+
+];
+
 const registrationSchema = Yup.object().shape({
   firstname: Yup.string()
     .min(3, "Mínimo 3 caracteres")
     .max(50, "Máximo 50 caracteres")
-    .required("Sus nombres son obligatorio"),
+    .required("Sus nombres son obligatorios"),
+  lastname: Yup.string()
+    .min(3, "Mínimo 3 caracteres")
+    .max(50, "Máximo 50 caracteres")
+    .required("Sus apellidos son obligatorios"),
   cellphone: Yup.string()
     .min(8, "Mínimo 8 caracteres")
     .max(15, "Máximo 15 caracteres")
     .required("El número de celular es obligatorio"),
-  country: Yup.string().required("El correo es obligatorio"),
+  country: Yup.string().required("El pais es obligatorio"),
+  rol: Yup.string().required("El rol es obligatorio"),
   email: Yup.string()
     .email("Formato de correo incorrecto")
     .min(12, "Mínimo 12 caracteres")
@@ -85,7 +108,7 @@ const registrationSchema = Yup.object().shape({
   changepassword: Yup.string()
     .min(8, "Mínimo 8 caracteres")
     .max(15, "Máximo 15 caracteres")
-    .required("La confirmación de la contraseña es obligatoria")
+    // .required("La confirmación de la contraseña es obligatoria")
     .oneOf(
       [Yup.ref("password")],
       "La contraseña y la confirmación no coinciden"
@@ -105,7 +128,10 @@ export function Registration() {
       try {
         const { data: auth } = await backyService.auth.register(
           values.email,
+          values.lastname,
           values.firstname,
+          values.country,
+          values.rol,
           values.cellphone,
           values.password
         );
@@ -185,7 +211,7 @@ export function Registration() {
       {/* begin::Form group Firstname */}
       <div className="fv-row mb-8">
         <label className="form-label fw-bolder text-gray-900 fs-6">
-          Nombres Completos
+          Nombres 
         </label>
         <input
           placeholder="Ingresa tus nombres completos"
@@ -210,6 +236,34 @@ export function Registration() {
           </div>
         )}
       </div>
+            {/* begin::Form group Lastname */}
+            <div className="fv-row mb-8">
+        <label className="form-label fw-bolder text-gray-900 fs-6">
+          Apellidos 
+        </label>
+        <input
+          placeholder="Ingresa tus apellidos"
+          type="text"
+          autoComplete="off"
+          {...formik.getFieldProps("lastname")}
+          className={clsx(
+            "form-control bg-transparent",
+            {
+              "is-invalid": formik.touched.lastname && formik.errors.lastname,
+            },
+            {
+              "is-valid": formik.touched.lastname && !formik.errors.lastname,
+            }
+          )}
+        />
+        {/* {formik.touched.lastname && formik.errors.lastname && (
+          <div className="fv-plugins-message-container">
+            <div className="fv-help-block">
+              <span role="alert">{formik.errors.lastname}</span>
+            </div>
+          </div>
+        )} */}
+      </div>
       {/* end::Form group */}
 	  <div className="fv-row mb-8">
 	  <label className="form-label fw-bolder text-gray-900 fs-6">
@@ -228,15 +282,43 @@ export function Registration() {
           </Formik>
 		</div>
 
-        {formik.touched.cellphone && formik.errors.cellphone && (
+        {/* {formik.touched.country && formik.errors.country && (
           <div className="fv-plugins-message-container">
             <div className="fv-help-block">
-              <span role="alert">{formik.errors.cellphone}</span>
+              <span role="alert">{formik.errors.country}</span>
             </div>
           </div>
-        )}
+        )} */}
         {/* end::Form group */}
 		</div>
+    <div className="fv-row mb-8">
+	  <label className="form-label fw-bolder text-gray-900 fs-6">
+          Rol
+        </label>
+        <div className="d-flex">
+	  <Formik
+            initialValues={{ rol: "" }}
+            onSubmit={(roles) => {
+              console.log("Valores enviados:", roles);
+            }}
+          >
+            {() => (
+              <FilterableRole roles={roles} />
+            )}
+          </Formik>
+          
+		</div>
+
+        {/* {formik.touched.rol && formik.errors.rol && (
+          <div className="fv-plugins-message-container">
+            <div className="fv-help-block">
+              <span role="alert">{formik.errors.rol}</span>
+            </div>
+          </div>
+        )} */}
+        {/* end::Form group */}
+		</div>
+    
 
       <div className="fv-row mb-8">
         {/* begin::Form group Cellphone */}
@@ -248,9 +330,9 @@ export function Registration() {
             className="form-select bg-transparent me-3 w-auto"
             {...formik.getFieldProps("countryCode")}
           >
-            <option value="+1">Estados Unidos (+1)</option>
-            <option value="+593">Ecuador (+593)</option>
-            <option value="+51">Perú (+51)</option>
+            <option value="+1">(+1)</option>
+            <option value="+593">(+593)</option>
+            <option value="+51">(+51)</option>
             {/* Add more country codes as needed */}
           </select>
 

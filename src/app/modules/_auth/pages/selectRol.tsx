@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { useFormikContext, Field } from "formik";
 
-interface Country {
+interface Rol {
   name: string;
-  code: string;
+  access: string[];
 }
 
 
-interface FilterableSelectProps {
-  countries: Country[];
+interface FilterableRoleProps {
+  roles: Rol[];
 }
 
-const FilterableSelect: React.FC<FilterableSelectProps> = ({ countries }) => {
-  const [search, setSearch] = useState(""); // Estado para búsqueda
+const FilterableRole: React.FC<FilterableRoleProps> = ({ roles }) => {
+  const [buscar, setSearch] = useState(""); // Estado para búsqueda
   const { setFieldValue } = useFormikContext(); // Hook de Formik para acceder al contexto del formulario
 
   // Filtrar países según la búsqueda
-  const filteredCountries = countries.filter((country) =>
-    country.name.toLowerCase().includes(search.toLowerCase())
+  const filteredRoles = roles.filter((rol) =>
+    rol.name.toLowerCase().includes(buscar.toLowerCase())
   );
 
   return (
@@ -25,24 +25,24 @@ const FilterableSelect: React.FC<FilterableSelectProps> = ({ countries }) => {
       {/* Campo de búsqueda */}
       <input
         type="text"
-        placeholder="Buscar país..."
+        placeholder="Buscar Rol..."
         className="form-input w-full px-4 py-2 mb-2 border border-gray-300 rounded"
-        value={search}
+        value={buscar}
         onChange={(e) => setSearch(e.target.value)}
       />
 
       {/* Select filtrable */}
       <select
-        name="country"
+        name="rol"
         className="form-select bg-transparent w-full border border-gray-300 rounded px-4 py-2"
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-          setFieldValue("country", e.target.value); // Actualiza el valor del campo en Formik
+          setFieldValue("rol", e.target.value); // Actualiza el valor del campo en Formik
         }}
       >
-        {filteredCountries.length > 0 ? (
-          filteredCountries.map((country) => (
-            <option key={country.code} value={country.code}>
-              {country.name} ({country.code})
+        {filteredRoles.length > 0 ? (
+          filteredRoles.map((roles) => (
+            <option key={roles.name} value={roles.name}>
+              {roles.name})
             </option>
           ))
         ) : (
@@ -53,4 +53,4 @@ const FilterableSelect: React.FC<FilterableSelectProps> = ({ countries }) => {
   );
 };
 
-export default FilterableSelect;
+export default FilterableRole;
