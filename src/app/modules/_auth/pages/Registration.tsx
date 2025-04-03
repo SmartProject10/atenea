@@ -10,18 +10,21 @@ import { backyService } from "@zeus/@services/api";
 import FilterableSelect from "./selectCountry";
 import { Form } from "react-bootstrap";
 import FilterableRole from "./selectRol";
+import { registerSocioServices } from "@zeus/@services/api/socio/socio.services";
+import { useNavigate } from "react-router-dom"; 
 
 interface Country {
   name: string;
   code: string;
 }
 interface Rol {
-  name: string;
-  access: string[];
+  name: string
 }
 const initialValues = {
   firstname: "",
   lastname: "",
+  iso: "",
+  area: "",
   cellphone: "",
   country: "",
   rol: "",
@@ -32,7 +35,7 @@ const initialValues = {
 };
 
 const countries: Country[] = [
-  { name: "Canadá", code: "+1" },
+  // { name: "Canadá", code: "+1" },
   { name: "Estados Unidos", code: "+1" },
   { name: "México", code: "+52" },
   { name: "Belice", code: "+501" },
@@ -71,13 +74,14 @@ const countries: Country[] = [
 ];
 
 const roles: Rol[] = [
-  { name: "Administrador", access: ["all"] },
-  { name: "Auditor / implemntador", access: ["read"] },
-  { name: "Programador", access: ["all"] },
-  { name: "Ux / UI", access: ["read"] },
-  { name: "Aanalista financiero", access: ["read"] },
-  { name: "Contador", access: ["read"] },
-  { name: "Aabogado", access: ["read"] },
+  { name: "Administrador",  },
+  { name: "Auditor"},
+  { name: "Implementador"},
+  { name: "Programador" },
+  { name: "Ux / UI"},
+  { name: "Aanalista financiero"},
+  { name: "Contador"},
+  { name: "Aabogado"},
 
 ];
 
@@ -119,6 +123,8 @@ const registrationSchema = Yup.object().shape({
 export function Registration() {
   const [loading, setLoading] = useState(false);
   const { saveAuth, setCurrentUser } = useAuth();
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Para redirigir
   const formik = useFormik({
     initialValues,
     validationSchema: registrationSchema,
@@ -130,6 +136,8 @@ export function Registration() {
           values.email,
           values.lastname,
           values.firstname,
+          values.iso,
+          values.area,
           values.country,
           values.rol,
           values.cellphone,
@@ -154,6 +162,17 @@ export function Registration() {
       }
     },
   });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+     await  registerSocioServices(formik.values);
+      // navigate("/thank-you"); // Redirección si el registro es exitoso
+    } catch (err) {
+      console.log(err);
+      setError(err as any);
+    }
+  };
 
   useEffect(() => {
     PasswordMeterComponent.bootstrap();
@@ -319,6 +338,35 @@ export function Registration() {
         {/* end::Form group */}
 		</div>
     
+{/* Campos ISO y Área (Solo Auditor) */}
+{formik.values.rol === "Auditor" || formik.values.rol === "Implementador" && (
+        <>
+          <div className="fv-row mb-8">
+            <label className="form-label fw-bolder text-gray-900 fs-6">
+              ISO
+            </label>
+            <input
+              placeholder="Ingresa el código ISO"
+              type="text"
+              {...formik.getFieldProps("iso")}
+              className="form-control bg-transparent"
+            />
+          </div>
+
+          <div className="fv-row mb-8">
+            <label className="form-label fw-bolder text-gray-900 fs-6">
+              Área
+            </label>
+            <input
+              placeholder="Ingresa el área correspondiente"
+              type="text"
+              {...formik.getFieldProps("area")}
+              className="form-control bg-transparent"
+            />
+          </div>
+        </>
+      )}
+
 
       <div className="fv-row mb-8">
         {/* begin::Form group Cellphone */}
@@ -326,18 +374,6 @@ export function Registration() {
           Número de celular
         </label>
         <div className="d-flex">
-          <select
-            className="form-select bg-transparent me-3 w-auto"
-            {...formik.getFieldProps("countryCode")}
-          >
-            <option value="+1">(+1)</option>
-            <option value="+593">(+593)</option>
-            <option value="+51">(+51)</option>
-            {/* Add more country codes as needed */}
-          </select>
-
-        
-
           <input
             placeholder="Número de celular"
             type="text"
@@ -510,35 +546,32 @@ export function Registration() {
           </div>
         )}
       </div>
-      {/* end::Form group */}
-
-      {/* begin::Form group */}
       <div className="text-center">
-        <button
+        {/* <button
           type="submit"
-          id="kt_sign_up_submit"
+          onClick={handleSubmit}
           className="btn btn-lg btn-primary w-100 mb-5"
-          disabled={
-            formik.isSubmitting || !formik.isValid || !formik.values.acceptTerms
-          }
         >
-          {!loading && <span className="indicator-label">Registrarme</span>}
-          {loading && (
-            <span className="indicator-progress" style={{ display: "block" }}>
-              Espera por favor...{" "}
-              <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-            </span>
-          )}
-        </button>
-        <Link to="/auth/login">
+          <span className="indicator-label">Registrarme</span>
+
+        </button> */}
+        <Link to="/thank-you">
           <button
-            type="button"
+            type="submit"
+            onClick={handleSubmit}
+            id="kt_login_signup_form_cancel_button"
+            className="btn btn-lg btn-light-primary w-100 mb-5"
+          >
+            Registrarme
+          </button>
+        </Link>
+          <button
+            type="submit"
             id="kt_login_signup_form_cancel_button"
             className="btn btn-lg btn-light-primary w-100 mb-5"
           >
             Cancelar
           </button>
-        </Link>
       </div>
       {/* end::Form group */}
     </form>

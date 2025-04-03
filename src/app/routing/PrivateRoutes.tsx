@@ -8,6 +8,7 @@ import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { Ranking } from '../modules/ranking/ranking.routes'; 
 import { TareasRoutes } from '../modules/tareas/tareas.routes.tsx'
 import { MenuTestPage } from '../pages/MenuTestPage'
+import ThankYouPage from '../modules/_auth/pages/registroPending.tsx'
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
 const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))
