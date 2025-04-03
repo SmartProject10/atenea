@@ -9,7 +9,7 @@ import { AuthPage } from '../modules/_auth/AuthPage'
 import { Logout } from '../modules/_auth/pages/Logout'
 import { ErrorsPage } from '../modules/errors/ErrorsPage'
 import { SelectCompanyRoutes } from '../modules/selectCompany/selecCompany.routes'
-
+import ThankYouPage from '../modules/_auth/pages/registroPending.tsx'
 
 /**
  * Base URL of the website.
@@ -26,6 +26,8 @@ export const AppRoutes: FC = () => {
 				<Route element={<App />}>
 					<Route path="logout" element={<Logout />} />
 					<Route path="error/*" element={<ErrorsPage />} />
+					<Route path="thank-you/*" element={<ThankYouPage />} />
+
 
 					{currentUser ? (
 						<>
