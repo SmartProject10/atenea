@@ -7,13 +7,13 @@ import { toAbsoluteUrl } from "../../../../_zeus/helpers";
 import { PasswordMeterComponent } from "../../../../_zeus/assets/ts/components";
 import { useAuth } from "@zeus/@hooks/auth/useAuth.tsx";
 import { backyService } from "@zeus/@services/api";
-import FilterableSelect from "./selectCountry";
+import FilterableSelect from "./selectCountry"; 
 import { Form } from "react-bootstrap";
 import FilterableRole from "./selectRol";
 import { registerSocioServices } from "@zeus/@services/api/socio/socio.services";
 import { useNavigate } from "react-router-dom"; 
 
-interface Country {
+interface pais {
   name: string;
   code: string;
 }
@@ -26,7 +26,7 @@ const initialValues = {
   iso: "",
   area: "",
   cellphone: "",
-  country: "",
+  pais: "",
   rol: "",
   email: "",
   password: "",
@@ -34,7 +34,7 @@ const initialValues = {
   acceptTerms: false,
 };
 
-const countries: Country[] = [
+const countries: pais[] = [
   // { name: "Canadá", code: "+1" },
   { name: "Estados Unidos", code: "+1" },
   { name: "México", code: "+52" },
@@ -82,6 +82,8 @@ const roles: Rol[] = [
   { name: "Aanalista financiero"},
   { name: "Contador"},
   { name: "Aabogado"},
+  { name: "IA"},
+  { name: "RA"},
 
 ];
 
@@ -98,7 +100,7 @@ const registrationSchema = Yup.object().shape({
     .min(8, "Mínimo 8 caracteres")
     .max(15, "Máximo 15 caracteres")
     .required("El número de celular es obligatorio"),
-  country: Yup.string().required("El pais es obligatorio"),
+  pais: Yup.string().required("El pais es obligatorio"),
   rol: Yup.string().required("El rol es obligatorio"),
   email: Yup.string()
     .email("Formato de correo incorrecto")
@@ -138,10 +140,11 @@ export function Registration() {
           values.firstname,
           values.iso,
           values.area,
-          values.country,
+          values.pais,
           values.rol,
           values.cellphone,
-          values.password
+          values.password,
+          values.changepassword,
         );
         saveAuth(auth);
         const { data: user } = await backyService.auth.verifyToken();
@@ -221,11 +224,33 @@ export function Registration() {
         </span>
       </div>
 
-      {formik.status && (
-        <div className="mb-lg-15 alert alert-danger">
-          <div className="alert-text font-weight-bold">{formik.status}</div>
-        </div>
-      )}
+      {/* <div className="fv-row mb-8">
+        <label className="form-label fw-bolder text-gray-900 fs-6">
+          Correo
+        </label>
+        <input
+          placeholder="Ingresa tus nombres completos"
+          type="text"
+          autoComplete="off"
+          {...formik.getFieldProps("email")}
+          className={clsx(
+            "form-control bg-transparent",
+            {
+              "is-invalid": formik.touched.email && formik.errors.email,
+            },
+            {
+              "is-valid": formik.touched.email && !formik.errors.email,
+            }
+          )}
+        />
+        {formik.touched.email && formik.errors.email && (
+          <div className="fv-plugins-message-container">
+            <div className="fv-help-block">
+              <span role="alert">{formik.errors.email}</span>
+            </div>
+          </div>
+        )}
+      </div> */}
 
       {/* begin::Form group Firstname */}
       <div className="fv-row mb-8">
@@ -290,7 +315,7 @@ export function Registration() {
         </label>
         <div className="d-flex">
 	  <Formik
-            initialValues={{ country: "" }}
+            initialValues={{ pais: "" }} 
             onSubmit={(values) => {
               console.log("Valores enviados:", values);
             }}
@@ -301,13 +326,6 @@ export function Registration() {
           </Formik>
 		</div>
 
-        {/* {formik.touched.country && formik.errors.country && (
-          <div className="fv-plugins-message-container">
-            <div className="fv-help-block">
-              <span role="alert">{formik.errors.country}</span>
-            </div>
-          </div>
-        )} */}
         {/* end::Form group */}
 		</div>
     <div className="fv-row mb-8">
@@ -328,31 +346,22 @@ export function Registration() {
           
 		</div>
 
-        {/* {formik.touched.rol && formik.errors.rol && (
-          <div className="fv-plugins-message-container">
-            <div className="fv-help-block">
-              <span role="alert">{formik.errors.rol}</span>
-            </div>
-          </div>
-        )} */}
         {/* end::Form group */}
 		</div>
     
-{/* Campos ISO y Área (Solo Auditor) */}
-{formik.values.rol === "Auditor" || formik.values.rol === "Implementador" && (
-        <>
-          <div className="fv-row mb-8">
-            <label className="form-label fw-bolder text-gray-900 fs-6">
-              ISO
-            </label>
-            <input
-              placeholder="Ingresa el código ISO"
-              type="text"
-              {...formik.getFieldProps("iso")}
-              className="form-control bg-transparent"
-            />
-          </div>
-
+            {/* begin::Form group Lastname */}
+            <div className="fv-row mb-8">
+        <label className="form-label fw-bolder text-gray-900 fs-6">
+          ISO
+        </label>
+        <input
+          placeholder="Ingresa el código ISO"
+          type="text"
+          autoComplete="off"
+          {...formik.getFieldProps("iso")}
+          className="form-control bg-transparent"
+        />
+      </div>
           <div className="fv-row mb-8">
             <label className="form-label fw-bolder text-gray-900 fs-6">
               Área
@@ -364,10 +373,6 @@ export function Registration() {
               className="form-control bg-transparent"
             />
           </div>
-        </>
-      )}
-
-
       <div className="fv-row mb-8">
         {/* begin::Form group Cellphone */}
         <label className="form-label fw-bolder text-gray-900 fs-6">

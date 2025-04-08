@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import Tareas from './pages/tareaspage'
+import Tareas from '../pais/pages/pais'
 
 export const TareasRoutes = () => (
     <Routes>

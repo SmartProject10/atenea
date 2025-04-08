@@ -25,6 +25,7 @@ const FilterableSelect: React.FC<FilterableSelectProps> = ({ countries }) => {
       {/* Campo de búsqueda */}
       <input
         type="text"
+        name="country"
         placeholder="Buscar país..."
         className="form-input w-full px-4 py-2 mb-2 border border-gray-300 rounded"
         value={search}
