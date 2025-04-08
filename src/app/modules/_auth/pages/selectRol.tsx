@@ -3,7 +3,6 @@ import { useFormikContext, Field } from "formik";
 
 interface Rol {
   name: string;
-  access: string[];
 }
 
 
@@ -25,6 +24,7 @@ const FilterableRole: React.FC<FilterableRoleProps> = ({ roles }) => {
       {/* Campo de búsqueda */}
       <input
         type="text"
+        name="rol"
         placeholder="Buscar Rol..."
         className="form-input w-full px-4 py-2 mb-2 border border-gray-300 rounded"
         value={buscar}

@@ -1,6 +1,6 @@
 export async function registerSocioServices(data: any) {
     try {
-      const response = await fetch("http://localhost:5000/socios/", {
+      const response = await fetch("/socios/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

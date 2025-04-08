@@ -82,6 +82,8 @@ const roles: Rol[] = [
   { name: "Aanalista financiero"},
   { name: "Contador"},
   { name: "Aabogado"},
+  { name: "IA"},
+  { name: "RA"},
 
 ];
 
@@ -301,13 +303,6 @@ export function Registration() {
           </Formik>
 		</div>
 
-        {/* {formik.touched.country && formik.errors.country && (
-          <div className="fv-plugins-message-container">
-            <div className="fv-help-block">
-              <span role="alert">{formik.errors.country}</span>
-            </div>
-          </div>
-        )} */}
         {/* end::Form group */}
 		</div>
     <div className="fv-row mb-8">
@@ -328,31 +323,22 @@ export function Registration() {
           
 		</div>
 
-        {/* {formik.touched.rol && formik.errors.rol && (
-          <div className="fv-plugins-message-container">
-            <div className="fv-help-block">
-              <span role="alert">{formik.errors.rol}</span>
-            </div>
-          </div>
-        )} */}
         {/* end::Form group */}
 		</div>
     
-{/* Campos ISO y Área (Solo Auditor) */}
-{formik.values.rol === "Auditor" || formik.values.rol === "Implementador" && (
-        <>
-          <div className="fv-row mb-8">
-            <label className="form-label fw-bolder text-gray-900 fs-6">
-              ISO
-            </label>
-            <input
-              placeholder="Ingresa el código ISO"
-              type="text"
-              {...formik.getFieldProps("iso")}
-              className="form-control bg-transparent"
-            />
-          </div>
-
+            {/* begin::Form group Lastname */}
+            <div className="fv-row mb-8">
+        <label className="form-label fw-bolder text-gray-900 fs-6">
+          ISO
+        </label>
+        <input
+          placeholder="Ingresa el código ISO"
+          type="text"
+          autoComplete="off"
+          {...formik.getFieldProps("iso")}
+          className="form-control bg-transparent"
+        />
+      </div>
           <div className="fv-row mb-8">
             <label className="form-label fw-bolder text-gray-900 fs-6">
               Área
@@ -364,10 +350,6 @@ export function Registration() {
               className="form-control bg-transparent"
             />
           </div>
-        </>
-      )}
-
-
       <div className="fv-row mb-8">
         {/* begin::Form group Cellphone */}
         <label className="form-label fw-bolder text-gray-900 fs-6">
